@@ -28,6 +28,9 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
     @rsp_callback.setter
     def set_rsp_callback(self, callback: Callable[[dict[str, any]], None]):
         self._rsp_callback = callback
+    
+    def release(self) -> None:
+        self._api.Release()
 
     def connect(self) -> None:
         self._api.RegisterSpi(self)
