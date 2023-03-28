@@ -14,14 +14,18 @@ class TdClient(object):
     It is responsible for controling the status of ctp
     client.
     """
+    MESSAGE_TYPE = "MessageType"
+    REQ_USER_LOGIN = "ReqUserLogin"
 
     def __init__(self) -> None:
         self._rsp_callback: Callable[[dict[str, any]], None] = None
         self._task_group: TaskGroup = None
         self._running: bool = False
         self._queue: Queue = Queue()
-        self._client: CTPTdClient = None
+        self._client: CTPTdClient = CTPTdClient()
+        self._client_lock: anyio.Lock = anyio.Lock()
         self._stop_event: anyio.Event = None
+        self._call_map: dict[str, Callable[[dict[str, any]], int]] = {}
    
     @property
     def rsp_callback(self) -> Callable[[dict[str, any]], None]:
@@ -42,11 +46,15 @@ class TdClient(object):
     def on_rsp_or_rtn(self, data: dict[str, any]) -> None:
         self._queue.put_nowait(data)
 
-    async def call(self, data: dict[str, any]) -> None:
-        if data["MessageType"] == "ReqUserLogin":
-            user_id: str = data["ReqUserLogin"]["UserID"]
-            password: str = data["ReqUserLogin"]["Password"]
+    async def call(self, request: dict[str, any]) -> None:
+        message_type = request[self.MESSAGE_TYPE]
+        if message_type == self.REQ_USER_LOGIN:
+            user_id: str = request[self.REQ_USER_LOGIN]["UserID"]
+            password: str = request[self.REQ_USER_LOGIN]["Password"]
             await self.start(user_id, password)
+        else:
+            if message_type in self._call_map:
+                self._call_map[message_type](request)
 
     async def start(self, user_id: str, password: str) -> None:
         # NOTE: This if clause avoid the following secenario
@@ -54,11 +62,12 @@ class TdClient(object):
         # 2. start login
         # 3. login failed
         # 4. start login again
-        if not self._client:
-            self._client = await anyio.to_thread.run_sync(CTPTdClient, user_id, password, user_id)
-            self._client.rsp_callback = self.on_rsp_or_rtn
-            self._task_group.start_soon(self.run, name=f"{user_id}-td-bg-corroutine")
-        await anyio.to_thread.run_sync(self._client.connect)
+        async with self._client_lock:
+            if not self._client:
+                self._client = await anyio.to_thread.run_sync(CTPTdClient, user_id, password)
+                self._client.rsp_callback = self.on_rsp_or_rtn
+                self._task_group.start_soon(self.run, name=f"{user_id}-td-bg-corroutine")
+            await anyio.to_thread.run_sync(self._client.connect)
 
     async def stop(self) -> None:
         self._running = False
@@ -78,3 +87,5 @@ class TdClient(object):
         rsp = await anyio.to_thread.run_sync(self._queue.get, True, wait_time)
         await self.rsp_callback(rsp)
 
+    def _init_call_map(self):
+        self._call_map["ReqQryInstrument"] = self._client.reqQryInstrument

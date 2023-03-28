@@ -1,8 +1,9 @@
 import json
 
-class TdConfig(object):
+class GlobalConfig(object):
 
     TdFrontAddress: str
+    MdFrontAddress: str
     BrokerID: str
     AuthCode: str
     AppID: str
@@ -13,6 +14,7 @@ class TdConfig(object):
         with open(config_file_path) as f:
             config = json.load(f)
             cls.TdFrontAddress = config["TdFrontAddress"]
+            cls.MdFrontAddress = config["MdFrontAddress"]
             cls.BrokerID = config["BrokerID"]
             cls.AuthCode = config["AuthCode"]
             cls.AppID = config["AppID"]

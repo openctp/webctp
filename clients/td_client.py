@@ -4,22 +4,22 @@ import logging
 from typing import Callable
 from openctp import thosttraderapi as tdapi
 
-from utils.config import TdConfig
-from utils.ctp_object_helper import CTPObjectHelper
+from utils import CTPObjectHelper, GlobalConfig
 
 
 class TdClient(tdapi.CThostFtdcTraderSpi):
     
-    def __init__(self, user_id:str, password: str, con_file_path: str):
+    def __init__(self, user_id, password):
         super().__init__()
-        self._front_address:str = TdConfig.TdFrontAddress
-        self._broker_id:str = TdConfig.BrokerID
-        self._auth_code:str = TdConfig.AuthCode
-        self._app_id:str = TdConfig.AppID
+        self._front_address:str = GlobalConfig.TdFrontAddress
+        self._broker_id:str = GlobalConfig.BrokerID
+        self._auth_code:str = GlobalConfig.AuthCode
+        self._app_id:str = GlobalConfig.AppID
         self._user_id:str = user_id
         self._password: str = password
         self._rsp_callback: Callable[[dict[str, any]], None] = None
-        self._api: tdapi.CThostFtdcTraderApi = tdapi.CThostFtdcTraderApi.CreateFtdcTraderApi(con_file_path)
+        self._api: tdapi.CThostFtdcTraderApi = None
+        self._connected: bool = False
     
     @property
     def rsp_callback(self) -> Callable[[dict[str, any]], None]:
@@ -31,13 +31,22 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
     
     def release(self) -> None:
         self._api.Release()
+        self._api = None
+        self._connected = False
 
     def connect(self) -> None:
-        self._api.RegisterSpi(self)
-        self._api.SubscribePrivateTopic(tdapi.THOST_TERT_QUICK)
-        self._api.SubscribePublicTopic(tdapi.THOST_TERT_QUICK)
-        self._api.RegisterFront(self._front_address)
-        self._api.Init()
+        """Not thread-safe"""
+        if not self._connected:
+            # TODO: need to use another path to store the con file
+            self._api: tdapi.CThostFtdcTraderApi = tdapi.CThostFtdcTraderApi.CreateFtdcTraderApi(self._user_id)
+            self._api.RegisterSpi(self)
+            self._api.SubscribePrivateTopic(tdapi.THOST_TERT_QUICK)
+            self._api.SubscribePublicTopic(tdapi.THOST_TERT_QUICK)
+            self._api.RegisterFront(self._front_address)
+            self._api.Init()
+            self._connected = True
+        else:
+            self.authenticate()
 
     def OnFrontConnected(self):
         """called when connect success"""
@@ -46,7 +55,7 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
 
     def OnFrontDisconnected(self, nReason):
         """called when connection broken"""
-        logging.info(f"Front disconnect, error_code={nReason}")
+        logging.info(f"Front disconnected, error_code={nReason}")
 
     def authenticate(self):
         req = tdapi.CThostFtdcReqAuthenticateField()
@@ -111,9 +120,10 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
             "RspUserLogin": data
         })
 
-    def reqQryInstrument(self, request: dict[str, any], requestId: int) -> int:
+    def reqQryInstrument(self, request: dict[str, any]) -> int:
         req = tdapi.CThostFtdcQryInstrumentField()
         CTPObjectHelper.dict_to_object(request["QryInstrument"], req)
+        requestId = request["RequestID"]
         return self._api.ReqQryInstrument(req, requestId)
     
     def OnRspQryInstrument(self, pInstrument: tdapi.CThostFtdcInstrumentField, pRspInfo: tdapi.CThostFtdcRspInfoField, nRequestID: int, bIsLast: bool):
