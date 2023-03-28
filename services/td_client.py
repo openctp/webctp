@@ -46,15 +46,22 @@ class TdClient(object):
     def on_rsp_or_rtn(self, data: dict[str, any]) -> None:
         self._queue.put_nowait(data)
 
-    async def call(self, request: dict[str, any]) -> None:
+    async def call(self, request: dict[str, any]) -> dict[str, any]:
         message_type = request[self.MESSAGE_TYPE]
+        ret = {
+            self.MESSAGE_TYPE: message_type,
+            "ret": 0
+        }
         if message_type == self.REQ_USER_LOGIN:
             user_id: str = request[self.REQ_USER_LOGIN]["UserID"]
             password: str = request[self.REQ_USER_LOGIN]["Password"]
             await self.start(user_id, password)
         else:
             if message_type in self._call_map:
-                self._call_map[message_type](request)
+                ret["ret"] = self._call_map[message_type](request)
+            else:
+                ret["ret"] = 404
+        return ret
 
     async def start(self, user_id: str, password: str) -> None:
         # NOTE: This if clause avoid the following secenario
