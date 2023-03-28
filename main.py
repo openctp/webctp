@@ -1,6 +1,11 @@
 import anyio
+import fastapi
 import uvicorn
 from utils import GlobalConfig
+from apps.td_app import app as td_app
+
+app = fastapi.FastAPI()
+app.mount("/td", td_app)
 
 
 async def main():
