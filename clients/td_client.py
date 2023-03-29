@@ -101,7 +101,7 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
             logging.info("login failed, please try again")
     
     def settlementConfirm(self):
-        req = tdapi.CThostFtdcQrySettlementInfoConfirmField()
+        req = tdapi.CThostFtdcSettlementInfoConfirmField()
         req.BrokerID = self._broker_id
         req.InvestorID = self._user_id
         self._api.ReqSettlementInfoConfirm(req, 0)
@@ -130,6 +130,7 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
         data = CTPObjectHelper.object_to_dict(pInstrument)
         rsp = CTPObjectHelper.object_to_dict(pRspInfo)
         self._rsp_callback({
+            "MessageType": "OnRspQryInstrument",
             "Instrument": data,
             "RspInfo": rsp,
             "RequestID": nRequestID,
