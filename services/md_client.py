@@ -5,12 +5,12 @@ from typing import Callable
 import anyio
 from anyio.abc import TaskGroup
 
-from clients import CTPTdClient
+from clients import CTPMdClient
 
-class TdClient(object):
+class MdClient(object):
     """
-    TdClient is the boundary of websocket and client,
-    and the boundray of async code and sync code.
+    MdClient is the boundary of websocket and client,
+    and the boundary of async code and sync code.
     It is responsible for controlling the status of
     ctp client.
     """
@@ -22,7 +22,7 @@ class TdClient(object):
         self._task_group: TaskGroup = None
         self._running: bool = False
         self._queue: Queue = Queue()
-        self._client: CTPTdClient = None
+        self._client: CTPMdClient = None
         self._client_lock: anyio.Lock = anyio.Lock()
         self._stop_event: anyio.Event = None
         self._call_map: dict[str, Callable[[dict[str, any]], int]] = {}
@@ -71,9 +71,10 @@ class TdClient(object):
         # 4. start login again
         async with self._client_lock:
             if not self._client:
-                self._client = await anyio.to_thread.run_sync(CTPTdClient, user_id, password)
+                self._client = await anyio.to_thread.run_sync(CTPMdClient, user_id, password)
                 self._client.rsp_callback = self.on_rsp_or_rtn
-                self._task_group.start_soon(self.run, name=f"{user_id}-td-bg-corroutine")
+                # TODO: need to create a random name to replace user_id
+                self._task_group.start_soon(self.run, name=f"{user_id}-md-bg-corroutine")
             await anyio.to_thread.run_sync(self._client.connect)
 
     async def stop(self) -> None:
@@ -95,4 +96,5 @@ class TdClient(object):
         await self.rsp_callback(rsp)
 
     def _init_call_map(self):
-        self._call_map["ReqQryInstrument"] = self._client.reqQryInstrument
+        pass
+

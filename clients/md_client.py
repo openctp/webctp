@@ -12,14 +12,15 @@ class MessageType(object):
 
 class MdClient(mdapi.CThostFtdcMdSpi):
 
-    def __init__(self):
+    def __init__(self, user_id, password):
         super().__init__()
         self._front_address: str = GlobalConfig.MdFrontAddress
+        self._broker_id: str = GlobalConfig.BrokerID
+        self._user_id: str = user_id
+        self._password: str = password
         self._rsp_callback: Callable[[dict[str, any]], None] = None
         self._api: mdapi.CThostFtdcMdApi = None
         self._connected: bool = False
-        self._logined: bool = False
-        self._connect_failed: bool = False
     
     @property
     def rsp_callback(self) -> Callable[[dict[str, any]], None]:
@@ -41,6 +42,8 @@ class MdClient(mdapi.CThostFtdcMdSpi):
             self._api.RegisterFront(self._front_address)
             self._api.Init()
             self._connected = True
+        else:
+            self.login()
     
     def OnFrontConnected(self):
         logging.info("Md client connected")
@@ -50,9 +53,9 @@ class MdClient(mdapi.CThostFtdcMdSpi):
     
     def login(self):
         req = mdapi.CThostFtdcReqUserLoginField()
-        req.BrokerID = ""
-        req.UserID = ""
-        req.Password = ""
+        req.BrokerID = self._broker_id
+        req.UserID = self._user_id
+        req.Password = self._password
         self._api.ReqUserLogin(req, 0)
     
     def OnRspUserLogin(self, pRspUserLogin: mdapi.CThostFtdcRspUserLoginField, pRspInfo: mdapi.CThostFtdcRspInfoField, nRequestID, bIsLast):
