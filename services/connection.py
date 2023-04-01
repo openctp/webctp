@@ -1,22 +1,23 @@
+import abc
 import anyio
 from fastapi import WebSocket, WebSocketDisconnect
 
-from td_client import TdClient
+from .td_client import TdClient
+from .md_client import MdClient
 
-class TdConnection(object):
+
+@abc.ABC
+class BaseConnection(object):
     def __init__(self, websocket: WebSocket) -> None:
         self._ws: WebSocket = websocket
-        self._client = None
+        self._client: TdClient | MdClient = None
     
     async def connect(self):
         await self._ws.accept()
-        # TODO: create a client
-        self._client = TdClient()
-        self._client.rsp_callback = self.send
+        self._client = self.create_client()
     
     def disconnect(self) -> None:
-        # TODO: release client
-        self._client.release()
+        self._client.stop()
     
     async def send(self, data: dict[str, any]) -> None:
         await self._ws.send_json(data)
@@ -36,3 +37,26 @@ class TdConnection(object):
                     await self.send(result)
             except WebSocketDisconnect:
                 self.disconnect()
+    
+    @abc.abstractmethod
+    def create_client(self):
+        pass
+
+
+class TdConnection(BaseConnection):
+    def __init__(self, websocket: WebSocket) -> None:
+        super().__init__()
+
+    def create_client(self):
+        client = TdClient()
+        client.rsp_callback = self.send
+        return client
+
+class MdConnection(BaseConnection):
+    def __init__(self, websocket: WebSocket) -> None:
+        super().__init__()
+    
+    def create_client(self):
+        client = MdClient()
+        client.rsp_callback = self.send
+        return client

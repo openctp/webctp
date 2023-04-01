@@ -3,9 +3,11 @@ import fastapi
 import uvicorn
 from utils import GlobalConfig
 from apps.td_app import app as td_app
+from apps.md_app import app as md_app
 
 app = fastapi.FastAPI()
 app.mount("/td", td_app)
+app.mount("/md", md_app)
 
 
 async def main():
