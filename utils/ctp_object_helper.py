@@ -1,10 +1,12 @@
 class CTPObjectHelper(object):
 
+    exclude_attrs = ["thisown"]
+
     @staticmethod
     def object_to_dict(obj: object) -> dict[str, any]:
         data = {}
         for attr, value in obj.__dict__.items():
-            if attr[0].isupper():
+            if attr not in CTPObjectHelper.exclude_attrs:
                 data[attr] = value
     
     @staticmethod

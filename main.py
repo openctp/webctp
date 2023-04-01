@@ -10,6 +10,7 @@ app.mount("/td", td_app)
 
 async def main():
     GlobalConfig.load_config("config.json")
+    # TODO: configure the log and log_level
     server_config = uvicorn.Config("main:app", host="0.0.0.0", port=GlobalConfig.Port, log_level="info")
     server = uvicorn.Server(server_config)
     await server.serve()

@@ -68,9 +68,6 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
     def OnRspAuthenticate(self, pRspAuthenticateField: tdapi.CThostFtdcRspAuthenticateField,
                           pRspInfo: tdapi.CThostFtdcRspInfoField, nRequestID: int, bIsLast: bool):
         """called when authenticate success"""
-        if pRspInfo is not None:
-            logging.info(f"authenticate rsp info, ErrorID: {pRspInfo.ErrorID}, ErrorMsg: {pRspInfo.ErrorMsg}")
-
         if pRspInfo is None or pRspInfo.ErrorID == 0:
             logging.info("authenticate success, start to login")
             self.login()
@@ -89,9 +86,6 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
     def OnRspUserLogin(self, pRspUserLogin: tdapi.CThostFtdcRspUserLoginField, pRspInfo: tdapi.CThostFtdcRspInfoField,
                        nRequestID: int, bIsLast: bool):
         """called when login responds"""
-        if pRspInfo is not None:
-            logging.info(f"login rsp info, ErrorID: {pRspInfo.ErrorID}, ErrorMsg: {pRspInfo.ErrorMsg}")
-
         if pRspInfo is None or pRspInfo.ErrorID == 0:
             logging.info("loging success, start to confirm settlement info")
             self.settlementConfirm()
