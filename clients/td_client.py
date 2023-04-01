@@ -1,10 +1,13 @@
-import time
 import logging
 
 from typing import Callable
 from openctp import thosttraderapi as tdapi
 
 from utils import CTPObjectHelper, GlobalConfig
+
+
+class MessageType(object):
+    OnRspQryInstrument = "OnRspQryInstrument"
 
 
 class TdClient(tdapi.CThostFtdcTraderSpi):
@@ -50,12 +53,12 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
 
     def OnFrontConnected(self):
         """called when connect success"""
-        logging.info("OnFrontConnected")
+        logging.info("Td client connected")
         self.authenticate()
 
     def OnFrontDisconnected(self, nReason):
         """called when connection broken"""
-        logging.info(f"Front disconnected, error_code={nReason}")
+        logging.info(f"Td client disconnected, error_code={nReason}")
 
     def authenticate(self):
         req = tdapi.CThostFtdcReqAuthenticateField()
@@ -113,20 +116,12 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
             "RspInfo": rsp,
             "RspUserLogin": data
         })
-
+    
     def reqQryInstrument(self, request: dict[str, any]) -> int:
-        req = tdapi.CThostFtdcQryInstrumentField()
-        CTPObjectHelper.dict_to_object(request["QryInstrument"], req)
-        requestId = request["RequestID"]
+        req, requestId = CTPObjectHelper(request)
         return self._api.ReqQryInstrument(req, requestId)
     
     def OnRspQryInstrument(self, pInstrument: tdapi.CThostFtdcInstrumentField, pRspInfo: tdapi.CThostFtdcRspInfoField, nRequestID: int, bIsLast: bool):
-        data = CTPObjectHelper.object_to_dict(pInstrument)
-        rsp = CTPObjectHelper.object_to_dict(pRspInfo)
-        self._rsp_callback({
-            "MessageType": "OnRspQryInstrument",
-            "Instrument": data,
-            "RspInfo": rsp,
-            "RequestID": nRequestID,
-            "IsLast": bIsLast
-        })
+        response = CTPObjectHelper.build_response_dict(MessageType.OnRspQryInstrument, pRspInfo, nRequestID, bIsLast)
+        response["Instrument"] = CTPObjectHelper.object_to_dict(pInstrument)
+        self._rsp_callback(response)
