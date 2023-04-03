@@ -1,5 +1,5 @@
 import logging
-from queue import Queue
+from queue import Queue, Empty
 from typing import Callable
 
 import anyio
@@ -95,9 +95,11 @@ class MdClient(object):
         self._stop_event.set()
 
     async def _procees_a_message(self, wait_time: float):
-        # TODO: try to use cancellable = True
-        rsp = await anyio.to_thread.run_sync(self._queue.get, True, wait_time)
-        await self.rsp_callback(rsp)
+        try:
+            rsp = await anyio.to_thread.run_sync(self._queue.get, True, wait_time, cancellable=True)
+            await self.rsp_callback(rsp)
+        except Empty:
+            pass
 
     def _init_call_map(self):
         pass
