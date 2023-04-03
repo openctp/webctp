@@ -50,7 +50,7 @@ class TdClient(object):
         message_type = request[self.MESSAGE_TYPE]
         ret = {
             self.MESSAGE_TYPE: message_type,
-            "ret": 0
+            "Ret": 0
         }
         if message_type == self.REQ_USER_LOGIN:
             user_id: str = request[self.REQ_USER_LOGIN]["UserID"]
@@ -58,9 +58,9 @@ class TdClient(object):
             await self.start(user_id, password)
         else:
             if message_type in self._call_map:
-                ret["ret"] = self._call_map[message_type](request)
+                ret["Ret"] = self._call_map[message_type](request)
             else:
-                ret["ret"] = 404
+                ret["Ret"] = 404
         return ret
 
     async def start(self, user_id: str, password: str) -> None:
@@ -73,6 +73,7 @@ class TdClient(object):
             if not self._client:
                 self._client = await anyio.to_thread.run_sync(CTPTdClient, user_id, password)
                 self._client.rsp_callback = self.on_rsp_or_rtn
+                self._init_call_map()
                 self._task_group.start_soon(self.run, name=f"{user_id}-td-bg-corroutine")
             await anyio.to_thread.run_sync(self._client.connect)
 

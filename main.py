@@ -1,3 +1,5 @@
+import logging
+import sys
 import anyio
 import fastapi
 import uvicorn
@@ -9,6 +11,14 @@ app = fastapi.FastAPI()
 app.mount("/td", td_app)
 app.mount("/md", md_app)
 
+root = logging.getLogger()
+root.setLevel(logging.DEBUG)
+
+handler = logging.StreamHandler(sys.stdout)
+handler.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+root.addHandler(handler)
 
 async def main():
     GlobalConfig.load_config("config.json")
