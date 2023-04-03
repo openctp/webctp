@@ -2,3 +2,4 @@
 *.con
 /openctp
 config.json
+__pycache__

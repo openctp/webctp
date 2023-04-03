@@ -6,8 +6,7 @@ from .td_client import TdClient
 from .md_client import MdClient
 
 
-@abc.ABC
-class BaseConnection(object):
+class BaseConnection(abc.ABC):
     def __init__(self, websocket: WebSocket) -> None:
         self._ws: WebSocket = websocket
         self._client: TdClient | MdClient = None
@@ -16,8 +15,8 @@ class BaseConnection(object):
         await self._ws.accept()
         self._client = self.create_client()
     
-    def disconnect(self) -> None:
-        self._client.stop()
+    async def disconnect(self) -> None:
+        await self._client.stop()
     
     async def send(self, data: dict[str, any]) -> None:
         await self._ws.send_json(data)
@@ -36,7 +35,7 @@ class BaseConnection(object):
                     result = await self._client.call(data)
                     await self.send(result)
             except WebSocketDisconnect:
-                self.disconnect()
+                await self.disconnect()
     
     @abc.abstractmethod
     def create_client(self):
@@ -45,7 +44,7 @@ class BaseConnection(object):
 
 class TdConnection(BaseConnection):
     def __init__(self, websocket: WebSocket) -> None:
-        super().__init__()
+        super().__init__(websocket)
 
     def create_client(self):
         client = TdClient()
@@ -54,7 +53,7 @@ class TdConnection(BaseConnection):
 
 class MdConnection(BaseConnection):
     def __init__(self, websocket: WebSocket) -> None:
-        super().__init__()
+        super().__init__(websocket)
     
     def create_client(self):
         client = MdClient()

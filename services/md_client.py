@@ -14,7 +14,7 @@ class MdClient(object):
     It is responsible for controlling the status of
     ctp client.
     """
-    MESSAGE_TYPE = "MessageType"
+    MESSAGE_TYPE = "MsgType"
     REQ_USER_LOGIN = "ReqUserLogin"
 
     def __init__(self) -> None:
@@ -32,7 +32,7 @@ class MdClient(object):
         return self._rsp_callback
 
     @rsp_callback.setter
-    def set_rsp_callback(self, callback: Callable[[dict[str, any]], None]) -> None:
+    def rsp_callback(self, callback: Callable[[dict[str, any]], None]) -> None:
         self._rsp_callback = callback
     
     @property
@@ -40,7 +40,7 @@ class MdClient(object):
         return self._task_group
     
     @task_group.setter
-    def set_task_group(self, task_group: TaskGroup) -> None:
+    def task_group(self, task_group: TaskGroup) -> None:
         self._task_group = task_group
     
     def on_rsp_or_rtn(self, data: dict[str, any]) -> None:
@@ -81,9 +81,13 @@ class MdClient(object):
         self._running = False
         if self._stop_event:
             await self._stop_event.wait()
-        self._client.release()
+            self._stop_event = None
+        
+        if self._client:
+            await anyio.to_thread.run_sync(self._client.release)
 
     async def run(self) -> None:
+        logging.info("start to run new corroutine")
         self._stop_event = anyio.Event()
         self._running = True
         while self._running:

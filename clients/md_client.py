@@ -27,7 +27,7 @@ class MdClient(mdapi.CThostFtdcMdSpi):
         return self._rsp_callback
 
     @rsp_callback.setter
-    def set_rsp_callback(self, callback: Callable[[dict[str, any]], None]):
+    def rsp_callback(self, callback: Callable[[dict[str, any]], None]):
         self._rsp_callback = self._rsp_callback
     
     def release(self) -> None:
