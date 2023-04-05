@@ -9,6 +9,7 @@ from utils import CTPObjectHelper, GlobalConfig
 class Constant(object):
     OnRspUserLogin = "OnRspUserLogin"
     OnRspSubMarketData = "OnRspSubMarketData"
+    OnRspUnSubMarketData = "OnRspUnSubMarketData"
 
     OnRtnDepthMarketData = "OnRtnDepthMarketData"
 
@@ -24,7 +25,6 @@ class MdClient(mdapi.CThostFtdcMdSpi):
     def __init__(self, user_id, password):
         super().__init__()
         self._front_address: str = GlobalConfig.MdFrontAddress
-        print(self._front_address)
         self._broker_id: str = GlobalConfig.BrokerID
         self._user_id: str = user_id
         self._password: str = password
@@ -117,4 +117,19 @@ class MdClient(mdapi.CThostFtdcMdSpi):
                 "AskPrice1": pDepthMarketData.AskPrice1
             }
         }
+        self._rsp_callback(response)
+
+    # unsubscribe market data
+    def unsubscribeMarketData(self, request: dict[str, any]) -> int:
+        instrumentIds = request[Constant.Instruments]
+        instrumentIds = list(map(lambda i: i.encode(), instrumentIds))
+        logging.debug(f"unsubscribe data for {instrumentIds}")
+        return self._api.UnSubscribeMarketData(instrumentIds, len(instrumentIds))
+
+    # OnRspUnSubMarketData from CThostFtdcMdSpi
+    def OnRspUnSubMarketData(self, pSpecificInstrument: mdapi.CThostFtdcSpecificInstrumentField, pRspInfo, nRequestID, bIsLast):
+        logging.debug(f"recv unsub market data")
+        response = CTPObjectHelper.build_response_dict(Constant.OnRspUnSubMarketData, pRspInfo, nRequestID, bIsLast)
+        if pSpecificInstrument:
+            response[Constant.SpecificInstrument] = pSpecificInstrument.InstrumentID
         self._rsp_callback(response)

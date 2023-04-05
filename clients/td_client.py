@@ -8,6 +8,7 @@ from utils import CTPObjectHelper, GlobalConfig
 
 class MessageType(object):
     OnRspQryInstrument = "OnRspQryInstrument"
+    OnRspOrderInsert = "OnRspOrderInsert"
 
 
 class TdClient(tdapi.CThostFtdcTraderSpi):
@@ -86,8 +87,7 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
         req.UserProductInfo = "openctp"
         self._api.ReqUserLogin(req, 0)
 
-    def OnRspUserLogin(self, pRspUserLogin: tdapi.CThostFtdcRspUserLoginField, pRspInfo: tdapi.CThostFtdcRspInfoField,
-                       nRequestID: int, bIsLast: bool):
+    def OnRspUserLogin(self, pRspUserLogin: tdapi.CThostFtdcRspUserLoginField, pRspInfo: tdapi.CThostFtdcRspInfoField, nRequestID: int, bIsLast: bool):
         """called when login responds"""
         if pRspInfo is None or pRspInfo.ErrorID == 0:
             logging.info("loging success, start to confirm settlement info")
@@ -109,8 +109,31 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
             logging.info(f"settlemnt confirm rsp info, ErrorID: {pRspInfo.ErrorID}, ErrorMsg: {pRspInfo.ErrorMsg}")
     
     def processConnectResult(self, messageType: str, pRspInfo: tdapi.CThostFtdcRspInfoField, pRspUserLogin: tdapi.CThostFtdcRspUserLoginField = None):
-        data = CTPObjectHelper.object_to_dict(pRspUserLogin) if pRspUserLogin else {}
-        rsp = CTPObjectHelper.object_to_dict(pRspInfo) if pRspInfo else {}
+        data = {}
+        if pRspUserLogin:
+            data = {
+                "TradingDay": pRspUserLogin.TradingDay,
+                "LoginTime": pRspUserLogin.LoginTime,
+                "BrokerID": pRspUserLogin.BrokerID,
+                "UserID": pRspUserLogin.UserID,
+                "SystemName": pRspUserLogin.SystemName,
+                "FrontID": pRspUserLogin.FrontID,
+                "SessionID": pRspUserLogin.SessionID,
+                "MaxOrderRef": pRspUserLogin.MaxOrderRef,
+                "SHFETime": pRspUserLogin.SHFETime,
+                "DCETime": pRspUserLogin.DCETime,
+                "CZCETime": pRspUserLogin.CZCETime,
+                "FFEXTime": pRspUserLogin.FFEXTime,
+                "INETime": pRspUserLogin.INETime
+            }
+
+        rsp = {}
+        if pRspInfo:
+            rsp = {
+                "ErrorID": pRspInfo.ErrorID,
+                "ErrorMsg": pRspInfo.ErrorMsg
+            }
+
         self._rsp_callback({
             "MessageType": messageType,
             "RspInfo": rsp,
@@ -118,10 +141,45 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
         })
     
     def reqQryInstrument(self, request: dict[str, any]) -> int:
-        req, requestId = CTPObjectHelper(request)
+        req, requestId = CTPObjectHelper.extract_request(request, "QryInstrument", tdapi.CThostFtdcQryInstrumentField)
         return self._api.ReqQryInstrument(req, requestId)
     
     def OnRspQryInstrument(self, pInstrument: tdapi.CThostFtdcInstrumentField, pRspInfo: tdapi.CThostFtdcRspInfoField, nRequestID: int, bIsLast: bool):
         response = CTPObjectHelper.build_response_dict(MessageType.OnRspQryInstrument, pRspInfo, nRequestID, bIsLast)
-        response["Instrument"] = CTPObjectHelper.object_to_dict(pInstrument)
+        instrument = {}
+        if pInstrument:
+            instrument = {
+                "InstrumentID": pInstrument.InstrumentID,
+                "ExchangeID": pInstrument.ExchangeID,
+                "InstrumentName": pInstrument.InstrumentName,
+                "ExchangeInstID": pInstrument.ExchangeInstID,
+                "ProductID": pInstrument.ProductID,
+                "ProductClass": pInstrument.ProductClass,
+                "DeliveryYear": pInstrument.DeliveryYear,
+                "DeliveryMonth": pInstrument.DeliveryMonth,
+                "MaxMarketOrderVolume": pInstrument.MaxMarketOrderVolume,
+                "MinMarketOrderVolume": pInstrument.MinMarketOrderVolume,
+                "MaxLimitOrderVolume": pInstrument.MaxLimitOrderVolume,
+                "MinLimitOrderVolume": pInstrument.MinLimitOrderVolume,
+                "VolumeMultiple": pInstrument.VolumeMultiple,
+                "PriceTick": pInstrument.PriceTick,
+                "CreateDate": pInstrument.CreateDate,
+                "OpenDate": pInstrument.OpenDate,
+                "ExpireDate": pInstrument.ExpireDate,
+                "StartDelivDate": pInstrument.StartDelivDate,
+                "EndDelivDate": pInstrument.EndDelivDate,
+                "InstLifePhase": pInstrument.InstLifePhase,
+                "IsTrading": pInstrument.IsTrading,
+                "PositionType": pInstrument.PositionType,
+                "PositionDateType": pInstrument.PositionDateType,
+                "LongMarginRatio": pInstrument.LongMarginRatio,
+                "ShortMarginRatio": pInstrument.ShortMarginRatio,
+                "MaxMarginSideAlgorithm": pInstrument.MaxMarginSideAlgorithm,
+                "UnderlyingInstrID": pInstrument.UnderlyingInstrID,
+                "StrikePrice": pInstrument.StrikePrice,
+                "OptionsType": pInstrument.OptionsType,
+                "UnderlyingMultiple": pInstrument.UnderlyingMultiple,
+                "CombinationType": pInstrument.CombinationType
+            }
+        response["Instrument"] = instrument
         self._rsp_callback(response)
