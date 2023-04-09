@@ -1,0 +1,9 @@
+TdFrontAddress: tcp://180.168.146.187:10201
+MdFrontAddress: tcp://180.169.112.54:42213
+BrokerID: "9999"
+AuthCode: "0000000000000000"
+AppID: simnow_client_test
+WebSocketPort: 8080 # the listening port, default 8080
+Host: 0.0.0.0       # the bind ip address, default 0.0.0.0
+LogLevel: info      # trace, debug, info, warn, error
+  

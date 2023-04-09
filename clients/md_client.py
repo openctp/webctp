@@ -25,6 +25,7 @@ class MdClient(mdapi.CThostFtdcMdSpi):
     def __init__(self, user_id, password):
         super().__init__()
         self._front_address: str = GlobalConfig.MdFrontAddress
+        logging.debug(f"Md front_address: {self._front_address}")
         self._broker_id: str = GlobalConfig.BrokerID
         self._user_id: str = user_id
         self._password: str = password

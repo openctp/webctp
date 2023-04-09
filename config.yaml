@@ -1,0 +1,7 @@
+TdFrontAddress: tcp://121.37.80.177:20002
+MdFrontAddress: tcp://121.37.80.177:20004
+BrokerID: "9999"
+AuthCode: "0000000000000000"
+AppID: simnow_client_test
+WebSocketPort: 8080
+  
