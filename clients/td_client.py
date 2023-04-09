@@ -21,6 +21,7 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
         self._app_id:str = GlobalConfig.AppID
         self._user_id:str = user_id
         self._password: str = password
+        logging.debug(f"Td front_address: {self._front_address}, broker_id: {self._broker_id}, auth_code: {self._auth_code}, app_id: {self._app_id}, user_id: {self._user_id}")
         self._rsp_callback: Callable[[dict[str, any]], None] = None
         self._api: tdapi.CThostFtdcTraderApi = None
         self._connected: bool = False
