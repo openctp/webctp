@@ -1,4 +1,5 @@
 import logging
+import uuid
 
 from typing import Callable
 from openctp import thostmduserapi as mdapi
@@ -27,7 +28,8 @@ class MdClient(mdapi.CThostFtdcMdSpi):
         self._front_address: str = GlobalConfig.MdFrontAddress
         logging.debug(f"Md front_address: {self._front_address}")
         self._broker_id: str = GlobalConfig.BrokerID
-        self._user_id: str = user_id
+        # If user_id not provided in the login message, then use a uuid instead.
+        self._user_id: str = user_id or str(uuid.uuid4())
         self._password: str = password
         self._rsp_callback: Callable[[dict[str, any]], None] = None
         self._api: mdapi.CThostFtdcMdApi = None
@@ -47,15 +49,20 @@ class MdClient(mdapi.CThostFtdcMdSpi):
         self._connected = False
     
     def connect(self) -> None:
+        """Not thread-safe"""
         if not self._connected:
-            logging.info(f"not connect start to connect {self._front_address}")
-            self._api: mdapi.CThostFtdcMdApi = mdapi.CThostFtdcMdApi.CreateFtdcMdApi()
-            self._api.RegisterSpi(self)
-            self._api.RegisterFront(self._front_address)
+            self.create_api()
             self._api.Init()
             self._connected = True
         else:
             self.login()
+    
+    def create_api(self) -> mdapi.CThostFtdcMdApi:
+        con_file_path = GlobalConfig.get_con_file_path("md" + self._user_id)
+        self._api: mdapi.CThostFtdcMdApi = mdapi.CThostFtdcMdApi.CreateFtdcMdApi(con_file_path)
+        self._api.RegisterSpi(self)
+        self._api.RegisterFront(self._front_address)
+        return self._api
     
     def OnFrontConnected(self):
         logging.info("Md client connected")
