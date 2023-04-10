@@ -121,9 +121,7 @@ class MdClient(mdapi.CThostFtdcMdSpi):
         self._rsp_callback(response)
     
     def OnRtnDepthMarketData(self, pDepthMarketData: mdapi.CThostFtdcDepthMarketDataField):
-        logging.debug(f"recv market data")
         depthData = CTPObjectHelper.object_to_dict(pDepthMarketData, mdapi.CThostFtdcDepthMarketDataField)
-        logging.debug(f"depthData: {depthData}")
         response = {
             Constant.MessageType: Constant.OnRtnDepthMarketData,
             Constant.DepthMarketData: depthData
@@ -131,7 +129,7 @@ class MdClient(mdapi.CThostFtdcMdSpi):
         self._rsp_callback(response)
 
     # unsubscribe market data
-    def unsubscribeMarketData(self, request: dict[str, any]) -> int:
+    def unSubscribeMarketData(self, request: dict[str, any]) -> int:
         instrumentIds = request[Constant.Instruments]
         instrumentIds = list(map(lambda i: i.encode(), instrumentIds))
         logging.debug(f"unsubscribe data for {instrumentIds}")
