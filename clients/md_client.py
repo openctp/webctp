@@ -8,6 +8,8 @@ from utils import CTPObjectHelper, GlobalConfig
 
 
 class Constant(object):
+    MessageType = "MessageType"
+
     OnRspUserLogin = "OnRspUserLogin"
     OnRspSubMarketData = "OnRspSubMarketData"
     OnRspUnSubMarketData = "OnRspUnSubMarketData"
@@ -66,6 +68,8 @@ class MdClient(mdapi.CThostFtdcMdSpi):
     
     def OnFrontConnected(self):
         logging.info("Md client connected")
+        # TODO: 这样做有个bug，在出现配置错误的时候出现了疯狂的断连重连，然后每次自动重连都会做一次登陆操作，需要处理这种情况
+        # 配置错误指，如使用了openctp的库去连接simnow的行情服务器，这种情况下会出现疯狂的断连重连
         self.login()
     
     def OnFrontDisconnected(self, nReason):
@@ -118,12 +122,11 @@ class MdClient(mdapi.CThostFtdcMdSpi):
     
     def OnRtnDepthMarketData(self, pDepthMarketData: mdapi.CThostFtdcDepthMarketDataField):
         logging.debug(f"recv market data")
+        depthData = CTPObjectHelper.object_to_dict(pDepthMarketData, mdapi.CThostFtdcDepthMarketDataField)
+        logging.debug(f"depthData: {depthData}")
         response = {
-            "MsgType": Constant.OnRtnDepthMarketData,
-            Constant.DepthMarketData: {
-                "ActionDay": pDepthMarketData.ActionDay,
-                "AskPrice1": pDepthMarketData.AskPrice1
-            }
+            Constant.MessageType: Constant.OnRtnDepthMarketData,
+            Constant.DepthMarketData: depthData
         }
         self._rsp_callback(response)
 
