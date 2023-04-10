@@ -1,14 +1,17 @@
+import logging
+
 class CTPObjectHelper(object):
 
     exclude_attrs = ["thisown"]
 
     @staticmethod
-    def object_to_dict(obj: object) -> dict[str, any]:
+    def object_to_dict(obj: object, typ: any) -> dict[str, any]:
         data = {}
         if obj:
-            for attr, value in obj.__dict__.items():
-                if attr not in CTPObjectHelper.exclude_attrs:
-                    data[attr] = value
+            # filter python built-in attributes
+            attrs = list(filter(lambda x: not (x.startswith("__") or x in CTPObjectHelper.exclude_attrs), dir(typ)))
+            for attr in attrs:
+                data[attr] = obj.__getattribute__(attr)
         return data
     
     @staticmethod

@@ -42,16 +42,20 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
     def connect(self) -> None:
         """Not thread-safe"""
         if not self._connected:
-            # TODO: need to use another path to store the con file
-            self._api: tdapi.CThostFtdcTraderApi = tdapi.CThostFtdcTraderApi.CreateFtdcTraderApi(self._user_id)
-            self._api.RegisterSpi(self)
-            self._api.SubscribePrivateTopic(tdapi.THOST_TERT_QUICK)
-            self._api.SubscribePublicTopic(tdapi.THOST_TERT_QUICK)
-            self._api.RegisterFront(self._front_address)
+            self.create_api()
             self._api.Init()
             self._connected = True
         else:
             self.authenticate()
+    
+    def create_api(self) -> tdapi.CThostFtdcTraderApi:
+        con_file_path = GlobalConfig.get_con_file_path("td" + self._user_id)
+        self._api: tdapi.CThostFtdcTraderApi = tdapi.CThostFtdcTraderApi.CreateFtdcTraderApi(con_file_path)
+        self._api.RegisterSpi(self)
+        self._api.SubscribePrivateTopic(tdapi.THOST_TERT_QUICK)
+        self._api.SubscribePublicTopic(tdapi.THOST_TERT_QUICK)
+        self._api.RegisterFront(self._front_address)
+        return self._api
 
     def OnFrontConnected(self):
         """called when connect success"""

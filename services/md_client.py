@@ -104,3 +104,4 @@ class MdClient(object):
 
     def _init_call_map(self):
         self._call_map["SubscribeMarketData"] = self._client.subscribeMarketData
+        self._call_map["UnSubscribeMarketData"] = self._client.unSubscribeMarketData

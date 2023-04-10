@@ -1,3 +1,4 @@
+import os
 import yaml
 
 class GlobalConfig(object):
@@ -10,6 +11,7 @@ class GlobalConfig(object):
     Host: str
     Port: int
     LogLevel: str
+    ConFilePath: str
 
     @classmethod
     def load_config(cls, config_file_path: str):
@@ -22,7 +24,19 @@ class GlobalConfig(object):
             cls.AppID = config.get("AppID", "")
             cls.Host = config.get("Host", "0.0.0.0")
             cls.Port = config.get("Port", 8080)
-            cls.LogLevel = config.get("LogLevel", "info")
+            cls.LogLevel = config.get("LogLevel", "INFO")
+            cls.ConFilePath = config.get("ConFilePath", "./con_file/")
+
+        if not cls.ConFilePath.endswith("/"):
+            cls.ConFilePath = cls.ConFilePath + "/"
+
+        if not os.path.exists(cls.ConFilePath):
+            os.makedirs(cls.ConFilePath)
+    
+    @classmethod
+    def get_con_file_path(cls, name: str) -> str:
+        path = os.path.join(cls.ConFilePath, name)
+        return path
 
 
 if __name__ == "__main__":
@@ -35,3 +49,4 @@ if __name__ == "__main__":
     print(GlobalConfig.Host, type(GlobalConfig.Host))
     print(GlobalConfig.Port, type(GlobalConfig.Port))
     print(GlobalConfig.LogLevel, type(GlobalConfig.LogLevel))
+    print(GlobalConfig.ConFilePath, type(GlobalConfig.ConFilePath))

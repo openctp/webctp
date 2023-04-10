@@ -1,5 +1,6 @@
 /__pycache__
 *.con
 /openctp
-config.json
+config.yaml
+/con_file
 __pycache__

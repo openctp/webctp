@@ -5,5 +5,5 @@ AuthCode: "0000000000000000"
 AppID: simnow_client_test
 WebSocketPort: 8080 # the listening port, default 8080
 Host: 0.0.0.0       # the bind ip address, default 0.0.0.0
-LogLevel: info      # trace, debug, info, warn, error
+LogLevel: INFO     # NOTSET, DEBUG, INFO, WARN, ERROR, CRITICAL
   
