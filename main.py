@@ -8,10 +8,10 @@ from utils import GlobalConfig
 
 def init_log():
     root = logging.getLogger()
-    root.setLevel(logging.DEBUG)
+    root.setLevel(GlobalConfig.LogLevel)
     
     handler = logging.StreamHandler(sys.stdout)
-    handler.setLevel(logging.DEBUG)
+    handler.setLevel(GlobalConfig.LogLevel)
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     handler.setFormatter(formatter)
     root.addHandler(handler)
@@ -21,19 +21,21 @@ async def main(config_file_path: str, app_type: str):
     init_log()
 
     server_config = None
+    app: str = ""
     if app_type == "td":
         logging.info("start td app")
-        server_config = uvicorn.Config("apps:td_app", host="0.0.0.0", port=GlobalConfig.Port, log_level=GlobalConfig.LogLevel)
+        app = "apps:td_app"
     elif app_type == "md":
         logging.info("start md app")
-        server_config = uvicorn.Config("apps:md_app", host="0.0.0.0", port=GlobalConfig.Port, log_level=GlobalConfig.LogLevel)
+        app = "apps:md_app"
     elif app_type == "dev":
         logging.info("start dev app")
-        server_config = uvicorn.Config("apps:dev_app", host="0.0.0.0", port=GlobalConfig.Port, log_level=GlobalConfig.LogLevel)
+        app = "apps:dev_app"
     else:
         logging.error("error app type: %s", app_type)
         exit(1)
 
+    server_config = uvicorn.Config(app, host=GlobalConfig.Host, port=GlobalConfig.Port, log_level="info")
     server = uvicorn.Server(server_config)
     await server.serve()
 

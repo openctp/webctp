@@ -24,7 +24,7 @@ class GlobalConfig(object):
             cls.AppID = config.get("AppID", "")
             cls.Host = config.get("Host", "0.0.0.0")
             cls.Port = config.get("Port", 8080)
-            cls.LogLevel = config.get("LogLevel", "info")
+            cls.LogLevel = config.get("LogLevel", "INFO")
             cls.ConFilePath = config.get("ConFilePath", "./con_file/")
 
         if not cls.ConFilePath.endswith("/"):
