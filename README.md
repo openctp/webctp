@@ -3,6 +3,9 @@ webctp是一个基于[ctpapi-python](https://github.com/openctp/openctp/tree/mas
 # 安装及运行
 ## 环境搭建
 ```bash
+# 环境需求
+python >=3.7
+  
 # 安装依赖
 pip install -r requirements.txt
 
@@ -29,5 +32,11 @@ TODO: 添加postman的请求样例
 [交易服务协议文档](./docs/td_protocol.md)
 
 [行情服务协议文档](./docs/md_protocol.md)
+
+# 遇到的问题
+
+
+
 # 开发说明
+
 TODO
