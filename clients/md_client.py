@@ -117,7 +117,7 @@ class MdClient(mdapi.CThostFtdcMdSpi):
     def OnRspSubMarketData(self, pSpecificInstrument: mdapi.CThostFtdcSpecificInstrumentField, pRspInfo, nRequestID, bIsLast):
         response = CTPObjectHelper.build_response_dict(Constant.OnRspSubMarketData, pRspInfo, nRequestID, bIsLast)
         if pSpecificInstrument:
-            response[Constant.SpecificInstrument] = pSpecificInstrument.InstrumentID
+            response[Constant.SpecificInstrument] = {"InstrumentID" : pSpecificInstrument.InstrumentID}
         self._rsp_callback(response)
     
     def OnRtnDepthMarketData(self, pDepthMarketData: mdapi.CThostFtdcDepthMarketDataField):
@@ -140,5 +140,5 @@ class MdClient(mdapi.CThostFtdcMdSpi):
         logging.debug(f"recv unsub market data")
         response = CTPObjectHelper.build_response_dict(Constant.OnRspUnSubMarketData, pRspInfo, nRequestID, bIsLast)
         if pSpecificInstrument:
-            response[Constant.SpecificInstrument] = pSpecificInstrument.InstrumentID
+            response[Constant.SpecificInstrument] = {"InstrumentID" : pSpecificInstrument.InstrumentID}
         self._rsp_callback(response)
