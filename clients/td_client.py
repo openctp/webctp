@@ -35,6 +35,7 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
         self._rsp_callback = callback
     
     def release(self) -> None:
+        self._api.RegisterSpi(None)
         self._api.Release()
         self._api = None
         self._connected = False
@@ -114,9 +115,9 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
             logging.info(f"settlemnt confirm rsp info, ErrorID: {pRspInfo.ErrorID}, ErrorMsg: {pRspInfo.ErrorMsg}")
     
     def processConnectResult(self, messageType: str, pRspInfo: tdapi.CThostFtdcRspInfoField, pRspUserLogin: tdapi.CThostFtdcRspUserLoginField = None):
-        data = {}
+        response = CTPObjectHelper.build_response_dict(messageType, pRspInfo, 0, True)
         if pRspUserLogin:
-            data = {
+            response["RspUserLogin"] = {
                 "TradingDay": pRspUserLogin.TradingDay,
                 "LoginTime": pRspUserLogin.LoginTime,
                 "BrokerID": pRspUserLogin.BrokerID,
@@ -132,18 +133,7 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
                 "INETime": pRspUserLogin.INETime
             }
 
-        rsp = {}
-        if pRspInfo:
-            rsp = {
-                "ErrorID": pRspInfo.ErrorID,
-                "ErrorMsg": pRspInfo.ErrorMsg
-            }
-
-        self._rsp_callback({
-            "MessageType": messageType,
-            "RspInfo": rsp,
-            "RspUserLogin": data
-        })
+        self._rsp_callback(response)
     
     def reqQryInstrument(self, request: dict[str, any]) -> int:
         req, requestId = CTPObjectHelper.extract_request(request, "QryInstrument", tdapi.CThostFtdcQryInstrumentField)

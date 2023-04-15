@@ -46,6 +46,7 @@ class MdClient(mdapi.CThostFtdcMdSpi):
         self._rsp_callback = callback
     
     def release(self) -> None:
+        self._api.RegisterSpi(None)
         self._api.Release()
         self._api = None
         self._connected = False
