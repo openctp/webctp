@@ -8,11 +8,6 @@
     "Password":"123456"
   }
 }
-# 调用结果
-{
-  "MsgType": "ReqUserLogin",
-  "Ret": 0
-}
 # 应答
 {
   "MsgType": "OnRspUserLogin",
@@ -37,12 +32,6 @@
   "InstrumentID": ["au2305", "rb2305", "TA305"]
 }
 
-# 调用结果
-{
-  "MsgType": "ReqUserLogin",
-  "Ret": 0
-}
-
 # 应答
 {
   "MsgType": "OnRspSubscribeMarketData",
@@ -65,12 +54,6 @@
   "InstrumentID": ["au2305", "rb2305", "TA305"]
 }
 
-# 调用结果
-{
-  "MsgType": "UnSubscribeMarketData",
-  "Ret": 0
-}
-
 # 应答
 {
   "MsgType": "OnRspUnSubscribeMarketData",
@@ -89,7 +72,7 @@
 ### 行情推送
 ```json
 {
-  "MessageType": "OnRtnDepthMarketData",
+  "MsgType": "OnRtnDepthMarketData",
   "DepthMarketData": {
     "ActionDay": "20230410",
     "AskPrice1": 5535.000000000001,
