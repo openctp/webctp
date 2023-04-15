@@ -6,13 +6,37 @@ class CommonConstant(object):
 
     OnRspUserLogin = "OnRspUserLogin"
 
+    ReqUserLogin = "ReqUserLogin"
+    RspUserLogin = "RspUserLogin"
+
+
 class MdConstant(CommonConstant):
 
+    # MessageType
     OnRspSubMarketData = "OnRspSubMarketData"
     OnRspUnSubMarketData = "OnRspUnSubMarketData"
 
+    # RtnMessageType
     OnRtnDepthMarketData = "OnRtnDepthMarketData"
+
+    # Request Field
+    InstrumentID = "InstrumentID"
+
+    # Response Field
     SpecificInstrument = "SpecificInstrument"
     DepthMarketData = "DepthMarketData"
 
-    InstrumentID = "InstrumentID"
+
+class TdConstant(CommonConstant):
+
+    # MessageType
+    OnRspUserLogin = "OnRspUserLogin"
+    OnRspAuthenticate = "OnRspAuthenticate"
+    OnRspQryInstrument = "OnRspQryInstrument"
+    OnRspOrderInsert = "OnRspOrderInsert"
+
+    # RequestField
+    QryInstrument = "QryInstrument"
+
+    # ResponseField
+    Instrument = "Instrument"

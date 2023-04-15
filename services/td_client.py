@@ -4,7 +4,8 @@ from typing import Callable
 
 import anyio
 from anyio.abc import TaskGroup
-
+from constants import CallError
+from constants import CommonConstant as Constant
 from clients import CTPTdClient
 
 class TdClient(object):
@@ -14,8 +15,6 @@ class TdClient(object):
     It is responsible for controlling the status of
     ctp client.
     """
-    MESSAGE_TYPE = "MsgType"
-    REQ_USER_LOGIN = "ReqUserLogin"
 
     def __init__(self) -> None:
         self._rsp_callback: Callable[[dict[str, any]], None] = None
@@ -47,21 +46,20 @@ class TdClient(object):
         self._queue.put_nowait(data)
 
     async def call(self, request: dict[str, any]) -> dict[str, any]:
-        message_type = request[self.MESSAGE_TYPE]
-        ret = {
-            self.MESSAGE_TYPE: message_type,
-            "Ret": 0
-        }
-        if message_type == self.REQ_USER_LOGIN:
-            user_id: str = request[self.REQ_USER_LOGIN]["UserID"]
-            password: str = request[self.REQ_USER_LOGIN]["Password"]
+        message_type = request[Constant.MessageType]
+        if message_type == Constant.ReqUserLogin:
+            user_id: str = request[Constant.ReqUserLogin]["UserID"]
+            password: str = request[Constant.ReqUserLogin]["Password"]
             await self.start(user_id, password)
         else:
             if message_type in self._call_map:
-                ret["Ret"] = self._call_map[message_type](request)
+                await anyio.to_thread.run_sync(self._call_map[message_type], request)
             else:
-                ret["Ret"] = 404
-        return ret
+                response = {
+                    Constant.MessageType: message_type,
+                    Constant.RspInfo: CallError.get_rsp_info(404)
+                }
+                await self.rsp_callback(response)
 
     async def start(self, user_id: str, password: str) -> None:
         # NOTE: This if clause avoid the following secenario

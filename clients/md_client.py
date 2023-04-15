@@ -101,7 +101,7 @@ class MdClient(mdapi.CThostFtdcMdSpi):
         self._rsp_callback(response)
     
     def subscribeMarketData(self, request: dict[str, any]) -> None:
-        instrumentIds = request[Constant.Instruments]
+        instrumentIds = request[Constant.InstrumentID]
         instrumentIds = list(map(lambda i: i.encode(), instrumentIds))
         logging.debug(f"subscribe data for {instrumentIds}")
         ret = self._api.SubscribeMarketData(instrumentIds, len(instrumentIds))
@@ -110,7 +110,9 @@ class MdClient(mdapi.CThostFtdcMdSpi):
     def OnRspSubMarketData(self, pSpecificInstrument: mdapi.CThostFtdcSpecificInstrumentField, pRspInfo, nRequestID, bIsLast):
         response = CTPObjectHelper.build_response_dict(Constant.OnRspSubMarketData, pRspInfo, nRequestID, bIsLast)
         if pSpecificInstrument:
-            response[Constant.SpecificInstrument] = {"InstrumentID" : pSpecificInstrument.InstrumentID}
+            response[Constant.SpecificInstrument] = {
+                Constant.InstrumentID: pSpecificInstrument.InstrumentID
+            }
         self._rsp_callback(response)
     
     def OnRtnDepthMarketData(self, pDepthMarketData: mdapi.CThostFtdcDepthMarketDataField):
@@ -134,5 +136,7 @@ class MdClient(mdapi.CThostFtdcMdSpi):
         logging.debug(f"recv unsub market data")
         response = CTPObjectHelper.build_response_dict(Constant.OnRspUnSubMarketData, pRspInfo, nRequestID, bIsLast)
         if pSpecificInstrument:
-            response[Constant.SpecificInstrument] = {"InstrumentID" : pSpecificInstrument.InstrumentID}
+            response[Constant.SpecificInstrument] = {
+                Constant.InstrumentID: pSpecificInstrument.InstrumentID
+            }
         self._rsp_callback(response)
