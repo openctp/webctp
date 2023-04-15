@@ -4,24 +4,8 @@ import uuid
 from typing import Callable
 from openctp import thostmduserapi as mdapi
 from constants import CallError
+from constants import MdConstant as Constant
 from utils import CTPObjectHelper, GlobalConfig
-
-
-class Constant(object):
-    MessageType = "MessageType"
-    RspInfo = "RspInfo"
-
-    OnRspUserLogin = "OnRspUserLogin"
-    OnRspSubMarketData = "OnRspSubMarketData"
-    OnRspUnSubMarketData = "OnRspUnSubMarketData"
-
-    OnRtnDepthMarketData = "OnRtnDepthMarketData"
-
-    RspUserLogin = "RspUserLogin"
-    SpecificInstrument = "SpecificInstrument"
-    DepthMarketData = "DepthMarketData"
-
-    Instruments = "InstrumentID"
 
 
 class MdClient(mdapi.CThostFtdcMdSpi):
@@ -139,7 +123,7 @@ class MdClient(mdapi.CThostFtdcMdSpi):
 
     # unsubscribe market data
     def unSubscribeMarketData(self, request: dict[str, any]) -> int:
-        instrumentIds = request[Constant.Instruments]
+        instrumentIds = request[Constant.InstrumentID]
         instrumentIds = list(map(lambda i: i.encode(), instrumentIds))
         logging.debug(f"unsubscribe data for {instrumentIds}")
         ret = self._api.UnSubscribeMarketData(instrumentIds, len(instrumentIds))
