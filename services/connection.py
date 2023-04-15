@@ -1,6 +1,8 @@
 import abc
 import anyio
+import logging
 from fastapi import WebSocket, WebSocketDisconnect
+from starlette.websockets import WebSocketState
 
 from .td_client import TdClient
 from .md_client import MdClient
@@ -19,7 +21,8 @@ class BaseConnection(abc.ABC):
         await self._client.stop()
     
     async def send(self, data: dict[str, any]) -> None:
-        await self._ws.send_json(data)
+        if self._ws.client_state == WebSocketState.CONNECTED:
+            await self._ws.send_json(data)
     
     async def recv(self) -> dict[str, any]:
         return await self._ws.receive_json()
@@ -32,9 +35,9 @@ class BaseConnection(abc.ABC):
             try:
                 while True:
                     data = await self.recv()
-                    result = await self._client.call(data)
-                    await self.send(result)
+                    await self._client.call(data)
             except WebSocketDisconnect:
+                logging.debug("websocket disconnect")
                 await self.disconnect()
     
     @abc.abstractmethod

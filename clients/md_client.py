@@ -3,24 +3,9 @@ import uuid
 
 from typing import Callable
 from openctp import thostmduserapi as mdapi
-
+from constants import CallError
+from constants import MdConstant as Constant
 from utils import CTPObjectHelper, GlobalConfig
-
-
-class Constant(object):
-    MessageType = "MessageType"
-
-    OnRspUserLogin = "OnRspUserLogin"
-    OnRspSubMarketData = "OnRspSubMarketData"
-    OnRspUnSubMarketData = "OnRspUnSubMarketData"
-
-    OnRtnDepthMarketData = "OnRtnDepthMarketData"
-
-    RspUserLogin = "RspUserLogin"
-    SpecificInstrument = "SpecificInstrument"
-    DepthMarketData = "DepthMarketData"
-
-    Instruments = "InstrumentID"
 
 
 class MdClient(mdapi.CThostFtdcMdSpi):
@@ -45,7 +30,15 @@ class MdClient(mdapi.CThostFtdcMdSpi):
     def rsp_callback(self, callback: Callable[[dict[str, any]], None]):
         self._rsp_callback = callback
     
+    def method_called(self, msg_type: str, ret: int):
+        if ret != 0:
+            response = CTPObjectHelper.build_response_dict(msg_type)
+            response[Constant.RspInfo] = CallError.get_rsp_info(ret)
+            self.rsp_callback(response)
+    
     def release(self) -> None:
+        logging.debug(f"release md client: {self._user_id}")
+        self._api.RegisterSpi(None)
         self._api.Release()
         self._api = None
         self._connected = False
@@ -106,39 +99,46 @@ class MdClient(mdapi.CThostFtdcMdSpi):
             "TradingDay": pRspUserLogin.TradingDay,
             "UserID": pRspUserLogin.UserID
         }
-        self._rsp_callback(response)
+        self.rsp_callback(response)
     
-    def subscribeMarketData(self, request: dict[str, any]) -> int:
-        instrumentIds = request[Constant.Instruments]
+    def subscribeMarketData(self, request: dict[str, any]) -> None:
+        instrumentIds = request[Constant.InstrumentID]
         instrumentIds = list(map(lambda i: i.encode(), instrumentIds))
         logging.debug(f"subscribe data for {instrumentIds}")
-        return self._api.SubscribeMarketData(instrumentIds, len(instrumentIds))
+        ret = self._api.SubscribeMarketData(instrumentIds, len(instrumentIds))
+        self.method_called(Constant.OnRspSubMarketData, ret)
     
     def OnRspSubMarketData(self, pSpecificInstrument: mdapi.CThostFtdcSpecificInstrumentField, pRspInfo, nRequestID, bIsLast):
         response = CTPObjectHelper.build_response_dict(Constant.OnRspSubMarketData, pRspInfo, nRequestID, bIsLast)
         if pSpecificInstrument:
-            response[Constant.SpecificInstrument] = {"InstrumentID" : pSpecificInstrument.InstrumentID}
-        self._rsp_callback(response)
+            response[Constant.SpecificInstrument] = {
+                Constant.InstrumentID: pSpecificInstrument.InstrumentID
+            }
+        self.rsp_callback(response)
     
     def OnRtnDepthMarketData(self, pDepthMarketData: mdapi.CThostFtdcDepthMarketDataField):
+        logging.debug(f"receive depth market data: {pDepthMarketData.InstrumentID}")
         depthData = CTPObjectHelper.object_to_dict(pDepthMarketData, mdapi.CThostFtdcDepthMarketDataField)
         response = {
             Constant.MessageType: Constant.OnRtnDepthMarketData,
             Constant.DepthMarketData: depthData
         }
-        self._rsp_callback(response)
+        self.rsp_callback(response)
 
     # unsubscribe market data
     def unSubscribeMarketData(self, request: dict[str, any]) -> int:
-        instrumentIds = request[Constant.Instruments]
+        instrumentIds = request[Constant.InstrumentID]
         instrumentIds = list(map(lambda i: i.encode(), instrumentIds))
         logging.debug(f"unsubscribe data for {instrumentIds}")
-        return self._api.UnSubscribeMarketData(instrumentIds, len(instrumentIds))
+        ret = self._api.UnSubscribeMarketData(instrumentIds, len(instrumentIds))
+        self.method_called(Constant.OnRspUnSubMarketData, ret)
 
     # OnRspUnSubMarketData from CThostFtdcMdSpi
     def OnRspUnSubMarketData(self, pSpecificInstrument: mdapi.CThostFtdcSpecificInstrumentField, pRspInfo, nRequestID, bIsLast):
         logging.debug(f"recv unsub market data")
         response = CTPObjectHelper.build_response_dict(Constant.OnRspUnSubMarketData, pRspInfo, nRequestID, bIsLast)
         if pSpecificInstrument:
-            response[Constant.SpecificInstrument] = {"InstrumentID" : pSpecificInstrument.InstrumentID}
-        self._rsp_callback(response)
+            response[Constant.SpecificInstrument] = {
+                Constant.InstrumentID: pSpecificInstrument.InstrumentID
+            }
+        self.rsp_callback(response)

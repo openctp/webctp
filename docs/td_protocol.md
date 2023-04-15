@@ -8,11 +8,7 @@
     "Password":"123456"
   }
 }
-# 调用结果
-{
-  "MsgType": "ReqUserLogin",
-  "Ret": 0
-}
+
 # 应答
 {
   "MsgType": "OnRspUserLogin",
@@ -42,11 +38,6 @@
     "ProductID": ""
   },
   "RequestID": 0
-}
-
-{
-  "MsgType": "ReqQryInstrument",
-  "Ret": 0
 }
 
 {
