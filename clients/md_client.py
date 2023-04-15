@@ -3,12 +3,13 @@ import uuid
 
 from typing import Callable
 from openctp import thostmduserapi as mdapi
-
+from constants import CallError
 from utils import CTPObjectHelper, GlobalConfig
 
 
 class Constant(object):
     MessageType = "MessageType"
+    RspInfo = "RspInfo"
 
     OnRspUserLogin = "OnRspUserLogin"
     OnRspSubMarketData = "OnRspSubMarketData"
@@ -44,6 +45,12 @@ class MdClient(mdapi.CThostFtdcMdSpi):
     @rsp_callback.setter
     def rsp_callback(self, callback: Callable[[dict[str, any]], None]):
         self._rsp_callback = callback
+    
+    def method_called(self, msg_type: str, ret: int):
+        if ret != 0:
+            response = CTPObjectHelper.build_response_dict(msg_type)
+            response[Constant.RspInfo] = CallError.get_rsp_info(ret)
+            self._rsp_callback(response)
     
     def release(self) -> None:
         self._api.RegisterSpi(None)
@@ -109,11 +116,12 @@ class MdClient(mdapi.CThostFtdcMdSpi):
         }
         self._rsp_callback(response)
     
-    def subscribeMarketData(self, request: dict[str, any]) -> int:
+    def subscribeMarketData(self, request: dict[str, any]) -> None:
         instrumentIds = request[Constant.Instruments]
         instrumentIds = list(map(lambda i: i.encode(), instrumentIds))
         logging.debug(f"subscribe data for {instrumentIds}")
-        return self._api.SubscribeMarketData(instrumentIds, len(instrumentIds))
+        ret = self._api.SubscribeMarketData(instrumentIds, len(instrumentIds))
+        self.method_called(Constant.OnRspSubMarketData, ret)
     
     def OnRspSubMarketData(self, pSpecificInstrument: mdapi.CThostFtdcSpecificInstrumentField, pRspInfo, nRequestID, bIsLast):
         response = CTPObjectHelper.build_response_dict(Constant.OnRspSubMarketData, pRspInfo, nRequestID, bIsLast)
@@ -134,7 +142,8 @@ class MdClient(mdapi.CThostFtdcMdSpi):
         instrumentIds = request[Constant.Instruments]
         instrumentIds = list(map(lambda i: i.encode(), instrumentIds))
         logging.debug(f"unsubscribe data for {instrumentIds}")
-        return self._api.UnSubscribeMarketData(instrumentIds, len(instrumentIds))
+        ret = self._api.UnSubscribeMarketData(instrumentIds, len(instrumentIds))
+        self.method_called(Constant.OnRspUnSubMarketData, ret)
 
     # OnRspUnSubMarketData from CThostFtdcMdSpi
     def OnRspUnSubMarketData(self, pSpecificInstrument: mdapi.CThostFtdcSpecificInstrumentField, pRspInfo, nRequestID, bIsLast):

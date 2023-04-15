@@ -46,7 +46,7 @@ class MdClient(object):
     def on_rsp_or_rtn(self, data: dict[str, any]) -> None:
         self._queue.put_nowait(data)
 
-    async def call(self, request: dict[str, any]) -> dict[str, any]:
+    async def call(self, request: dict[str, any]) -> None:
         message_type = request[self.MESSAGE_TYPE]
         ret = {
             self.MESSAGE_TYPE: message_type,
@@ -58,10 +58,16 @@ class MdClient(object):
             await self.start(user_id, password)
         else:
             if message_type in self._call_map:
-                ret["Ret"] = self._call_map[message_type](request)
+                await anyio.to_thread.run_sync(self._call_map[message_type], request)
             else:
-                ret["Ret"] = 404
-        return ret
+                resposne = {
+                    self.MESSAGE_TYPE: message_type,
+                    "RspInfo": {
+                        "ErrorID": -404,
+                        "ErrorMsg": "Not implemented"
+                    }
+                }
+                await self.rsp_callback(resposne)
 
     async def start(self, user_id: str, password: str) -> None:
         # NOTE: This if clause avoid the following secenario

@@ -20,13 +20,15 @@ class CTPObjectHelper(object):
             obj.__setattr__(attr, value)
     
     @staticmethod
-    def build_response_dict(message_type: str, rsp_info: object, request_id: int, is_last: bool) -> dict[str, any]:
+    def build_response_dict(message_type: str, rsp_info: object = None, request_id: int = None, is_last: bool = None) -> dict[str, any]:
         response = {
             "MsgType": message_type,
             "RspInfo": None,
-            "RequestID": request_id,
-            "IsLast": is_last
         }
+        if request_id:
+            response["RequestID"] = request_id
+        if is_last:
+            response["IsLast"] = is_last
         if rsp_info:
             response["RspInfo"] = {
                 "ErrorID": rsp_info.ErrorID,

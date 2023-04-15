@@ -32,8 +32,7 @@ class BaseConnection(abc.ABC):
             try:
                 while True:
                     data = await self.recv()
-                    result = await self._client.call(data)
-                    await self.send(result)
+                    await self._client.call(data)
             except WebSocketDisconnect:
                 await self.disconnect()
     
