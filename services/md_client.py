@@ -77,6 +77,7 @@ class MdClient(object):
             await anyio.to_thread.run_sync(self._client.connect)
 
     async def stop(self) -> None:
+        logging.debug(f"stopping md client")
         self._running = False
         if self._stop_event:
             await self._stop_event.wait()
@@ -84,6 +85,7 @@ class MdClient(object):
         
         if self._client:
             await anyio.to_thread.run_sync(self._client.release)
+        logging.debug(f"md client stopped")
 
     async def run(self) -> None:
         logging.info("start to run new corroutine")
@@ -91,6 +93,7 @@ class MdClient(object):
         self._running = True
         while self._running:
             await self._procees_a_message(1.0)
+        logging.info("stop running corroutine")
         self._stop_event.set()
 
     async def _procees_a_message(self, wait_time: float):
@@ -99,6 +102,8 @@ class MdClient(object):
             await self.rsp_callback(rsp)
         except Empty:
             pass
+        except Exception as e:
+            logging.info(f"exception in md client {e} {type(e)}")
 
     def _init_call_map(self):
         self._call_map["SubscribeMarketData"] = self._client.subscribeMarketData

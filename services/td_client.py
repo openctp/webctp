@@ -76,6 +76,7 @@ class TdClient(object):
             await anyio.to_thread.run_sync(self._client.connect)
 
     async def stop(self) -> None:
+        logging.debug(f"stopping td client")
         self._running = False
         if self._stop_event:
             await self._stop_event.wait()
@@ -83,12 +84,15 @@ class TdClient(object):
 
         if self._client:
             await anyio.to_thread.run_sync(self._client.release)
+        logging.debug(f"md client stpped")
 
     async def run(self) -> None:
+        logging.info("start to run new td corroutine")
         self._stop_event = anyio.Event()
         self._running = True
         while self._running:
             await self._procees_a_message(1.0)
+        logging.info("stop running courrtine")
         self._stop_event.set()
 
     async def _procees_a_message(self, wait_time: float):
@@ -97,6 +101,8 @@ class TdClient(object):
             await self.rsp_callback(rsp)
         except Empty:
             pass
+        except Exception as e:
+            logging.info(f"exception in td client {e} {type(e)}")
 
     def _init_call_map(self):
         self._call_map["ReqQryInstrument"] = self._client.reqQryInstrument

@@ -34,9 +34,10 @@ class MdClient(mdapi.CThostFtdcMdSpi):
         if ret != 0:
             response = CTPObjectHelper.build_response_dict(msg_type)
             response[Constant.RspInfo] = CallError.get_rsp_info(ret)
-            self._rsp_callback(response)
+            self.rsp_callback(response)
     
     def release(self) -> None:
+        logging.debug(f"release md client: {self._user_id}")
         self._api.RegisterSpi(None)
         self._api.Release()
         self._api = None
@@ -98,7 +99,7 @@ class MdClient(mdapi.CThostFtdcMdSpi):
             "TradingDay": pRspUserLogin.TradingDay,
             "UserID": pRspUserLogin.UserID
         }
-        self._rsp_callback(response)
+        self.rsp_callback(response)
     
     def subscribeMarketData(self, request: dict[str, any]) -> None:
         instrumentIds = request[Constant.InstrumentID]
@@ -113,15 +114,16 @@ class MdClient(mdapi.CThostFtdcMdSpi):
             response[Constant.SpecificInstrument] = {
                 Constant.InstrumentID: pSpecificInstrument.InstrumentID
             }
-        self._rsp_callback(response)
+        self.rsp_callback(response)
     
     def OnRtnDepthMarketData(self, pDepthMarketData: mdapi.CThostFtdcDepthMarketDataField):
+        logging.debug(f"receive depth market data: {pDepthMarketData.InstrumentID}")
         depthData = CTPObjectHelper.object_to_dict(pDepthMarketData, mdapi.CThostFtdcDepthMarketDataField)
         response = {
             Constant.MessageType: Constant.OnRtnDepthMarketData,
             Constant.DepthMarketData: depthData
         }
-        self._rsp_callback(response)
+        self.rsp_callback(response)
 
     # unsubscribe market data
     def unSubscribeMarketData(self, request: dict[str, any]) -> int:
@@ -139,4 +141,4 @@ class MdClient(mdapi.CThostFtdcMdSpi):
             response[Constant.SpecificInstrument] = {
                 Constant.InstrumentID: pSpecificInstrument.InstrumentID
             }
-        self._rsp_callback(response)
+        self.rsp_callback(response)
