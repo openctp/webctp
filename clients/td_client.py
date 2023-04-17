@@ -181,3 +181,22 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
             }
         response[Constant.Instrument] = instrument
         self._rsp_callback(response)
+
+    # ReqUserPasswordUpdate
+    def reqUserPasswordUpdate(self, request: dict[str, any]) -> None:
+        req, requestId = CTPObjectHelper.extract_request(request, Constant.UserPasswordUpdate, tdapi.CThostFtdcUserPasswordUpdateField)
+        ret = self._api.ReqUserPasswordUpdate(req, requestId)
+        self.method_called(Constant.OnRspUserPasswordUpdate, ret)
+    
+    def OnRspUserPassowrdUpdate(self, pUserPasswordUpdate: tdapi.CThostFtdcUserPasswordUpdateField, pRspInfo: tdapi.CThostFtdcRspInfoField, nRequestID: int, bIsLast: bool):
+        response = CTPObjectHelper.build_response_dict(Constant.OnRspUserPasswordUpdate, pRspInfo, nRequestID, bIsLast)
+        userPasswordUpdate = None
+        if pUserPasswordUpdate:
+            userPasswordUpdate = {
+                "BrokerID": pUserPasswordUpdate.BrokerID,
+                "UserID": pUserPasswordUpdate.UserID,
+                "OldPassword": pUserPasswordUpdate.OldPassword,
+                "NewPassword": pUserPasswordUpdate.NewPassword
+            }
+        response[Constant.UserPasswordUpdate] = userPasswordUpdate
+        self._rsp_callback(response)

@@ -34,9 +34,12 @@ class TdConstant(CommonConstant):
     OnRspAuthenticate = "OnRspAuthenticate"
     OnRspQryInstrument = "OnRspQryInstrument"
     OnRspOrderInsert = "OnRspOrderInsert"
+    ReqUserPasswordUpdate = "ReqUserPasswordUpdate"
+    OnRspUserPasswordUpdate = "OnRspUserPasswordUpdate"
 
     # RequestField
     QryInstrument = "QryInstrument"
+    UserPasswordUpdate = "UserPasswordUpdate"
 
     # ResponseField
     Instrument = "Instrument"
