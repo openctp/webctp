@@ -135,7 +135,7 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
                 "INETime": pRspUserLogin.INETime
             }
 
-        self._rsp_callback(response)
+        self.rsp_callback(response)
     
     def reqQryInstrument(self, request: dict[str, any]) -> int:
         req, requestId = CTPObjectHelper.extract_request(request, Constant.QryInstrument, tdapi.CThostFtdcQryInstrumentField)
@@ -180,7 +180,7 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
                 "CombinationType": pInstrument.CombinationType
             }
         response[Constant.Instrument] = instrument
-        self._rsp_callback(response)
+        self.rsp_callback(response)
 
     # ReqUserPasswordUpdate
     def reqUserPasswordUpdate(self, request: dict[str, any]) -> None:
@@ -199,4 +199,199 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
                 "NewPassword": pUserPasswordUpdate.NewPassword
             }
         response[Constant.UserPasswordUpdate] = userPasswordUpdate
-        self._rsp_callback(response)
+        self.rsp_callback(response)
+
+    def reqOrderInsert(self, request: dict[str, any]) -> None:
+        req, requestId = CTPObjectHelper.extract_request(request, Constant.InputOrder, tdapi.CThostFtdcInputOrderField)
+        ret = self._api.ReqOrderInsert(req, requestId)
+        self.method_called(Constant.OnRspOrderInsert, ret)
+    
+    def OnRspOrderInsert(self, pInputOrder: tdapi.CThostFtdcInputOrderField, pRspInfo: tdapi.CThostFtdcRspInfoField, nRequestID: int, bIsLast: bool):
+        response = CTPObjectHelper.build_response_dict(Constant.OnRspOrderInsert, pRspInfo, nRequestID, bIsLast)
+        inputOrder = None
+        if pInputOrder:
+            inputOrder = {
+                "BrokerID": pInputOrder.BrokerID,
+                "InvestorID": pInputOrder.InvestorID,
+                "OrderRef": pInputOrder.OrderRef,
+                "UserID": pInputOrder.UserID,
+                "OrderPriceType": pInputOrder.OrderPriceType,
+                "Direction": pInputOrder.Direction,
+                "CombOffsetFlag": pInputOrder.CombOffsetFlag,
+                "CombHedgeFlag": pInputOrder.CombHedgeFlag,
+                "LimitPrice": pInputOrder.LimitPrice,
+                "VolumeTotalOriginal": pInputOrder.VolumeTotalOriginal,
+                "TimeCondition": pInputOrder.TimeCondition,
+                "GTDDate": pInputOrder.GTDDate,
+                "VolumeCondition": pInputOrder.VolumeCondition,
+                "MinVolume": pInputOrder.MinVolume,
+                "ContingentCondition": pInputOrder.ContingentCondition,
+                "StopPrice": pInputOrder.StopPrice,
+                "ForceCloseReason": pInputOrder.ForceCloseReason,
+                "IsAutoSuspend": pInputOrder.IsAutoSuspend,
+                "BusinessUnit": pInputOrder.BusinessUnit,
+                "RequestID": pInputOrder.RequestID,
+                "UserForceClose": pInputOrder.UserForceClose,
+                "IsSwapOrder": pInputOrder.IsSwapOrder,
+                "ExchangeID": pInputOrder.ExchangeID,
+                "InvestUnitID": pInputOrder.InvestUnitID,
+                "AccountID": pInputOrder.AccountID,
+                "CurrencyID": pInputOrder.CurrencyID,
+                "ClientID": pInputOrder.ClientID,
+                "MacAddress": pInputOrder.MacAddress,
+                "InstrumentID": pInputOrder.InstrumentID,
+                "IPAddress": pInputOrder.IPAddress
+            }
+        response[Constant.InputOrder] = inputOrder
+        self.rsp_callback(response)
+    
+    def OnErrRtnOrderInsert(self, pInputOrder: tdapi.CThostFtdcInputOrderField, pRspInfo: tdapi.CThostFtdcRspInfoField):
+        response = CTPObjectHelper.build_response_dict(Constant.OnErrRtnOrderInsert, pRspInfo)
+        inputOrder = None
+        if pInputOrder:
+            inputOrder = {
+                "BrokerID": pInputOrder.BrokerID,
+                "InvestorID": pInputOrder.InvestorID,
+                "OrderRef": pInputOrder.OrderRef,
+                "UserID": pInputOrder.UserID,
+                "OrderPriceType": pInputOrder.OrderPriceType,
+                "Direction": pInputOrder.Direction,
+                "CombOffsetFlag": pInputOrder.CombOffsetFlag,
+                "CombHedgeFlag": pInputOrder.CombHedgeFlag,
+                "LimitPrice": pInputOrder.LimitPrice,
+                "VolumeTotalOriginal": pInputOrder.VolumeTotalOriginal,
+                "TimeCondition": pInputOrder.TimeCondition,
+                "GTDDate": pInputOrder.GTDDate,
+                "VolumeCondition": pInputOrder.VolumeCondition,
+                "MinVolume": pInputOrder.MinVolume,
+                "ContingentCondition": pInputOrder.ContingentCondition,
+                "StopPrice": pInputOrder.StopPrice,
+                "ForceCloseReason": pInputOrder.ForceCloseReason,
+                "IsAutoSuspend": pInputOrder.IsAutoSuspend,
+                "BusinessUnit": pInputOrder.BusinessUnit,
+                "RequestID": pInputOrder.RequestID,
+                "UserForceClose": pInputOrder.UserForceClose,
+                "IsSwapOrder": pInputOrder.IsSwapOrder,
+                "ExchangeID": pInputOrder.ExchangeID,
+                "InvestUnitID": pInputOrder.InvestUnitID,
+                "AccountID": pInputOrder.AccountID,
+                "CurrencyID": pInputOrder.CurrencyID,
+                "ClientID": pInputOrder.ClientID,
+                "MacAddress": pInputOrder.MacAddress,
+                "InstrumentID": pInputOrder.InstrumentID,
+                "IPAddress": pInputOrder.IPAddress
+            }
+        response[Constant.InputOrder] = inputOrder
+        self.rsp_callback(response)
+    
+    def OnRtnOrder(self, pOrder: tdapi.CThostFtdcOrderField):
+        response = CTPObjectHelper.build_response_dict(Constant.OnRtnOrder)
+        order = None
+        if pOrder:
+            order = {
+                "BrokerID": pOrder.BrokerID,
+                "InvestorID": pOrder.InvestorID,
+                "OrderRef": pOrder.OrderRef,
+                "UserID": pOrder.UserID,
+                "OrderPriceType": pOrder.OrderPriceType,
+                "Direction": pOrder.Direction,
+                "CombOffsetFlag": pOrder.CombOffsetFlag,
+                "CombHedgeFlag": pOrder.CombHedgeFlag,
+                "LimitPrice": pOrder.LimitPrice,
+                "VolumeTotalOriginal": pOrder.VolumeTotalOriginal,
+                "TimeCondition": pOrder.TimeCondition,
+                "GTDDate": pOrder.GTDDate,
+                "VolumeCondition": pOrder.VolumeCondition,
+                "MinVolume": pOrder.MinVolume,
+                "ContingentCondition": pOrder.ContingentCondition,
+                "StopPrice": pOrder.StopPrice,
+                "ForceCloseReason": pOrder.ForceCloseReason,
+                "IsAutoSuspend": pOrder.IsAutoSuspend,
+                "BusinessUnit": pOrder.BusinessUnit,
+                "RequestID": pOrder.RequestID,
+                "OrderLocalID": pOrder.OrderLocalID,
+                "ExchangeID": pOrder.ExchangeID,
+                "ParticipantID": pOrder.ParticipantID,
+                "ClientID": pOrder.ClientID,
+                "TraderID": pOrder.TraderID,
+                "InstallID": pOrder.InstallID,
+                "OrderSubmitStatus": pOrder.OrderSubmitStatus,
+                "NotifySequence": pOrder.NotifySequence,
+                "TradingDay": pOrder.TradingDay,
+                "SettlementID": pOrder.SettlementID,
+                "OrderSysID": pOrder.OrderSysID,
+                "OrderSource": pOrder.OrderSource,
+                "OrderStatus": pOrder.OrderStatus,
+                "OrderType": pOrder.OrderType,
+                "VolumeTraded": pOrder.VolumeTraded,
+                "VolumeTotal": pOrder.VolumeTotal,
+                "InsertDate": pOrder.InsertDate,
+                "InsertTime": pOrder.InsertTime,
+                "ActiveTime": pOrder.ActiveTime,
+                "SuspendTime": pOrder.SuspendTime,
+                "UpdateTime": pOrder.UpdateTime,
+                "CancelTime": pOrder.CancelTime,
+                "ActiveTraderID": pOrder.ActiveTraderID,
+                "ClearingPartID": pOrder.ClearingPartID,
+                "SequenceNo": pOrder.SequenceNo,
+                "FrontID": pOrder.FrontID,
+                "SessionID": pOrder.SessionID,
+                "UserProductInfo": pOrder.UserProductInfo,
+                "StatusMsg": pOrder.StatusMsg,
+                "UserForceClose": pOrder.UserForceClose,
+                "ActiveUserID": pOrder.ActiveUserID,
+                "BrokerOrderSeq": pOrder.BrokerOrderSeq,
+                "RelativeOrderSysID": pOrder.RelativeOrderSysID,
+                "ZCETotalTradedVolume": pOrder.ZCETotalTradedVolume,
+                "IsSwapOrder": pOrder.IsSwapOrder,
+                "BranchID": pOrder.BranchID,
+                "InvestUnitID": pOrder.InvestUnitID,
+                "AccountID": pOrder.AccountID,
+                "CurrencyID": pOrder.CurrencyID,
+                "MacAddress": pOrder.MacAddress,
+                "InstrumentID": pOrder.InstrumentID,
+                "ExchangeInstID": pOrder.ExchangeInstID,
+                "IPAddress": pOrder.IPAddress
+            }
+        response[Constant.Order] = order
+        self.rsp_callback(response)
+    
+    def OnRtnTrade(self, pTrade: tdapi.CThostFtdcTradeField):
+        response = CTPObjectHelper.build_response_dict(Constant.OnRtnTrade)
+        trade = None
+        if pTrade:
+            trade = {
+                "BrokerID": pTrade.BrokerID,
+                "InvestorID": pTrade.InvestorID,
+                "OrderRef": pTrade.OrderRef,
+                "UserID": pTrade.UserID,
+                "ExchangeID": pTrade.ExchangeID,
+                "TradeID": pTrade.TradeID,
+                "Direction": pTrade.Direction,
+                "OrderSysID": pTrade.OrderSysID,
+                "ParticipantID": pTrade.ParticipantID,
+                "ClientID": pTrade.ClientID,
+                "TradingRole": pTrade.TradingRole,
+                "OffsetFlag": pTrade.OffsetFlag,
+                "HedgeFlag": pTrade.HedgeFlag,
+                "Price": pTrade.Price,
+                "Volume": pTrade.Volume,
+                "TradeDate": pTrade.TradeDate,
+                "TradeTime": pTrade.TradeTime,
+                "TradeType": pTrade.TradeType,
+                "PriceSource": pTrade.PriceSource,
+                "TraderID": pTrade.TraderID,
+                "OrderLocalID": pTrade.OrderLocalID,
+                "ClearingPartID": pTrade.ClearingPartID,
+                "BusinessUnit": pTrade.BusinessUnit,
+                "SequenceNo": pTrade.SequenceNo,
+                "TradingDay": pTrade.TradingDay,
+                "SettlementID": pTrade.SettlementID,
+                "BrokerOrderSeq": pTrade.BrokerOrderSeq,
+                "TradeSource": pTrade.TradeSource,
+                "InvestUnitID": pTrade.InvestUnitID,
+                "InstrumentID": pTrade.InstrumentID,
+                "ExchangeInstID": pTrade.ExchangeInstID,
+            }
+        response[Constant.Trade] = trade
+        self.rsp_callback(response)

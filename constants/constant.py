@@ -36,10 +36,18 @@ class TdConstant(CommonConstant):
     OnRspOrderInsert = "OnRspOrderInsert"
     ReqUserPasswordUpdate = "ReqUserPasswordUpdate"
     OnRspUserPasswordUpdate = "OnRspUserPasswordUpdate"
+    ReqOrderInsert = "ReqOrderInsert"
+    OnRspOrderInsert = "OnRspOrderInsert"
+    OnErrRtnOrderInsert = "OnErrRtnOrderInsert"
+    OnRtnOrder = "OnRtnOrder"
+    OnRtnTrade = "OnRtnTrade"
 
     # RequestField
     QryInstrument = "QryInstrument"
     UserPasswordUpdate = "UserPasswordUpdate"
+    InputOrder = "InputOrder"
 
     # ResponseField
     Instrument = "Instrument"
+    Order = "Order"
+    Trade = "Trade"
