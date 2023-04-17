@@ -53,7 +53,9 @@ class TdClient(object):
             await self.start(user_id, password)
         else:
             if message_type in self._call_map:
+                print(f'call  {message_type}')
                 await anyio.to_thread.run_sync(self._call_map[message_type], request)
+                print(f'call  {message_type} end')
             else:
                 response = {
                     Constant.MessageType: message_type,
@@ -106,3 +108,11 @@ class TdClient(object):
 
     def _init_call_map(self):
         self._call_map["ReqQryInstrument"] = self._client.reqQryInstrument
+        self._call_map["ReqQryExchange"] = self._client.ReqQryExchange
+        self._call_map["ReqQryProduct"] = self._client.ReqQryProduct
+        self._call_map["ReqQryDepthMarketData"] = self._client.ReqQryDepthMarketData
+        self._call_map["ReqQryInvestorPositionDetail"] = self._client.ReqQryInvestorPositionDetail
+        self._call_map["ReqQryExchangeMarginRate"] = self._client.ReqQryExchangeMarginRate
+        self._call_map["ReqQryInstrumentOrderCommRate"] = self._client.ReqQryInstrumentOrderCommRate
+        self._call_map["ReqQryOptionInstrTradeCost"] = self._client.ReqQryOptionInstrTradeCost
+        self._call_map["ReqQryOptionInstrCommRate"] = self._client.ReqQryOptionInstrCommRate
