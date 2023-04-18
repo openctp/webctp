@@ -402,7 +402,7 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
         self.method_called(Constant.OnRspOrderAction, ret)
 
     def OnRspOrderAction(self, pInputOrderAction: tdapi.CThostFtdcInputOrderActionField, pRspInfo: tdapi.CThostFtdcRspInfoField, nRequestID: int, bIsLast: bool):
-        response = CTPObjectHelper.build_response_dict(Constant.OnRspOrderAction)
+        response = CTPObjectHelper.build_response_dict(Constant.OnRspOrderAction, pRspInfo, nRequestID, bIsLast)
         inputOrderAction = None
         if pInputOrderAction:
             inputOrderAction = {
@@ -428,7 +428,7 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
         self.rsp_callback(response)
     
     def OnErrRtnOrderAction(self, pOrderAction: tdapi.CThostFtdcOrderActionField, pRspInfo: tdapi.CThostFtdcRspInfoField):
-        response = CTPObjectHelper.build_response_dict(Constant.OnErrRtnOrderAction)
+        response = CTPObjectHelper.build_response_dict(Constant.OnErrRtnOrderAction, pRspInfo)
         orderAction = None
         if pOrderAction:
             orderAction = {
@@ -463,4 +463,27 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
                 "IPAddress": pOrderAction.IPAddress
             }
         response[Constant.OrderAction] = orderAction
+        self.rsp_callback(response)
+    
+    def reqQryMaxOrderVolume(self, request: dict[str, any]) -> None:
+        req, requestId = CTPObjectHelper.extract_request(request, Constant.QryMaxOrderVolume, tdapi.CThostFtdcQryMaxOrderVolumeField)
+        ret = self._api.ReqQryMaxOrderVolume(req, requestId)
+        self.method_called(Constant.OnRspQryMaxOrderVolume, ret)
+    
+    def OnRspQryMaxOrderVolume(self, pQryMaxOrderVolume: tdapi.CThostFtdcQryMaxOrderVolumeField, pRspInfo: tdapi.CThostFtdcRspInfoField, nRequestID: int, bIsLast: bool):
+        response = CTPObjectHelper.build_response_dict(Constant.OnRspQryMaxOrderVolume, pRspInfo, nRequestID, bIsLast)
+        qryMaxOrderVolume = None
+        if pQryMaxOrderVolume:
+            qryMaxOrderVolume = {
+                "BrokerID": pQryMaxOrderVolume.BrokerID,
+                "InvestorID": pQryMaxOrderVolume.InvestorID,
+                "InstrumentID": pQryMaxOrderVolume.InstrumentID,
+                "ExchangeID": pQryMaxOrderVolume.ExchangeID,
+                "InvestUnitID": pQryMaxOrderVolume.InvestUnitID,
+                "MaxVolume": pQryMaxOrderVolume.MaxVolume,
+                "Direction": pQryMaxOrderVolume.Direction,
+                "OffsetFlag": pQryMaxOrderVolume.OffsetFlag,
+                "HedgeFlag": pQryMaxOrderVolume.HedgeFlag
+            }
+        response[Constant.QryMaxOrderVolume] = qryMaxOrderVolume
         self.rsp_callback(response)
