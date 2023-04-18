@@ -4,7 +4,7 @@ from typing import Callable
 from openctp import thosttraderapi as tdapi
 from constants import CallError
 from constants import TdConstant as Constant
-from utils import CTPObjectHelper, GlobalConfig
+from utils import CTPObjectHelper, GlobalConfig, math_helper
 
 
 class TdClient(tdapi.CThostFtdcTraderSpi):
@@ -181,6 +181,250 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
             }
         response[Constant.Instrument] = instrument
         self.rsp_callback(response)
+
+    def ReqQryExchange(self, request: dict[str, any]) -> int:
+        req, requestId = CTPObjectHelper.extract_request(request, Constant.QryExchange, tdapi.CThostFtdcQryExchangeField)
+        ret = self._api.ReqQryExchange(req, requestId)
+        self.method_called(Constant.OnRspQryExchange, ret)
+    
+    def OnRspQryExchange(self, pExchange: tdapi.CThostFtdcExchangeField, pRspInfo: tdapi.CThostFtdcRspInfoField, nRequestID: int, bIsLast: bool):
+        response = CTPObjectHelper.build_response_dict(Constant.OnRspQryExchange, pRspInfo, nRequestID, bIsLast)
+        result = {}
+        if pExchange:
+            result = {
+                "ExchangeID": pExchange.ExchangeID,
+                "ExchangeName": pExchange.ExchangeName.encode('unicode-escape').decode(),
+                "ExchangeProperty": pExchange.ExchangeProperty
+                }
+        response[Constant.QryExchange] = result
+        self._rsp_callback(response)
+
+    def ReqQryProduct(self, request: dict[str, any]) -> int:
+        req, requestId = CTPObjectHelper.extract_request(request, Constant.QryProduct, tdapi.CThostFtdcQryProductField)
+        ret = self._api.ReqQryProduct(req, requestId)
+        self.method_called(Constant.OnRspQryProduct, ret)
+    
+    def OnRspQryProduct(self, pProduct: tdapi.CThostFtdcProductField, pRspInfo: tdapi.CThostFtdcRspInfoField, nRequestID: int, bIsLast: bool):
+        response = CTPObjectHelper.build_response_dict(Constant.OnRspQryProduct, pRspInfo, nRequestID, bIsLast)
+        result = {}
+        if pProduct:
+            result = {
+                "CloseDealType": pProduct.CloseDealType,
+                "ExchangeID": pProduct.ExchangeID,
+                "ExchangeProductID": pProduct.ExchangeProductID,
+                "MaxLimitOrderVolume": pProduct.MaxLimitOrderVolume,
+                "MaxMarketOrderVolume": pProduct.MaxMarketOrderVolume,
+                "MinLimitOrderVolume": pProduct.MinLimitOrderVolume,
+                "MinMarketOrderVolume": pProduct.MinMarketOrderVolume,
+                "MortgageFundUseRange": pProduct.MortgageFundUseRange,
+                "OpenLimitControlLevel": pProduct.OpenLimitControlLevel,
+                "OrderFreqControlLevel": pProduct.OrderFreqControlLevel,
+                "PositionDateType": pProduct.PositionDateType,
+                "PositionType": pProduct.PositionType,
+                "PriceTick": pProduct.PriceTick,
+                "ProductClass": pProduct.ProductClass,
+                "ProductID": pProduct.ProductID,
+                "ProductName": pProduct.ProductName,
+                "TradeCurrencyID": pProduct.TradeCurrencyID,
+                "UnderlyingMultiple": pProduct.UnderlyingMultiple,
+                "VolumeMultiple": pProduct.VolumeMultiple
+                }
+        response[Constant.QryProduct] = result
+        self._rsp_callback(response)
+
+    def ReqQryDepthMarketData(self, request: dict[str, any]) -> int:
+        req, requestId = CTPObjectHelper.extract_request(request, Constant.QryDepthMarketData, tdapi.CThostFtdcQryDepthMarketDataField)
+        ret = self._api.ReqQryDepthMarketData(req, requestId)
+        self.method_called(Constant.OnRspQryDepthMarketData, ret)
+    
+    def OnRspQryDepthMarketData(self, pDepthMarketData: tdapi.CThostFtdcDepthMarketDataField, pRspInfo: tdapi.CThostFtdcRspInfoField, nRequestID: int, bIsLast: bool):
+        response = CTPObjectHelper.build_response_dict(Constant.OnRspQryDepthMarketData, pRspInfo, nRequestID, bIsLast)
+        result = {}
+        if pDepthMarketData:
+            result = {
+                "ActionDay": pDepthMarketData.ActionDay,
+                "AskPrice1": math_helper.adjust_price(pDepthMarketData.AskPrice1),
+                "AskPrice2": math_helper.adjust_price(pDepthMarketData.AskPrice2),
+                "AskPrice3": math_helper.adjust_price(pDepthMarketData.AskPrice3),
+                "AskPrice4": math_helper.adjust_price(pDepthMarketData.AskPrice4),
+                "AskPrice5": math_helper.adjust_price(pDepthMarketData.AskPrice5),
+                "AskVolume1": pDepthMarketData.AskVolume1,
+                "AskVolume2": pDepthMarketData.AskVolume2,
+                "AskVolume3": pDepthMarketData.AskVolume3,
+                "AskVolume4": pDepthMarketData.AskVolume4,
+                "AskVolume5": pDepthMarketData.AskVolume5,
+                "AveragePrice": math_helper.adjust_price(pDepthMarketData.AveragePrice),
+                "BandingLowerPrice": math_helper.adjust_price(pDepthMarketData.BandingLowerPrice),
+                "BandingUpperPrice": math_helper.adjust_price(pDepthMarketData.BandingUpperPrice),
+                "BidPrice1": math_helper.adjust_price(pDepthMarketData.BidPrice1),
+                "BidPrice2": math_helper.adjust_price(pDepthMarketData.BidPrice2),
+                "BidPrice3": math_helper.adjust_price(pDepthMarketData.BidPrice3),
+                "BidPrice4": math_helper.adjust_price(pDepthMarketData.BidPrice4),
+                "BidPrice5": math_helper.adjust_price(pDepthMarketData.BidPrice5),
+                "BidVolume1": pDepthMarketData.BidVolume1,
+                "BidVolume2": pDepthMarketData.BidVolume2,
+                "BidVolume3": pDepthMarketData.BidVolume3,
+                "BidVolume4": pDepthMarketData.BidVolume4,
+                "BidVolume5": pDepthMarketData.BidVolume5,
+                "ClosePrice": math_helper.adjust_price(pDepthMarketData.ClosePrice),
+                "CurrDelta": pDepthMarketData.CurrDelta,
+                "ExchangeID": pDepthMarketData.ExchangeID,
+                "ExchangeInstID": pDepthMarketData.ExchangeInstID,
+                "HighestPrice": math_helper.adjust_price(pDepthMarketData.HighestPrice),
+                "InstrumentID": pDepthMarketData.InstrumentID,
+                "LastPrice": math_helper.adjust_price(pDepthMarketData.LastPrice),
+                "LowerLimitPrice": math_helper.adjust_price(pDepthMarketData.LowerLimitPrice),
+                "LowestPrice": math_helper.adjust_price(pDepthMarketData.LowestPrice),
+                "OpenInterest": pDepthMarketData.OpenInterest,
+                "OpenPrice": math_helper.adjust_price(pDepthMarketData.OpenPrice),
+                "PreClosePrice": math_helper.adjust_price(pDepthMarketData.PreClosePrice),
+                "PreDelta": pDepthMarketData.PreDelta,
+                "PreOpenInterest": pDepthMarketData.PreOpenInterest,
+                "PreSettlementPrice": pDepthMarketData.PreSettlementPrice,
+                "SettlementPrice": math_helper.adjust_price(pDepthMarketData.SettlementPrice),
+                "TradingDay": pDepthMarketData.TradingDay,
+                "Turnover": pDepthMarketData.Turnover,
+                "UpdateMillisec": pDepthMarketData.UpdateMillisec,
+                "UpdateTime": pDepthMarketData.UpdateTime,
+                "UpperLimitPrice": math_helper.adjust_price(pDepthMarketData.UpperLimitPrice),
+                "Volume": pDepthMarketData.Volume
+                }
+        response[Constant.QryDepthMarketData] = result
+        self._rsp_callback(response)
+
+    def ReqQryInvestorPositionDetail(self, request: dict[str, any]) -> int:
+        req, requestId = CTPObjectHelper.extract_request(request, Constant.QryInvestorPositionDetail, tdapi.CThostFtdcQryInvestorPositionDetailField)
+        ret = self._api.ReqQryInvestorPositionDetail(req, requestId)
+        self.method_called(Constant.OnRspQryInvestorPositionDetail, ret)
+    
+    def OnRspQryInvestorPositionDetail(self, pQryInvestorPositionDetail: tdapi.CThostFtdcInvestorPositionDetailField, pRspInfo: tdapi.CThostFtdcRspInfoField, nRequestID: int, bIsLast: bool):
+        response = CTPObjectHelper.build_response_dict(Constant.OnRspQryInvestorPositionDetail, pRspInfo, nRequestID, bIsLast)
+        result = {}
+        if pQryInvestorPositionDetail:
+            result = {
+                "BrokerID": pQryInvestorPositionDetail.BrokerID,
+                "CloseAmount": pQryInvestorPositionDetail.CloseAmount,
+                "CloseProfitByDate": pQryInvestorPositionDetail.CloseProfitByDate,
+                "CloseProfitByTrade": pQryInvestorPositionDetail.CloseProfitByTrade,
+                "CloseVolume": pQryInvestorPositionDetail.CloseVolume,
+                "CombInstrumentID": pQryInvestorPositionDetail.CombInstrumentID,
+                "Direction": pQryInvestorPositionDetail.Direction,
+                "ExchMargin": pQryInvestorPositionDetail.ExchMargin,
+                "ExchangeID": pQryInvestorPositionDetail.ExchangeID,
+                "HedgeFlag": pQryInvestorPositionDetail.HedgeFlag,
+                "InstrumentID": pQryInvestorPositionDetail.InstrumentID,
+                "InvestUnitID": pQryInvestorPositionDetail.InvestUnitID,
+                "InvestorID": pQryInvestorPositionDetail.InvestorID,
+                "LastSettlementPrice": pQryInvestorPositionDetail.LastSettlementPrice,
+                "Margin": pQryInvestorPositionDetail.Margin,
+                "MarginRateByMoney": pQryInvestorPositionDetail.MarginRateByMoney,
+                "MarginRateByVolume": pQryInvestorPositionDetail.MarginRateByVolume,
+                "OpenDate": pQryInvestorPositionDetail.OpenDate,
+                "OpenPrice": pQryInvestorPositionDetail.OpenPrice,
+                "PositionProfitByDate": pQryInvestorPositionDetail.PositionProfitByDate,
+                "PositionProfitByTrade": pQryInvestorPositionDetail.PositionProfitByTrade,
+                "SettlementID": pQryInvestorPositionDetail.SettlementID,
+                "SettlementPrice": pQryInvestorPositionDetail.SettlementPrice,
+                "SpecPosiType": pQryInvestorPositionDetail.SpecPosiType,
+                "TimeFirstVolume": pQryInvestorPositionDetail.TimeFirstVolume,
+                "TradeID": pQryInvestorPositionDetail.TradeID,
+                "TradeType": pQryInvestorPositionDetail.TradeType,
+                "TradingDay": pQryInvestorPositionDetail.TradingDay,
+                "Volume": pQryInvestorPositionDetail.Volume
+                }
+        response[Constant.QryInvestorPositionDetail] = result
+        self._rsp_callback(response)
+
+    def ReqQryExchangeMarginRate(self, request: dict[str, any]) -> int:
+        req, requestId = CTPObjectHelper.extract_request(request, Constant.QryExchangeMarginRate, tdapi.CThostFtdcQryExchangeMarginRateField)
+        ret = self._api.ReqQryExchangeMarginRate(req, requestId)
+        self.method_called(Constant.OnRspQryExchangeMarginRate, ret)
+    
+    def OnRspQryExchangeMarginRate(self, pQryExchangeMarginRate: tdapi.CThostFtdcExchangeMarginRateField, pRspInfo: tdapi.CThostFtdcRspInfoField, nRequestID: int, bIsLast: bool):
+        response = CTPObjectHelper.build_response_dict(Constant.OnRspQryExchangeMarginRate, pRspInfo, nRequestID, bIsLast)
+        result = {}
+        if pQryExchangeMarginRate:
+            result = {
+                "BrokerID": pQryExchangeMarginRate.BrokerID,
+                "ExchangeID": pQryExchangeMarginRate.ExchangeID,
+                "HedgeFlag": pQryExchangeMarginRate.HedgeFlag,
+                "InstrumentID": pQryExchangeMarginRate.InstrumentID,
+                "LongMarginRatioByMoney": pQryExchangeMarginRate.LongMarginRatioByMoney,
+                "LongMarginRatioByVolume": pQryExchangeMarginRate.LongMarginRatioByVolume,
+                "ShortMarginRatioByMoney": pQryExchangeMarginRate.ShortMarginRatioByMoney,
+                "ShortMarginRatioByVolume": pQryExchangeMarginRate.ShortMarginRatioByVolume
+                }
+        response[Constant.QryExchangeMarginRate] = result
+        self._rsp_callback(response)
+
+    def ReqQryInstrumentOrderCommRate(self, request: dict[str, any]) -> int:
+        req, requestId = CTPObjectHelper.extract_request(request, Constant.QryInstrumentOrderCommRate, tdapi.CThostFtdcQryInstrumentOrderCommRateField)
+        ret = self._api.ReqQryInstrumentOrderCommRate(req, requestId)
+        self.method_called(Constant.OnRspQryInstrumentOrderCommRate, ret)
+    
+    def OnRspQryInstrumentOrderCommRate(self, pInstrumentOrderCommRate: tdapi.CThostFtdcInstrumentOrderCommRateField, pRspInfo: tdapi.CThostFtdcRspInfoField, nRequestID: int, bIsLast: bool):
+        response = CTPObjectHelper.build_response_dict(Constant.OnRspQryInstrumentOrderCommRate, pRspInfo, nRequestID, bIsLast)
+        result = {}
+        if pInstrumentOrderCommRate:
+            result = {
+                "BrokerID": pInstrumentOrderCommRate.BrokerID,
+                "ExchangeID": pInstrumentOrderCommRate.ExchangeID,
+                "HedgeFlag": pInstrumentOrderCommRate.HedgeFlag,
+                "InstrumentID": pInstrumentOrderCommRate.InstrumentID,
+                "InvestUnitID": pInstrumentOrderCommRate.InvestUnitID,
+                "InvestorID": pInstrumentOrderCommRate.InvestorID,
+                "InvestorRange": pInstrumentOrderCommRate.InvestorRange,
+                "OrderActionCommByTrade": pInstrumentOrderCommRate.OrderActionCommByTrade,
+                "OrderActionCommByVolume": pInstrumentOrderCommRate.OrderActionCommByVolume,
+                "OrderCommByTrade": pInstrumentOrderCommRate.OrderCommByTrade,
+                "OrderCommByVolume": pInstrumentOrderCommRate.OrderCommByVolume
+                }
+        response[Constant.QryInstrumentOrderCommRate] = result
+        self._rsp_callback(response)
+
+    def ReqQryOptionInstrTradeCost(self, request: dict[str, any]) -> int:
+        req, requestId = CTPObjectHelper.extract_request(request, Constant.QryOptionInstrTradeCost, tdapi.CThostFtdcQryOptionInstrTradeCostField)
+        ret = self._api.ReqQryOptionInstrTradeCost(req, requestId)
+        self.method_called(Constant.OnRspQryOptionInstrTradeCost, ret)
+    
+    def OnRspQryOptionInstrTradeCost(self, pOptionInstrTradeCost: tdapi.CThostFtdcOptionInstrTradeCostField, pRspInfo: tdapi.CThostFtdcRspInfoField, nRequestID: int, bIsLast: bool):
+        response = CTPObjectHelper.build_response_dict(Constant.OnRspQryOptionInstrTradeCost, pRspInfo, nRequestID, bIsLast)
+        result = {}
+        if pOptionInstrTradeCost:
+            result = {
+                "BrokerID": pOptionInstrTradeCost.BrokerID,
+                "ExchFixedMargin": pOptionInstrTradeCost.ExchFixedMargin,
+                "ExchMiniMargin": pOptionInstrTradeCost.ExchMiniMargin,
+                "ExchangeID": pOptionInstrTradeCost.ExchangeID,
+                "FixedMargin": pOptionInstrTradeCost.FixedMargin,
+                "HedgeFlag": pOptionInstrTradeCost.HedgeFlag,
+                "InstrumentID": pOptionInstrTradeCost.InstrumentID,
+                "InvestUnitID": pOptionInstrTradeCost.InvestUnitID,
+                "InvestorID": pOptionInstrTradeCost.InvestorID,
+                "MiniMargin": pOptionInstrTradeCost.MiniMargin,
+                "Royalty": pOptionInstrTradeCost.Royalty
+                }
+        response[Constant.QryOptionInstrTradeCost] = result
+        self._rsp_callback(response)
+
+    def ReqQryOptionInstrCommRate(self, request: dict[str, any]) -> int:
+        req, requestId = CTPObjectHelper.extract_request(request, Constant.QryOptionInstrCommRate, tdapi.CThostFtdcQryOptionInstrCommRateField)
+        ret = self._api.ReqQryOptionInstrCommRate(req, requestId)
+        self.method_called(Constant.OnRspQryOptionInstrCommRate, ret)
+    
+    def OnRspQryOptionInstrCommRate(self, pQryOptionInstrCommRate: tdapi.CThostFtdcQryOptionInstrCommRateField, pRspInfo: tdapi.CThostFtdcRspInfoField, nRequestID: int, bIsLast: bool):
+        response = CTPObjectHelper.build_response_dict(Constant.OnRspQryOptionInstrCommRate, pRspInfo, nRequestID, bIsLast)
+        result = {}
+        if pQryOptionInstrCommRate:
+            result = {
+                "BrokerID": pQryOptionInstrCommRate.BrokerID,
+                "ExchangeID": pQryOptionInstrCommRate.ExchangeID,
+                "InstrumentID": pQryOptionInstrCommRate.InstrumentID,
+                "InvestUnitID": pQryOptionInstrCommRate.InvestUnitID,
+                "InvestorID": pQryOptionInstrCommRate.InvestorID
+                }
+        response[Constant.QryOptionInstrCommRate] = result
+        self._rsp_callback(response)
 
     # ReqUserPasswordUpdate
     def reqUserPasswordUpdate(self, request: dict[str, any]) -> None:
