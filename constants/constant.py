@@ -45,6 +45,9 @@ class TdConstant(CommonConstant):
     OnRspOrderAction = "OnRspOrderAction"
     OnErrRtnOrderAction = "OnErrRtnOrderAction"
     ReqQryMaxOrderVolume = "ReqQryMaxOrderVolume"
+    OnRspQryMaxOrderVolume = "OnRspQryMaxOrderVolume"
+    ReqQryOrder = "ReqQryOrder"
+    OnRspQryOrder = "OnRspQryOrder"
 
     # RequestField
     QryInstrument = "QryInstrument"
@@ -52,10 +55,10 @@ class TdConstant(CommonConstant):
     InputOrder = "InputOrder"
     InputOrderAction = "InputOrderAction"
     QryMaxOrderVolume = "QryMaxOrderVolume"
+    QryOrder = "QryOrder"
 
     # ResponseField
     Instrument = "Instrument"
     Order = "Order"
     Trade = "Trade"
     OrderAction = "OrderAction"
-    OnRspQryMaxOrderVolume = "OnRspQryMaxOrderVolume"

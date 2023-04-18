@@ -487,3 +487,80 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
             }
         response[Constant.QryMaxOrderVolume] = qryMaxOrderVolume
         self.rsp_callback(response)
+    
+    def reqQryOrder(self, request: dict[str, any]) -> None:
+        req, requestId = CTPObjectHelper.extract_request(request, Constant.QryOrder, tdapi.CThostFtdcQryOrderField)
+        ret = self._api.ReqQryOrder(req, requestId)
+        self.method_called(Constant.OnRspQryOrder, ret)
+    
+    def OnRspQryOrder(self, pOrder: tdapi.CThostFtdcOrderField, pRspInfo: tdapi.CThostFtdcRspInfoField, nRequestID: int, bIsLast: bool):
+        response = CTPObjectHelper.build_response_dict(Constant.OnRspQryOrder, pRspInfo, nRequestID, bIsLast)
+        order = None
+        if pOrder:
+            order = {
+                "BrokerID": pOrder.BrokerID,
+                "InvestorID": pOrder.InvestorID,
+                "OrderRef": pOrder.OrderRef,
+                "UserID": pOrder.UserID,
+                "OrderPriceType": pOrder.OrderPriceType,
+                "Direction": pOrder.Direction,
+                "CombOffsetFlag": pOrder.CombOffsetFlag,
+                "CombHedgeFlag": pOrder.CombHedgeFlag,
+                "LimitPrice": pOrder.LimitPrice,
+                "VolumeTotalOriginal": pOrder.VolumeTotalOriginal,
+                "TimeCondition": pOrder.TimeCondition,
+                "GTDDate": pOrder.GTDDate,
+                "VolumeCondition": pOrder.VolumeCondition,
+                "MinVolume": pOrder.MinVolume,
+                "ContingentCondition": pOrder.ContingentCondition,
+                "StopPrice": pOrder.StopPrice,
+                "ForceCloseReason": pOrder.ForceCloseReason,
+                "IsAutoSuspend": pOrder.IsAutoSuspend,
+                "BusinessUnit": pOrder.BusinessUnit,
+                "RequestID": pOrder.RequestID,
+                "OrderLocalID": pOrder.OrderLocalID,
+                "ExchangeID": pOrder.ExchangeID,
+                "ParticipantID": pOrder.ParticipantID,
+                "ClientID": pOrder.ClientID,
+                "TraderID": pOrder.TraderID,
+                "InstallID": pOrder.InstallID,
+                "OrderSubmitStatus": pOrder.OrderSubmitStatus,
+                "NotifySequence": pOrder.NotifySequence,
+                "TradingDay": pOrder.TradingDay,
+                "SettlementID": pOrder.SettlementID,
+                "OrderSysID": pOrder.OrderSysID,
+                "OrderSource": pOrder.OrderSource,
+                "OrderStatus": pOrder.OrderStatus,
+                "OrderType": pOrder.OrderType,
+                "VolumeTraded": pOrder.VolumeTraded,
+                "VolumeTotal": pOrder.VolumeTotal,
+                "InsertDate": pOrder.InsertDate,
+                "InsertTime": pOrder.InsertTime,
+                "ActiveTime": pOrder.ActiveTime,
+                "SuspendTime": pOrder.SuspendTime,
+                "UpdateTime": pOrder.UpdateTime,
+                "CancelTime": pOrder.CancelTime,
+                "ActiveTraderID": pOrder.ActiveTraderID,
+                "ClearingPartID": pOrder.ClearingPartID,
+                "SequenceNo": pOrder.SequenceNo,
+                "FrontID": pOrder.FrontID,
+                "SessionID": pOrder.SessionID,
+                "UserProductInfo": pOrder.UserProductInfo,
+                "StatusMsg": pOrder.StatusMsg,
+                "UserForceClose": pOrder.UserForceClose,
+                "ActiveUserID": pOrder.ActiveUserID,
+                "BrokerOrderSeq": pOrder.BrokerOrderSeq,
+                "RelativeOrderSysID": pOrder.RelativeOrderSysID,
+                "ZCETotalTradedVolume": pOrder.ZCETotalTradedVolume,
+                "IsSwapOrder": pOrder.IsSwapOrder,
+                "BranchID": pOrder.BranchID,
+                "InvestUnitID": pOrder.InvestUnitID,
+                "AccountID": pOrder.AccountID,
+                "CurrencyID": pOrder.CurrencyID,
+                "MacAddress": pOrder.MacAddress,
+                "InstrumentID": pOrder.InstrumentID,
+                "ExchangeInstID": pOrder.ExchangeInstID,
+                "IPAddress": pOrder.IPAddress
+            }
+        response[Constant.Order] = order
+        self.rsp_callback(response)
