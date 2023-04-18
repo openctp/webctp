@@ -230,7 +230,7 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
                 "VolumeMultiple": pProduct.VolumeMultiple
             }
         response[Constant.Product] = result
-        self._rsp_callback(response)
+        self.rsp_callback(response)
 
     def ReqQryDepthMarketData(self, request: dict[str, any]) -> int:
         req, requestId = CTPObjectHelper.extract_request(request, Constant.QryDepthMarketData, tdapi.CThostFtdcQryDepthMarketDataField)
@@ -290,7 +290,7 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
                 "Volume": pDepthMarketData.Volume
             }
         response[Constant.DepthMarketData] = result
-        self._rsp_callback(response)
+        self.rsp_callback(response)
 
     def ReqQryInvestorPositionDetail(self, request: dict[str, any]) -> int:
         req, requestId = CTPObjectHelper.extract_request(request, Constant.QryInvestorPositionDetail, tdapi.CThostFtdcQryInvestorPositionDetailField)
@@ -333,7 +333,7 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
                 "Volume": pInvestorPositionDetail.Volume
             }
         response[Constant.InvestorPositionDetail] = result
-        self._rsp_callback(response)
+        self.rsp_callback(response)
 
     def ReqQryExchangeMarginRate(self, request: dict[str, any]) -> int:
         req, requestId = CTPObjectHelper.extract_request(request, Constant.QryExchangeMarginRate, tdapi.CThostFtdcQryExchangeMarginRateField)
@@ -355,7 +355,7 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
                 "ShortMarginRatioByVolume": pExchangeMarginRate.ShortMarginRatioByVolume
             }
         response[Constant.ExchangeMarginRate] = result
-        self._rsp_callback(response)
+        self.rsp_callback(response)
 
     def ReqQryInstrumentOrderCommRate(self, request: dict[str, any]) -> int:
         req, requestId = CTPObjectHelper.extract_request(request, Constant.QryInstrumentOrderCommRate, tdapi.CThostFtdcQryInstrumentOrderCommRateField)
@@ -380,7 +380,7 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
                 "OrderCommByVolume": pInstrumentOrderCommRate.OrderCommByVolume
             }
         response[Constant.InstrumentOrderCommRate] = result
-        self._rsp_callback(response)
+        self.rsp_callback(response)
 
     def ReqQryOptionInstrTradeCost(self, request: dict[str, any]) -> int:
         req, requestId = CTPObjectHelper.extract_request(request, Constant.QryOptionInstrTradeCost, tdapi.CThostFtdcQryOptionInstrTradeCostField)
@@ -405,7 +405,7 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
                 "Royalty": pOptionInstrTradeCost.Royalty
             }
         response[Constant.OptionInstrTradeCost] = result
-        self._rsp_callback(response)
+        self.rsp_callback(response)
 
     def ReqQryOptionInstrCommRate(self, request: dict[str, any]) -> int:
         req, requestId = CTPObjectHelper.extract_request(request, Constant.QryOptionInstrCommRate, tdapi.CThostFtdcQryOptionInstrCommRateField)
@@ -433,7 +433,7 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
                 "InstrumentID": pOptionInstrCommRate.InstrumentID
             }
         response[Constant.OptionInstrCommRate] = result
-        self._rsp_callback(response)
+        self.rsp_callback(response)
 
     # ReqUserPasswordUpdate
     def reqUserPasswordUpdate(self, request: dict[str, any]) -> None:
