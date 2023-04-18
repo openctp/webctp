@@ -395,3 +395,72 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
             }
         response[Constant.Trade] = trade
         self.rsp_callback(response)
+    
+    def reqOrderAction(self, request: dict[str, any]) -> None:
+        req, requestId = CTPObjectHelper.extract_request(request, Constant.InputOrderAction, tdapi.CThostFtdcInputOrderActionField)
+        ret = self._api.ReqOrderAction(req, requestId)
+        self.method_called(Constant.OnRspOrderAction, ret)
+
+    def OnRspOrderAction(self, pInputOrderAction: tdapi.CThostFtdcInputOrderActionField, pRspInfo: tdapi.CThostFtdcRspInfoField, nRequestID: int, bIsLast: bool):
+        response = CTPObjectHelper.build_response_dict(Constant.OnRspOrderAction)
+        inputOrderAction = None
+        if pInputOrderAction:
+            inputOrderAction = {
+                "BrokerID": pInputOrderAction.BrokerID,
+                "InvestorID": pInputOrderAction.InvestorID,
+                "OrderActionRef": pInputOrderAction.OrderActionRef,
+                "OrderRef": pInputOrderAction.OrderRef,
+                "RequestID": pInputOrderAction.RequestID,
+                "FrontID": pInputOrderAction.FrontID,
+                "SessionID": pInputOrderAction.SessionID,
+                "ExchangeID": pInputOrderAction.ExchangeID,
+                "OrderSysID": pInputOrderAction.OrderSysID,
+                "ActionFlag": pInputOrderAction.ActionFlag,
+                "LimitPrice": pInputOrderAction.LimitPrice,
+                "VolumeChange": pInputOrderAction.VolumeChange,
+                "UserID": pInputOrderAction.UserID,
+                "InvestUnitID": pInputOrderAction.InvestUnitID,
+                "MacAddress": pInputOrderAction.MacAddress,
+                "InstrumentID": pInputOrderAction.InstrumentID,
+                "IPAddress": pInputOrderAction.IPAddress
+            }
+        response[Constant.InputOrderAction] = inputOrderAction
+        self.rsp_callback(response)
+    
+    def OnErrRtnOrderAction(self, pOrderAction: tdapi.CThostFtdcOrderActionField, pRspInfo: tdapi.CThostFtdcRspInfoField):
+        response = CTPObjectHelper.build_response_dict(Constant.OnErrRtnOrderAction)
+        orderAction = None
+        if pOrderAction:
+            orderAction = {
+                "BrokerID": pOrderAction.BrokerID,
+                "InvestorID": pOrderAction.InvestorID,
+                "OrderActionRef": pOrderAction.OrderActionRef,
+                "OrderRef": pOrderAction.OrderRef,
+                "RequestID": pOrderAction.RequestID,
+                "FrontID": pOrderAction.FrontID,
+                "SessionID": pOrderAction.SessionID,
+                "ExchangeID": pOrderAction.ExchangeID,
+                "OrderSysID": pOrderAction.OrderSysID,
+                "ActionFlag": pOrderAction.ActionFlag,
+                "LimitPrice": pOrderAction.LimitPrice,
+                "VolumeChange": pOrderAction.VolumeChange,
+                "ActionDate": pOrderAction.ActionDate,
+                "ActionTime": pOrderAction.ActionTime,
+                "TraderID": pOrderAction.TraderID,
+                "InstallID": pOrderAction.InstallID,
+                "OrderLocalID": pOrderAction.OrderLocalID,
+                "ActionLocalID": pOrderAction.ActionLocalID,
+                "ParticipantID": pOrderAction.ParticipantID,
+                "ClientID": pOrderAction.ClientID,
+                "BusinessUnit": pOrderAction.BusinessUnit,
+                "OrderActionStatus": pOrderAction.OrderActionStatus,
+                "UserID": pOrderAction.UserID,
+                "StatusMsg": pOrderAction.StatusMsg,
+                "BranchID": pOrderAction.BranchID,
+                "InvestUnitID": pOrderAction.InvestUnitID,
+                "MacAddress": pOrderAction.MacAddress,
+                "InstrumentID": pOrderAction.InstrumentID,
+                "IPAddress": pOrderAction.IPAddress
+            }
+        response[Constant.OrderAction] = orderAction
+        self.rsp_callback(response)
