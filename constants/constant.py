@@ -56,3 +56,14 @@ class TdConstant(CommonConstant):
 
     # ResponseField
     Instrument = "Instrument"
+
+    # RequestMethod
+    ReqQryInstrument = "reqQryInstrument"
+    ReqQryExchange = "ReqQryExchange"
+    ReqQryProduct = "ReqQryProduct"
+    ReqQryDepthMarketData = "ReqQryDepthMarketData"
+    ReqQryInvestorPositionDetail = "ReqQryInvestorPositionDetail"
+    ReqQryExchangeMarginRate = "ReqQryExchangeMarginRate"
+    ReqQryInstrumentOrderCommRate = "ReqQryInstrumentOrderCommRate"
+    ReqQryOptionInstrTradeCost = "ReqQryOptionInstrTradeCost"
+    ReqQryOptionInstrCommRate = "ReqQryOptionInstrCommRate"

@@ -107,12 +107,12 @@ class TdClient(object):
             logging.info(f"exception in td client {e} {type(e)}")
 
     def _init_call_map(self):
-        self._call_map["ReqQryInstrument"] = self._client.reqQryInstrument
-        self._call_map["ReqQryExchange"] = self._client.ReqQryExchange
-        self._call_map["ReqQryProduct"] = self._client.ReqQryProduct
-        self._call_map["ReqQryDepthMarketData"] = self._client.ReqQryDepthMarketData
-        self._call_map["ReqQryInvestorPositionDetail"] = self._client.ReqQryInvestorPositionDetail
-        self._call_map["ReqQryExchangeMarginRate"] = self._client.ReqQryExchangeMarginRate
-        self._call_map["ReqQryInstrumentOrderCommRate"] = self._client.ReqQryInstrumentOrderCommRate
-        self._call_map["ReqQryOptionInstrTradeCost"] = self._client.ReqQryOptionInstrTradeCost
-        self._call_map["ReqQryOptionInstrCommRate"] = self._client.ReqQryOptionInstrCommRate
+        self._call_map[Constant.ReqQryInstrument] = self._client.reqQryInstrument
+        self._call_map[Constant.ReqQryExchange] = self._client.ReqQryExchange
+        self._call_map[Constant.ReqQryProduct] = self._client.ReqQryProduct
+        self._call_map[Constant.ReqQryDepthMarketData] = self._client.ReqQryDepthMarketData
+        self._call_map[Constant.ReqQryInvestorPositionDetail] = self._client.ReqQryInvestorPositionDetail
+        self._call_map[Constant.ReqQryExchangeMarginRate] = self._client.ReqQryExchangeMarginRate
+        self._call_map[Constant.ReqQryInstrumentOrderCommRate] = self._client.ReqQryInstrumentOrderCommRate
+        self._call_map[Constant.ReqQryOptionInstrTradeCost] = self._client.ReqQryOptionInstrTradeCost
+        self._call_map[Constant.ReqQryOptionInstrCommRate] = self._client.ReqQryOptionInstrCommRate

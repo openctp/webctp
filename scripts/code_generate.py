@@ -5,7 +5,7 @@ from openctp import thostmduserapi as mdapi
 object_name = "pQryOptionInstrCommRate"
 typ = tdapi.CThostFtdcQryOptionInstrCommRateField   
 
-exclude_attrs = ["thisown"]
+exclude_attrs = ["thisown","reserve","reserve1","reserve2","reserve3"]
 attrs = list(filter(lambda x: not (x.startswith("__") or x in exclude_attrs), dir(typ)))
 result = '{\n'
 for attr in attrs:

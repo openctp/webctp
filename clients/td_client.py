@@ -227,9 +227,7 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
                 "ProductName": pProduct.ProductName,
                 "TradeCurrencyID": pProduct.TradeCurrencyID,
                 "UnderlyingMultiple": pProduct.UnderlyingMultiple,
-                "VolumeMultiple": pProduct.VolumeMultiple,
-                "reserve1": pProduct.reserve1,
-                "reserve2": pProduct.reserve2
+                "VolumeMultiple": pProduct.VolumeMultiple
                 }
         response[Constant.QryProduct] = result
         self._rsp_callback(response)
@@ -289,9 +287,7 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
                 "UpdateMillisec": pDepthMarketData.UpdateMillisec,
                 "UpdateTime": pDepthMarketData.UpdateTime,
                 "UpperLimitPrice": math_helper.adjust_price(pDepthMarketData.UpperLimitPrice),
-                "Volume": pDepthMarketData.Volume,
-                "reserve1": pDepthMarketData.reserve1,
-                "reserve2": pDepthMarketData.reserve2
+                "Volume": pDepthMarketData.Volume
                 }
         response[Constant.QryDepthMarketData] = result
         self._rsp_callback(response)
@@ -334,9 +330,7 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
                 "TradeID": pQryInvestorPositionDetail.TradeID,
                 "TradeType": pQryInvestorPositionDetail.TradeType,
                 "TradingDay": pQryInvestorPositionDetail.TradingDay,
-                "Volume": pQryInvestorPositionDetail.Volume,
-                "reserve1": pQryInvestorPositionDetail.reserve1,
-                "reserve2": pQryInvestorPositionDetail.reserve2
+                "Volume": pQryInvestorPositionDetail.Volume
                 }
         response[Constant.QryInvestorPositionDetail] = result
         self._rsp_callback(response)
@@ -358,8 +352,7 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
                 "LongMarginRatioByMoney": pQryExchangeMarginRate.LongMarginRatioByMoney,
                 "LongMarginRatioByVolume": pQryExchangeMarginRate.LongMarginRatioByVolume,
                 "ShortMarginRatioByMoney": pQryExchangeMarginRate.ShortMarginRatioByMoney,
-                "ShortMarginRatioByVolume": pQryExchangeMarginRate.ShortMarginRatioByVolume,
-                "reserve1": pQryExchangeMarginRate.reserve1
+                "ShortMarginRatioByVolume": pQryExchangeMarginRate.ShortMarginRatioByVolume
                 }
         response[Constant.QryExchangeMarginRate] = result
         self._rsp_callback(response)
@@ -384,8 +377,7 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
                 "OrderActionCommByTrade": pInstrumentOrderCommRate.OrderActionCommByTrade,
                 "OrderActionCommByVolume": pInstrumentOrderCommRate.OrderActionCommByVolume,
                 "OrderCommByTrade": pInstrumentOrderCommRate.OrderCommByTrade,
-                "OrderCommByVolume": pInstrumentOrderCommRate.OrderCommByVolume,
-                "reserve1": pInstrumentOrderCommRate.reserve1
+                "OrderCommByVolume": pInstrumentOrderCommRate.OrderCommByVolume
                 }
         response[Constant.QryInstrumentOrderCommRate] = result
         self._rsp_callback(response)
@@ -410,8 +402,7 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
                 "InvestUnitID": pOptionInstrTradeCost.InvestUnitID,
                 "InvestorID": pOptionInstrTradeCost.InvestorID,
                 "MiniMargin": pOptionInstrTradeCost.MiniMargin,
-                "Royalty": pOptionInstrTradeCost.Royalty,
-                "reserve1": pOptionInstrTradeCost.reserve1
+                "Royalty": pOptionInstrTradeCost.Royalty
                 }
         response[Constant.QryOptionInstrTradeCost] = result
         self._rsp_callback(response)
@@ -430,8 +421,7 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
                 "ExchangeID": pQryOptionInstrCommRate.ExchangeID,
                 "InstrumentID": pQryOptionInstrCommRate.InstrumentID,
                 "InvestUnitID": pQryOptionInstrCommRate.InvestUnitID,
-                "InvestorID": pQryOptionInstrCommRate.InvestorID,
-                "reserve1": pQryOptionInstrCommRate.reserve1
+                "InvestorID": pQryOptionInstrCommRate.InvestorID
                 }
         response[Constant.QryOptionInstrCommRate] = result
         self._rsp_callback(response)
