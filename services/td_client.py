@@ -5,7 +5,7 @@ from typing import Callable
 import anyio
 from anyio.abc import TaskGroup
 from constants import CallError
-from constants import CommonConstant as Constant
+from constants import TdConstant as Constant
 from clients import CTPTdClient
 
 class TdClient(object):
@@ -106,3 +106,8 @@ class TdClient(object):
 
     def _init_call_map(self):
         self._call_map["ReqQryInstrument"] = self._client.reqQryInstrument
+        self._call_map[Constant.ReqQryOrder] = self._client.reqQryOrder
+        self._call_map[Constant.ReqQryMaxOrderVolume] = self._client.reqQryMaxOrderVolume
+        self._call_map[Constant.ReqOrderAction] = self._client.reqOrderAction
+        self._call_map[Constant.ReqOrderInsert] = self._client.reqOrderInsert
+        self._call_map[Constant.ReqUserPasswordUpdate] = self._client.reqUserPasswordUpdate
