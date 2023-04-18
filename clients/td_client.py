@@ -195,9 +195,9 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
                 "ExchangeID": pExchange.ExchangeID,
                 "ExchangeName": pExchange.ExchangeName.encode('unicode-escape').decode(),
                 "ExchangeProperty": pExchange.ExchangeProperty
-                }
-        response[Constant.QryExchange] = result
-        self._rsp_callback(response)
+            }
+        response[Constant.Exchange] = result
+        self.rsp_callback(response)
 
     def ReqQryProduct(self, request: dict[str, any]) -> int:
         req, requestId = CTPObjectHelper.extract_request(request, Constant.QryProduct, tdapi.CThostFtdcQryProductField)
@@ -228,8 +228,8 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
                 "TradeCurrencyID": pProduct.TradeCurrencyID,
                 "UnderlyingMultiple": pProduct.UnderlyingMultiple,
                 "VolumeMultiple": pProduct.VolumeMultiple
-                }
-        response[Constant.QryProduct] = result
+            }
+        response[Constant.Product] = result
         self._rsp_callback(response)
 
     def ReqQryDepthMarketData(self, request: dict[str, any]) -> int:
@@ -288,8 +288,8 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
                 "UpdateTime": pDepthMarketData.UpdateTime,
                 "UpperLimitPrice": math_helper.adjust_price(pDepthMarketData.UpperLimitPrice),
                 "Volume": pDepthMarketData.Volume
-                }
-        response[Constant.QryDepthMarketData] = result
+            }
+        response[Constant.DepthMarketData] = result
         self._rsp_callback(response)
 
     def ReqQryInvestorPositionDetail(self, request: dict[str, any]) -> int:
@@ -297,42 +297,42 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
         ret = self._api.ReqQryInvestorPositionDetail(req, requestId)
         self.method_called(Constant.OnRspQryInvestorPositionDetail, ret)
     
-    def OnRspQryInvestorPositionDetail(self, pQryInvestorPositionDetail: tdapi.CThostFtdcInvestorPositionDetailField, pRspInfo: tdapi.CThostFtdcRspInfoField, nRequestID: int, bIsLast: bool):
+    def OnRspQryInvestorPositionDetail(self, pInvestorPositionDetail: tdapi.CThostFtdcInvestorPositionDetailField, pRspInfo: tdapi.CThostFtdcRspInfoField, nRequestID: int, bIsLast: bool):
         response = CTPObjectHelper.build_response_dict(Constant.OnRspQryInvestorPositionDetail, pRspInfo, nRequestID, bIsLast)
         result = {}
-        if pQryInvestorPositionDetail:
+        if pInvestorPositionDetail:
             result = {
-                "BrokerID": pQryInvestorPositionDetail.BrokerID,
-                "CloseAmount": pQryInvestorPositionDetail.CloseAmount,
-                "CloseProfitByDate": pQryInvestorPositionDetail.CloseProfitByDate,
-                "CloseProfitByTrade": pQryInvestorPositionDetail.CloseProfitByTrade,
-                "CloseVolume": pQryInvestorPositionDetail.CloseVolume,
-                "CombInstrumentID": pQryInvestorPositionDetail.CombInstrumentID,
-                "Direction": pQryInvestorPositionDetail.Direction,
-                "ExchMargin": pQryInvestorPositionDetail.ExchMargin,
-                "ExchangeID": pQryInvestorPositionDetail.ExchangeID,
-                "HedgeFlag": pQryInvestorPositionDetail.HedgeFlag,
-                "InstrumentID": pQryInvestorPositionDetail.InstrumentID,
-                "InvestUnitID": pQryInvestorPositionDetail.InvestUnitID,
-                "InvestorID": pQryInvestorPositionDetail.InvestorID,
-                "LastSettlementPrice": pQryInvestorPositionDetail.LastSettlementPrice,
-                "Margin": pQryInvestorPositionDetail.Margin,
-                "MarginRateByMoney": pQryInvestorPositionDetail.MarginRateByMoney,
-                "MarginRateByVolume": pQryInvestorPositionDetail.MarginRateByVolume,
-                "OpenDate": pQryInvestorPositionDetail.OpenDate,
-                "OpenPrice": pQryInvestorPositionDetail.OpenPrice,
-                "PositionProfitByDate": pQryInvestorPositionDetail.PositionProfitByDate,
-                "PositionProfitByTrade": pQryInvestorPositionDetail.PositionProfitByTrade,
-                "SettlementID": pQryInvestorPositionDetail.SettlementID,
-                "SettlementPrice": pQryInvestorPositionDetail.SettlementPrice,
-                "SpecPosiType": pQryInvestorPositionDetail.SpecPosiType,
-                "TimeFirstVolume": pQryInvestorPositionDetail.TimeFirstVolume,
-                "TradeID": pQryInvestorPositionDetail.TradeID,
-                "TradeType": pQryInvestorPositionDetail.TradeType,
-                "TradingDay": pQryInvestorPositionDetail.TradingDay,
-                "Volume": pQryInvestorPositionDetail.Volume
-                }
-        response[Constant.QryInvestorPositionDetail] = result
+                "BrokerID": pInvestorPositionDetail.BrokerID,
+                "CloseAmount": pInvestorPositionDetail.CloseAmount,
+                "CloseProfitByDate": pInvestorPositionDetail.CloseProfitByDate,
+                "CloseProfitByTrade": pInvestorPositionDetail.CloseProfitByTrade,
+                "CloseVolume": pInvestorPositionDetail.CloseVolume,
+                "CombInstrumentID": pInvestorPositionDetail.CombInstrumentID,
+                "Direction": pInvestorPositionDetail.Direction,
+                "ExchMargin": pInvestorPositionDetail.ExchMargin,
+                "ExchangeID": pInvestorPositionDetail.ExchangeID,
+                "HedgeFlag": pInvestorPositionDetail.HedgeFlag,
+                "InstrumentID": pInvestorPositionDetail.InstrumentID,
+                "InvestUnitID": pInvestorPositionDetail.InvestUnitID,
+                "InvestorID": pInvestorPositionDetail.InvestorID,
+                "LastSettlementPrice": pInvestorPositionDetail.LastSettlementPrice,
+                "Margin": pInvestorPositionDetail.Margin,
+                "MarginRateByMoney": pInvestorPositionDetail.MarginRateByMoney,
+                "MarginRateByVolume": pInvestorPositionDetail.MarginRateByVolume,
+                "OpenDate": pInvestorPositionDetail.OpenDate,
+                "OpenPrice": pInvestorPositionDetail.OpenPrice,
+                "PositionProfitByDate": pInvestorPositionDetail.PositionProfitByDate,
+                "PositionProfitByTrade": pInvestorPositionDetail.PositionProfitByTrade,
+                "SettlementID": pInvestorPositionDetail.SettlementID,
+                "SettlementPrice": pInvestorPositionDetail.SettlementPrice,
+                "SpecPosiType": pInvestorPositionDetail.SpecPosiType,
+                "TimeFirstVolume": pInvestorPositionDetail.TimeFirstVolume,
+                "TradeID": pInvestorPositionDetail.TradeID,
+                "TradeType": pInvestorPositionDetail.TradeType,
+                "TradingDay": pInvestorPositionDetail.TradingDay,
+                "Volume": pInvestorPositionDetail.Volume
+            }
+        response[Constant.InvestorPositionDetail] = result
         self._rsp_callback(response)
 
     def ReqQryExchangeMarginRate(self, request: dict[str, any]) -> int:
@@ -340,21 +340,21 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
         ret = self._api.ReqQryExchangeMarginRate(req, requestId)
         self.method_called(Constant.OnRspQryExchangeMarginRate, ret)
     
-    def OnRspQryExchangeMarginRate(self, pQryExchangeMarginRate: tdapi.CThostFtdcExchangeMarginRateField, pRspInfo: tdapi.CThostFtdcRspInfoField, nRequestID: int, bIsLast: bool):
+    def OnRspQryExchangeMarginRate(self, pExchangeMarginRate: tdapi.CThostFtdcExchangeMarginRateField, pRspInfo: tdapi.CThostFtdcRspInfoField, nRequestID: int, bIsLast: bool):
         response = CTPObjectHelper.build_response_dict(Constant.OnRspQryExchangeMarginRate, pRspInfo, nRequestID, bIsLast)
         result = {}
-        if pQryExchangeMarginRate:
+        if pExchangeMarginRate:
             result = {
-                "BrokerID": pQryExchangeMarginRate.BrokerID,
-                "ExchangeID": pQryExchangeMarginRate.ExchangeID,
-                "HedgeFlag": pQryExchangeMarginRate.HedgeFlag,
-                "InstrumentID": pQryExchangeMarginRate.InstrumentID,
-                "LongMarginRatioByMoney": pQryExchangeMarginRate.LongMarginRatioByMoney,
-                "LongMarginRatioByVolume": pQryExchangeMarginRate.LongMarginRatioByVolume,
-                "ShortMarginRatioByMoney": pQryExchangeMarginRate.ShortMarginRatioByMoney,
-                "ShortMarginRatioByVolume": pQryExchangeMarginRate.ShortMarginRatioByVolume
-                }
-        response[Constant.QryExchangeMarginRate] = result
+                "BrokerID": pExchangeMarginRate.BrokerID,
+                "ExchangeID": pExchangeMarginRate.ExchangeID,
+                "HedgeFlag": pExchangeMarginRate.HedgeFlag,
+                "InstrumentID": pExchangeMarginRate.InstrumentID,
+                "LongMarginRatioByMoney": pExchangeMarginRate.LongMarginRatioByMoney,
+                "LongMarginRatioByVolume": pExchangeMarginRate.LongMarginRatioByVolume,
+                "ShortMarginRatioByMoney": pExchangeMarginRate.ShortMarginRatioByMoney,
+                "ShortMarginRatioByVolume": pExchangeMarginRate.ShortMarginRatioByVolume
+            }
+        response[Constant.ExchangeMarginRate] = result
         self._rsp_callback(response)
 
     def ReqQryInstrumentOrderCommRate(self, request: dict[str, any]) -> int:
@@ -378,8 +378,8 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
                 "OrderActionCommByVolume": pInstrumentOrderCommRate.OrderActionCommByVolume,
                 "OrderCommByTrade": pInstrumentOrderCommRate.OrderCommByTrade,
                 "OrderCommByVolume": pInstrumentOrderCommRate.OrderCommByVolume
-                }
-        response[Constant.QryInstrumentOrderCommRate] = result
+            }
+        response[Constant.InstrumentOrderCommRate] = result
         self._rsp_callback(response)
 
     def ReqQryOptionInstrTradeCost(self, request: dict[str, any]) -> int:
@@ -403,8 +403,8 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
                 "InvestorID": pOptionInstrTradeCost.InvestorID,
                 "MiniMargin": pOptionInstrTradeCost.MiniMargin,
                 "Royalty": pOptionInstrTradeCost.Royalty
-                }
-        response[Constant.QryOptionInstrTradeCost] = result
+            }
+        response[Constant.OptionInstrTradeCost] = result
         self._rsp_callback(response)
 
     def ReqQryOptionInstrCommRate(self, request: dict[str, any]) -> int:
@@ -412,18 +412,27 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
         ret = self._api.ReqQryOptionInstrCommRate(req, requestId)
         self.method_called(Constant.OnRspQryOptionInstrCommRate, ret)
     
-    def OnRspQryOptionInstrCommRate(self, pQryOptionInstrCommRate: tdapi.CThostFtdcQryOptionInstrCommRateField, pRspInfo: tdapi.CThostFtdcRspInfoField, nRequestID: int, bIsLast: bool):
+    def OnRspQryOptionInstrCommRate(self, pOptionInstrCommRate: tdapi.CThostFtdcOptionInstrCommRateField, pRspInfo: tdapi.CThostFtdcRspInfoField, nRequestID: int, bIsLast: bool):
         response = CTPObjectHelper.build_response_dict(Constant.OnRspQryOptionInstrCommRate, pRspInfo, nRequestID, bIsLast)
         result = {}
-        if pQryOptionInstrCommRate:
+        if pOptionInstrCommRate:
             result = {
-                "BrokerID": pQryOptionInstrCommRate.BrokerID,
-                "ExchangeID": pQryOptionInstrCommRate.ExchangeID,
-                "InstrumentID": pQryOptionInstrCommRate.InstrumentID,
-                "InvestUnitID": pQryOptionInstrCommRate.InvestUnitID,
-                "InvestorID": pQryOptionInstrCommRate.InvestorID
-                }
-        response[Constant.QryOptionInstrCommRate] = result
+                "InvestorRange": pOptionInstrCommRate.InvestorRange,
+                "BrokerID": pOptionInstrCommRate.BrokerID,
+                "InvestorID": pOptionInstrCommRate.InvestorID,
+                "OpenRatioByMoney": pOptionInstrCommRate.OpenRatioByMoney,
+                "OpenRatioByVolume": pOptionInstrCommRate.OpenRatioByVolume,
+                "CloseRatioByMoney": pOptionInstrCommRate.CloseRatioByMoney,
+                "CloseRatioByVolume": pOptionInstrCommRate.CloseRatioByVolume,
+                "CloseTodayRatioByMoney": pOptionInstrCommRate.CloseTodayRatioByMoney,
+                "CloseTodayRatioByVolume": pOptionInstrCommRate.CloseTodayRatioByVolume,
+                "StrikeRatioByMoney": pOptionInstrCommRate.StrikeRatioByMoney,
+                "StrikeRatioByVolume": pOptionInstrCommRate.StrikeRatioByVolume,
+                "ExchangeID": pOptionInstrCommRate.ExchangeID,
+                "InvestUnitID": pOptionInstrCommRate.InvestUnitID,
+                "InstrumentID": pOptionInstrCommRate.InstrumentID
+            }
+        response[Constant.OptionInstrCommRate] = result
         self._rsp_callback(response)
 
     # ReqUserPasswordUpdate
