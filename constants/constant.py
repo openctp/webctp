@@ -34,9 +34,36 @@ class TdConstant(CommonConstant):
     OnRspAuthenticate = "OnRspAuthenticate"
     OnRspQryInstrument = "OnRspQryInstrument"
     OnRspOrderInsert = "OnRspOrderInsert"
+    OnRspQryExchange = "OnRspQryExchange"
+    OnRspQryProduct = "OnRspQryProduct"
+    OnRspQryDepthMarketData = "OnRspQryDepthMarketData"
+    OnRspQryInvestorPositionDetail = "OnRspQryInvestorPositionDetail"
+    OnRspQryExchangeMarginRate = "OnRspQryExchangeMarginRate"
+    OnRspQryInstrumentOrderCommRate = "OnRspQryInstrumentOrderCommRate"
+    OnRspQryOptionInstrTradeCost = "OnRspQryOptionInstrTradeCost"
+    OnRspQryOptionInstrCommRate = "OnRspQryOptionInstrCommRate"
 
     # RequestField
     QryInstrument = "QryInstrument"
+    QryExchange = "QryExchange"
+    QryProduct = "QryProduct"
+    QryDepthMarketData = "QryDepthMarketData"
+    QryInvestorPositionDetail = "QryInvestorPositionDetail"
+    QryExchangeMarginRate = "QryExchangeMarginRate"
+    QryInstrumentOrderCommRate = "QryInstrumentOrderCommRate"
+    QryOptionInstrTradeCost = "QryOptionInstrTradeCost"
+    QryOptionInstrCommRate = "QryOptionInstrCommRate"
 
     # ResponseField
     Instrument = "Instrument"
+
+    # RequestMethod
+    ReqQryInstrument = "reqQryInstrument"
+    ReqQryExchange = "ReqQryExchange"
+    ReqQryProduct = "ReqQryProduct"
+    ReqQryDepthMarketData = "ReqQryDepthMarketData"
+    ReqQryInvestorPositionDetail = "ReqQryInvestorPositionDetail"
+    ReqQryExchangeMarginRate = "ReqQryExchangeMarginRate"
+    ReqQryInstrumentOrderCommRate = "ReqQryInstrumentOrderCommRate"
+    ReqQryOptionInstrTradeCost = "ReqQryOptionInstrTradeCost"
+    ReqQryOptionInstrCommRate = "ReqQryOptionInstrCommRate"
