@@ -5,7 +5,7 @@ from typing import Callable
 from openctp import thostmduserapi as mdapi
 from constants import CallError
 from constants import MdConstant as Constant
-from utils import CTPObjectHelper, GlobalConfig
+from utils import CTPObjectHelper, GlobalConfig, MathHelper
 
 
 class MdClient(mdapi.CThostFtdcMdSpi):
@@ -118,7 +118,56 @@ class MdClient(mdapi.CThostFtdcMdSpi):
     
     def OnRtnDepthMarketData(self, pDepthMarketData: mdapi.CThostFtdcDepthMarketDataField):
         logging.debug(f"receive depth market data: {pDepthMarketData.InstrumentID}")
-        depthData = CTPObjectHelper.object_to_dict(pDepthMarketData, mdapi.CThostFtdcDepthMarketDataField)
+        depthData = {
+            "ActionDay": pDepthMarketData.ActionDay,
+            "AskPrice1": MathHelper.adjust_price(pDepthMarketData.AskPrice1),
+            "AskPrice2": MathHelper.adjust_price(pDepthMarketData.AskPrice2),
+            "AskPrice3": MathHelper.adjust_price(pDepthMarketData.AskPrice3),
+            "AskPrice4": MathHelper.adjust_price(pDepthMarketData.AskPrice4),
+            "AskPrice5": MathHelper.adjust_price(pDepthMarketData.AskPrice5),
+            "AskVolume1": pDepthMarketData.AskVolume1,
+            "AskVolume2": pDepthMarketData.AskVolume2,
+            "AskVolume3": pDepthMarketData.AskVolume3,
+            "AskVolume4": pDepthMarketData.AskVolume4,
+            "AskVolume5": pDepthMarketData.AskVolume5,
+            "AveragePrice": MathHelper.adjust_price(pDepthMarketData.AveragePrice),
+            "BandingLowerPrice": MathHelper.adjust_price(pDepthMarketData.BandingLowerPrice),
+            "BandingUpperPrice": MathHelper.adjust_price(pDepthMarketData.BandingUpperPrice),
+            "BidPrice1": MathHelper.adjust_price(pDepthMarketData.BidPrice1),
+            "BidPrice2": MathHelper.adjust_price(pDepthMarketData.BidPrice2),
+            "BidPrice3": MathHelper.adjust_price(pDepthMarketData.BidPrice3),
+            "BidPrice4": MathHelper.adjust_price(pDepthMarketData.BidPrice4),
+            "BidPrice5": MathHelper.adjust_price( pDepthMarketData.BidPrice5),
+            "BidVolume1": pDepthMarketData.BidVolume1,
+            "BidVolume2": pDepthMarketData.BidVolume2,
+            "BidVolume3": pDepthMarketData.BidVolume3,
+            "BidVolume4": pDepthMarketData.BidVolume4,
+            "BidVolume5": pDepthMarketData.BidVolume5,
+            "ClosePrice": MathHelper.adjust_price(pDepthMarketData.ClosePrice),
+            "CurrDelta": pDepthMarketData.CurrDelta,
+            "ExchangeID": pDepthMarketData.ExchangeID,
+            "ExchangeInstID": pDepthMarketData.ExchangeInstID,
+            "HighestPrice": MathHelper.adjust_price(pDepthMarketData.HighestPrice),
+            "InstrumentID": pDepthMarketData.InstrumentID,
+            "LastPrice": MathHelper.adjust_price(pDepthMarketData.LastPrice),
+            "LowerLimitPrice": MathHelper.adjust_price(pDepthMarketData.LowerLimitPrice),
+            "LowestPrice": MathHelper.adjust_price(pDepthMarketData.LowestPrice),
+            "OpenInterest": pDepthMarketData.OpenInterest,
+            "OpenPrice": MathHelper.adjust_price(pDepthMarketData.OpenPrice),
+            "PreClosePrice": MathHelper.adjust_price(pDepthMarketData.PreClosePrice),
+            "PreDelta": pDepthMarketData.PreDelta,
+            "PreOpenInterest": pDepthMarketData.PreOpenInterest,
+            "PreSettlementPrice": MathHelper.adjust_price(pDepthMarketData.PreSettlementPrice),
+            "SettlementPrice": MathHelper.adjust_price(pDepthMarketData.SettlementPrice),
+            "TradingDay": pDepthMarketData.TradingDay,
+            "Turnover": pDepthMarketData.Turnover,
+            "UpdateMillisec": pDepthMarketData.UpdateMillisec,
+            "UpdateTime": pDepthMarketData.UpdateTime,
+            "UpperLimitPrice": MathHelper.adjust_price(pDepthMarketData.UpperLimitPrice),
+            "Volume": pDepthMarketData.Volume,
+            "reserve1": pDepthMarketData.reserve1,
+            "reserve2": pDepthMarketData.reserve2
+            }
         response = {
             Constant.MessageType: Constant.OnRtnDepthMarketData,
             Constant.DepthMarketData: depthData
