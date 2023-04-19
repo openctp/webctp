@@ -80,6 +80,7 @@ class TdConstant(CommonConstant):
     InstrumentOrderCommRate = "InstrumentOrderCommRate"
     OptionInstrTradeCost = "OptionInstrTradeCost"
     OptionInstrCommRate = "OptionInstrCommRate"
+    DepthMarketData = "DepthMarketData"
 
     # RequestMethod
     ReqQryInstrument = "ReqQryInstrument"
