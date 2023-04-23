@@ -1,3 +1,7 @@
+from os import path
+import sys
+
+sys.path.append(path.join(path.dirname(__file__), '..'))
 from openctp import thosttraderapi as tdapi
 from openctp import thostmduserapi as mdapi
 

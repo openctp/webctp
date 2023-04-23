@@ -121,3 +121,10 @@ class TdClient(object):
         self._call_map[Constant.ReqOrderAction] = self._client.reqOrderAction
         self._call_map[Constant.ReqOrderInsert] = self._client.reqOrderInsert
         self._call_map[Constant.ReqUserPasswordUpdate] = self._client.reqUserPasswordUpdate
+        self._call_map[Constant.ReqQryTrade] = self._client.reqQryTrade
+        self._call_map[Constant.ReqQryInvestorPosition] = self._client.reqQryInvestorPosition
+        self._call_map[Constant.ReqQryTradingAccount] = self._client.reqQryTradingAccount
+        self._call_map[Constant.ReqQryInvestor] = self._client.reqQryInvestor
+        self._call_map[Constant.ReqQryTradingCode] = self._client.reqQryTradingCode
+        self._call_map[Constant.ReqQryInstrumentMarginRate] = self._client.reqQryInstrumentMarginRate
+        self._call_map[Constant.ReqQryInstrumentCommissionRate] = self._client.reqQryInstrumentCommissionRate

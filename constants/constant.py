@@ -51,6 +51,13 @@ class TdConstant(CommonConstant):
     OnErrRtnOrderAction = "OnErrRtnOrderAction"
     OnRspQryMaxOrderVolume = "OnRspQryMaxOrderVolume"
     OnRspQryOrder = "OnRspQryOrder"
+    OnRspQryTrade = "OnRspQryTrade"
+    OnRspQryInvestorPosition = "OnRspQryInvestorPosition"
+    OnRspQryTradingAccount = "OnRspQryTradingAccount"
+    OnRspQryInvestor = "OnRspQryInvestor"
+    OnRspQryTradingCode = "OnRspQryTradingCode"
+    OnRspQryInstrumentMarginRate = "OnRspQryInstrumentMarginRate"
+    OnRspQryInstrumentCommissionRate = "OnRspQryInstrumentCommissionRate"
 
     # RequestField
     QryInstrument = "QryInstrument"
@@ -67,6 +74,13 @@ class TdConstant(CommonConstant):
     InputOrderAction = "InputOrderAction"
     QryMaxOrderVolume = "QryMaxOrderVolume"
     QryOrder = "QryOrder"
+    QryTrade = "QryTrade"
+    QryInvestorPosition = "QryInvestorPosition"
+    QryTradingAccount = "QryTradingAccount"
+    QryInvestor = "QryInvestor"
+    QryTradingCode = "QryTradingCode"
+    QryInstrumentMarginRate = "QryInstrumentMarginRate"
+    QryInstrumentCommissionRate = "QryInstrumentCommissionRate"
 
     # ResponseField
     Instrument = "Instrument"
@@ -81,6 +95,12 @@ class TdConstant(CommonConstant):
     OptionInstrTradeCost = "OptionInstrTradeCost"
     OptionInstrCommRate = "OptionInstrCommRate"
     DepthMarketData = "DepthMarketData"
+    InvestorPosition = "InvestorPosition"
+    TradingAccount = "TradingAccount"
+    Investor = "Investor"
+    TradingCode = "TradingCode"
+    InstrumentMarginRate = "InstrumentMarginRate"
+    InstrumentCommissionRate = "InstrumentCommissionRate"
 
     # RequestMethod
     ReqQryInstrument = "ReqQryInstrument"
@@ -97,3 +117,10 @@ class TdConstant(CommonConstant):
     ReqOrderAction = "ReqOrderAction"
     ReqQryMaxOrderVolume = "ReqQryMaxOrderVolume"
     ReqQryOrder = "ReqQryOrder"
+    ReqQryTrade = "reqQryTrade"
+    ReqQryInvestorPosition = "reqQryInvestorPosition"
+    ReqQryTradingAccount = "reqQryTradingAccount"
+    ReqQryInvestor = "reqQryInvestor"
+    ReqQryTradingCode = "reqQryTradingCode"
+    ReqQryInstrumentMarginRate = "reqQryInstrumentMarginRate"
+    ReqQryInstrumentCommissionRate = "reqQryInstrumentCommissionRate"
