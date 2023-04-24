@@ -53,9 +53,7 @@ class TdClient(object):
             await self.start(user_id, password)
         else:
             if message_type in self._call_map:
-                print(f'call  {message_type}')
                 await anyio.to_thread.run_sync(self._call_map[message_type], request)
-                print(f'call  {message_type} end')
             else:
                 response = {
                     Constant.MessageType: message_type,

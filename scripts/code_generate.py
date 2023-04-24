@@ -6,8 +6,8 @@ from openctp import thosttraderapi as tdapi
 from openctp import thostmduserapi as mdapi
 
 # 小工具，给对象名和类型，生成转字典代码
-object_name = "pQryOptionInstrCommRate"
-typ = tdapi.CThostFtdcQryOptionInstrCommRateField   
+object_name = "pInstrumentMarginRate"
+typ = tdapi.CThostFtdcInstrumentMarginRateField   
 
 exclude_attrs = ["thisown","reserve","reserve1","reserve2","reserve3"]
 attrs = list(filter(lambda x: not (x.startswith("__") or x in exclude_attrs), dir(typ)))
