@@ -1014,7 +1014,7 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
                 "OpenDate": pInvestor.OpenDate,
                 "Telephone": pInvestor.Telephone
                 }
-        response[Constant.QryInvestor] = qryInvestor
+        response[Constant.Investor] = qryInvestor
         self.rsp_callback(response)
         
     def reqQryTradingCode(self, request: dict[str, any]) -> None:
@@ -1037,7 +1037,7 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
                 "InvestorID": pTradingCode.InvestorID,
                 "IsActive": pTradingCode.IsActive
                 }
-        response[Constant.QryTradingCode] = qryTradingCode
+        response[Constant.TradingCode] = qryTradingCode
         self.rsp_callback(response)
         
     def reqQryInstrumentMarginRate(self, request: dict[str, any]) -> None:
@@ -1063,7 +1063,7 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
                 "ShortMarginRatioByMoney": pInstrumentMarginRate.ShortMarginRatioByMoney,
                 "ShortMarginRatioByVolume": pInstrumentMarginRate.ShortMarginRatioByVolume
                 }
-        response[Constant.QryInstrumentMarginRate] = qryInstrumentMarginRate
+        response[Constant.InstrumentMarginRate] = qryInstrumentMarginRate
         self.rsp_callback(response)
         
     def reqQryInstrumentCommissionRate(self, request: dict[str, any]) -> None:
@@ -1071,7 +1071,7 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
         ret = self._api.ReqQryInstrumentCommissionRate(req, requestId)
         self.method_called(Constant.OnRspQryInstrumentCommissionRate, ret)
     
-    def OnRspQryInstrumentCommissionRate(self, pInstrumentCommissionRate: tdapi.CThostFtdcInstrumentCommissionRateField , pRspInfo: tdapi.CThostFtdcQryInstrumentCommissionRateField, nRequestID: int, bIsLast: bool):
+    def OnRspQryInstrumentCommissionRate(self, pInstrumentCommissionRate: tdapi.CThostFtdcInstrumentCommissionRateField , pRspInfo: tdapi.CThostFtdcRspInfoField, nRequestID: int, bIsLast: bool):
         response = CTPObjectHelper.build_response_dict(Constant.OnRspQryInstrumentCommissionRate, pRspInfo, nRequestID, bIsLast)
         qryInstrumentCommissionRate = None
         if pInstrumentCommissionRate:
@@ -1090,5 +1090,5 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
                 "OpenRatioByMoney": pInstrumentCommissionRate.OpenRatioByMoney,
                 "OpenRatioByVolume": pInstrumentCommissionRate.OpenRatioByVolume
                 }
-        response[Constant.QryInstrumentCommissionRate] = qryInstrumentCommissionRate
+        response[Constant.InstrumentCommissionRate] = qryInstrumentCommissionRate
         self.rsp_callback(response)
