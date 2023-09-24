@@ -82,3 +82,6 @@ ErrorID="16" ErrorMsg="CTP:找不到合约"
 [行情服务协议文档](./docs/md_protocol.md)
 # 开发说明
 TODO
+# 其他说明
+* 由于精力有限，只进行了SimNow/TTS模拟平台的简单的测试，请自行充分测试后再接入生产环境。
+* 使用webctp进行实盘交易的后果完全有使用者自行承担。
