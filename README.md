@@ -1,32 +1,68 @@
 # webctp
+
 webctp是一个基于 [openctp-ctp](https://github.com/openctp/openctp-ctp-python) 开发的提供websocket接口的CTP服务。
+
 # 安装及运行
+
 ## 环境搭建
-```bash
-# 安装依赖
-pip install -r requirements.txt
 
-# 安装ctpapi
-# 从[ctpapi-python](https://github.com/openctp/openctp/tree/master/ctpapi-python)选择对应的版本复制到openctp目录下
-```
+1. 准备Python环境(3.7~3.12)
+2. 克隆 webctp
+   ```bash
+   $ git clone https://github.com/openctp/webctp.git
+   $ cd webctp
+   ```
+3. 安装依赖库
+   ```bash
+   $ pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple --trusted-host=pypi.tuna.tsinghua.edu.cn
+   ```
+   > :pushpin: 默认使用 openctp-ctp 6.7.2.*, 可通过 requirements.txt 进行修改。
+
+4. 自定义配置文件  
+   参考示例 config.example.yaml
+   > :pushpin: 示例中行情和交易前置地址，默认配置的是 SimNow 7x24 环境， 更多 SimNow
+   环境参考 [openctp环境监控](http://121.37.80.177:50080/index.html)，可根据需要变更为其他支持CTPAPI(官方实现)的柜台环境。
+
+   创建自己的行情配置 config_md.yaml :
+   ```yaml 
+   TdFrontAddress: tcp://180.168.146.187:10130 # 交易前置地址
+   MdFrontAddress: tcp://180.168.146.187:10131 # 行情前置地址
+   BrokerID: "9999"
+   AuthCode: "0000000000000000"
+   AppID: simnow_client_test
+   Port: 8080         # the listening port, default 8080
+   Host: 0.0.0.0      # the bind ip address, default 0.0.0.0
+   LogLevel: INFO     # NOTSET, DEBUG, INFO, WARN, ERROR, CRITICAL
+   ```
+   创建自己的交易配置 config_td.yaml :
+   ```yaml 
+   TdFrontAddress: tcp://180.168.146.187:10130 # 交易前置地址
+   MdFrontAddress: tcp://180.168.146.187:10131 # 行情前置地址
+   BrokerID: "9999"
+   AuthCode: "0000000000000000"
+   AppID: simnow_client_test
+   Port: 8081         # the listening port, default 8080
+   Host: 0.0.0.0      # the bind ip address, default 0.0.0.0
+   LogLevel: INFO     # NOTSET, DEBUG, INFO, WARN, ERROR, CRITICAL
+   ```
+
 ## 运行
-```bash
-# Windows
-# 启动交易服务
-python main.py --config=config.yaml --app_type=td
-# 启动行情服务
-python main.py --config=config.yaml --app_type=md
 
-# Linux
+```bash
 # 启动交易服务
-LD_LIBRARY_PATH=./openctp python main.py --config=config.yaml --app_type=td
+$ python main.py --config=config_td.yaml --app_type=td
 # 启动行情服务
-LD_LIBRARY_PATH=./openctp python main.py --config=config.yaml --app_type=md
+$ python main.py --config=config_md.yaml --app_type=md
 ```
+
 ## 请求示例
+
 TODO: 添加postman的请求样例
+
 ## 协议
+
 ### 通用协议格式
+
 ``` python
 # 请求
 {
@@ -51,7 +87,9 @@ TODO: 添加postman的请求样例
     "{response_filed}": {response_body}  # 具体参见详细文档
 }
 ```
+
 ### 部分通用错误码说明
+
 ```bash
 ErrorID="-404" ErrorMsg="Webctp还未实现该方法"
 ErrorID="-1" ErrorMsg="CTP:请求失败"
@@ -76,12 +114,18 @@ ErrorID="14" ErrorMsg="CTP:原口令不匹配"
 ErrorID="15" ErrorMsg="CTP:报单字段有误"
 ErrorID="16" ErrorMsg="CTP:找不到合约"
 ```
+
 ### 详细接口文档
+
 [交易服务协议文档](./docs/td_protocol.md)
 
 [行情服务协议文档](./docs/md_protocol.md)
+
 # 开发说明
+
 TODO
+
 # 其他说明
-* 由于精力有限，只进行了SimNow/TTS模拟平台的简单的测试，请自行充分测试后再接入生产环境。
+
+* 由于精力有限，只进行了SimNow平台的简单的测试，请自行充分测试后再接入生产环境。
 * 使用webctp进行实盘交易的后果完全有使用者自行承担。
