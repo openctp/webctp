@@ -1,7 +1,8 @@
 import logging
-
 from typing import Callable
-from openctp import thosttraderapi as tdapi
+
+from openctp_ctp import tdapi
+
 from constants import CallError
 from constants import TdConstant as Constant
 from utils import CTPObjectHelper, GlobalConfig, MathHelper

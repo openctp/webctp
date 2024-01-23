@@ -1,8 +1,9 @@
 import logging
 import uuid
-
 from typing import Callable
-from openctp import thostmduserapi as mdapi
+
+from openctp_ctp import mdapi
+
 from constants import CallError
 from constants import MdConstant as Constant
 from utils import CTPObjectHelper, GlobalConfig, MathHelper
