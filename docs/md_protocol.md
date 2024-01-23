@@ -1,19 +1,27 @@
 ### 登录
+
+#### 请求
+
+行情登录不需要UserID和Password，但是建议提供UserID来作为con file的名称，否则会用随机的uuid作为con file的名称
+
 ```json
-# 请求, 行情登录不需要UserID和Password，但是建议提供UserID来作为con file的名称，否则会用随机的uuid作为con file的名称
 {
   "MsgType": "ReqUserLogin",
-  "ReqUserLogin":{
-    "UserID":"028742",
-    "Password":"123456"
+  "ReqUserLogin": {
+    "UserID": "028742",
+    "Password": "123456"
   }
 }
-# 应答
+```
+
+#### 应答
+
+```json
 {
-  "MsgType": "OnRspUserLogin",
-  "RspInfo":{
-    "ErrorID":0,
-    "ErrorMsg":"成功"
+  "MsgType": "RspUserLogin",
+  "RspInfo": {
+    "ErrorID": 0,
+    "ErrorMsg": "成功"
   },
   "RspUserLogin": {
     "BrokerID": "",
@@ -25,16 +33,25 @@
 ```
 
 ### 订阅行情
+
+#### 请求
+
 ```json
-# 请求
 {
   "MsgType": "SubscribeMarketData",
-  "InstrumentID": ["au2305", "rb2305", "TA305"]
+  "InstrumentID": [
+    "au2305",
+    "rb2305",
+    "TA305"
+  ]
 }
+```
 
-# 应答
+#### 应答
+
+```json
 {
-  "MsgType": "OnRspSubscribeMarketData",
+  "MsgType": "RspSubscribeMarketData",
   "SpecificInstrument": {
     "InstrumentID": "au2305"
   },
@@ -48,15 +65,25 @@
 ```
 
 ### 取消订阅行情
+
+#### 请求
+
 ```json
 {
   "MsgType": "UnSubscribeMarketData",
-  "InstrumentID": ["au2305", "rb2305", "TA305"]
+  "InstrumentID": [
+    "au2305",
+    "rb2305",
+    "TA305"
+  ]
 }
+```
 
-# 应答
+#### 应答
+
+```json
 {
-  "MsgType": "OnRspUnSubscribeMarketData",
+  "MsgType": "RspUnSubscribeMarketData",
   "SpecificInstrument": {
     "InstrumentID": "au2305"
   },
@@ -70,9 +97,10 @@
 ```
 
 ### 行情推送
+
 ```json
 {
-  "MsgType": "OnRtnDepthMarketData",
+  "MsgType": "RtnDepthMarketData",
   "DepthMarketData": {
     "ActionDay": "20230410",
     "AskPrice1": 5535.000000000001,
