@@ -1,5 +1,5 @@
 # webctp
-webctp是一个基于[ctpapi-python](https://github.com/openctp/openctp/tree/master/ctpapi-python)开发的提供websocket接口的CTP服务。
+webctp是一个基于 [openctp-ctp](https://github.com/openctp/openctp-ctp-python) 开发的提供websocket接口的CTP服务。
 # 安装及运行
 ## 环境搭建
 ```bash

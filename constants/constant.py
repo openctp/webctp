@@ -41,7 +41,6 @@ class TdConstant(CommonConstant):
     OnRspQryInstrumentOrderCommRate = "OnRspQryInstrumentOrderCommRate"
     OnRspQryOptionInstrTradeCost = "OnRspQryOptionInstrTradeCost"
     OnRspQryOptionInstrCommRate = "OnRspQryOptionInstrCommRate"
-    OnRspOrderInsert = "OnRspOrderInsert"
     OnRspUserPasswordUpdate = "OnRspUserPasswordUpdate"
     OnRspOrderInsert = "OnRspOrderInsert"
     OnErrRtnOrderInsert = "OnErrRtnOrderInsert"
