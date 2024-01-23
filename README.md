@@ -91,6 +91,7 @@ TODO: 添加postman的请求样例
 ### 部分通用错误码说明
 
 ```bash
+ErrorID="-401" ErrorMsg="未登录"
 ErrorID="-404" ErrorMsg="Webctp还未实现该方法"
 ErrorID="-1" ErrorMsg="CTP:请求失败"
 ErrorID="-1" ErrorMsg="CTP:请求失败"
