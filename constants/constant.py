@@ -4,7 +4,7 @@ class CommonConstant(object):
     RequestID = "RequestID"
     IsLast = "IsLast"
 
-    OnRspUserLogin = "OnRspUserLogin"
+    OnRspUserLogin = "RspUserLogin"
 
     ReqUserLogin = "ReqUserLogin"
     RspUserLogin = "RspUserLogin"
@@ -13,11 +13,11 @@ class CommonConstant(object):
 class MdConstant(CommonConstant):
 
     # MessageType
-    OnRspSubMarketData = "OnRspSubMarketData"
-    OnRspUnSubMarketData = "OnRspUnSubMarketData"
+    OnRspSubMarketData = "RspSubMarketData"
+    OnRspUnSubMarketData = "RspUnSubMarketData"
 
     # RtnMessageType
-    OnRtnDepthMarketData = "OnRtnDepthMarketData"
+    OnRtnDepthMarketData = "RtnDepthMarketData"
 
     # Request Field
     InstrumentID = "InstrumentID"
@@ -30,33 +30,33 @@ class MdConstant(CommonConstant):
 class TdConstant(CommonConstant):
 
     # MessageType
-    OnRspUserLogin = "OnRspUserLogin"
-    OnRspAuthenticate = "OnRspAuthenticate"
-    OnRspQryInstrument = "OnRspQryInstrument"
-    OnRspQryExchange = "OnRspQryExchange"
-    OnRspQryProduct = "OnRspQryProduct"
-    OnRspQryDepthMarketData = "OnRspQryDepthMarketData"
-    OnRspQryInvestorPositionDetail = "OnRspQryInvestorPositionDetail"
-    OnRspQryExchangeMarginRate = "OnRspQryExchangeMarginRate"
-    OnRspQryInstrumentOrderCommRate = "OnRspQryInstrumentOrderCommRate"
-    OnRspQryOptionInstrTradeCost = "OnRspQryOptionInstrTradeCost"
-    OnRspQryOptionInstrCommRate = "OnRspQryOptionInstrCommRate"
-    OnRspUserPasswordUpdate = "OnRspUserPasswordUpdate"
-    OnRspOrderInsert = "OnRspOrderInsert"
-    OnErrRtnOrderInsert = "OnErrRtnOrderInsert"
-    OnRtnOrder = "OnRtnOrder"
-    OnRtnTrade = "OnRtnTrade"
-    OnRspOrderAction = "OnRspOrderAction"
-    OnErrRtnOrderAction = "OnErrRtnOrderAction"
-    OnRspQryMaxOrderVolume = "OnRspQryMaxOrderVolume"
-    OnRspQryOrder = "OnRspQryOrder"
-    OnRspQryTrade = "OnRspQryTrade"
-    OnRspQryInvestorPosition = "OnRspQryInvestorPosition"
-    OnRspQryTradingAccount = "OnRspQryTradingAccount"
-    OnRspQryInvestor = "OnRspQryInvestor"
-    OnRspQryTradingCode = "OnRspQryTradingCode"
-    OnRspQryInstrumentMarginRate = "OnRspQryInstrumentMarginRate"
-    OnRspQryInstrumentCommissionRate = "OnRspQryInstrumentCommissionRate"
+    OnRspUserLogin = "RspUserLogin"
+    OnRspAuthenticate = "RspAuthenticate"
+    OnRspQryInstrument = "RspQryInstrument"
+    OnRspQryExchange = "RspQryExchange"
+    OnRspQryProduct = "RspQryProduct"
+    OnRspQryDepthMarketData = "RspQryDepthMarketData"
+    OnRspQryInvestorPositionDetail = "RspQryInvestorPositionDetail"
+    OnRspQryExchangeMarginRate = "RspQryExchangeMarginRate"
+    OnRspQryInstrumentOrderCommRate = "RspQryInstrumentOrderCommRate"
+    OnRspQryOptionInstrTradeCost = "RspQryOptionInstrTradeCost"
+    OnRspQryOptionInstrCommRate = "RspQryOptionInstrCommRate"
+    OnRspUserPasswordUpdate = "RspUserPasswordUpdate"
+    OnRspOrderInsert = "RspOrderInsert"
+    OnErrRtnOrderInsert = "ErrRtnOrderInsert"
+    OnRtnOrder = "RtnOrder"
+    OnRtnTrade = "RtnTrade"
+    OnRspOrderAction = "RspOrderAction"
+    OnErrRtnOrderAction = "ErrRtnOrderAction"
+    OnRspQryMaxOrderVolume = "RspQryMaxOrderVolume"
+    OnRspQryOrder = "RspQryOrder"
+    OnRspQryTrade = "RspQryTrade"
+    OnRspQryInvestorPosition = "RspQryInvestorPosition"
+    OnRspQryTradingAccount = "RspQryTradingAccount"
+    OnRspQryInvestor = "RspQryInvestor"
+    OnRspQryTradingCode = "RspQryTradingCode"
+    OnRspQryInstrumentMarginRate = "RspQryInstrumentMarginRate"
+    OnRspQryInstrumentCommissionRate = "RspQryInstrumentCommissionRate"
 
     # RequestField
     QryInstrument = "QryInstrument"
