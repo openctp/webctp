@@ -41,7 +41,7 @@ webctp是一个基于 [openctp-ctp](https://github.com/openctp/openctp-ctp-pytho
    BrokerID: "9999"
    AuthCode: "0000000000000000"
    AppID: simnow_client_test
-   Port: 8081         # the listening port, default 8080
+   Port: 8081         # the listening port, default 8081
    Host: 0.0.0.0      # the bind ip address, default 0.0.0.0
    LogLevel: INFO     # NOTSET, DEBUG, INFO, WARN, ERROR, CRITICAL
    ```
@@ -59,7 +59,7 @@ $ python main.py --config=config_md.yaml --app_type=md
 
 TODO: 添加postman的请求样例
 
-### Apifox 示例
+### Apifox 示例（部分）
 
 <details>
 <summary>登录</summary>
@@ -69,37 +69,44 @@ TODO: 添加postman的请求样例
 
 <details>
 <summary>请求查询成交</summary>
-
+   
+<img width="973" alt="qry_trade" src="https://github.com/openctp/webctp/assets/17944025/a754788d-5eaa-429f-81bb-d444502ee89a">
 </details>
 
 <details>
 <summary>请求查询投资者持仓</summary>
 
+<img width="978" alt="qry_investor_position" src="https://github.com/openctp/webctp/assets/17944025/e219ccdd-d48b-4567-bbb2-6a3aa2c68ae2">
 </details>
 
 <details>
 <summary>请求查询资金账户</summary>
 
+<img width="976" alt="qry_trading_account" src="https://github.com/openctp/webctp/assets/17944025/42858761-c3fe-411c-9af7-fd248c238a77">
 </details>
 
 <details>
 <summary>请求查询投资者</summary>
 
+<img width="977" alt="qry_investor" src="https://github.com/openctp/webctp/assets/17944025/d8a7cb1f-a997-48e7-ad77-81d5f261c880">
 </details>
 
 <details>
 <summary>请求查询交易编码</summary>
 
+<img width="975" alt="qry_trading_code" src="https://github.com/openctp/webctp/assets/17944025/ee46abc5-8481-4643-98a1-e6d923e003e8">
 </details>
 
 <details>
 <summary>查询合约保证金率</summary>
 
+<img width="973" alt="qry_instrument_margin_rate" src="https://github.com/openctp/webctp/assets/17944025/96707a3f-4fef-4118-aa46-373968dac3fa">
 </details>
 
 <details>
 <summary>请求查询合约手续费率</summary>
 
+<img width="975" alt="qry_instrument_commission_rate" src="https://github.com/openctp/webctp/assets/17944025/b5e84d60-bfb9-4efd-8e4b-e50bd2e3873d">
 </details>
 
 <details>
@@ -113,38 +120,44 @@ TODO: 添加postman的请求样例
 </details>
 
 <details>
-<summary>查询报单手续费</summary>
+<summary>查询报单手续费率</summary>
 
 </details>
 
 <details>
 <summary>查询交易所保证金率</summary>
 
+<img width="976" alt="qry_exchange_margin_rate" src="https://github.com/openctp/webctp/assets/17944025/2b790cc3-8521-4713-92cb-b9a2cf1f2a48">
 </details>
 
 <details>
 <summary>查询投资者持仓明细</summary>
 
+<img width="977" alt="qry_investor_position_detail" src="https://github.com/openctp/webctp/assets/17944025/8bef07b8-5024-4499-b6a7-aa754b1d69cd">
 </details>
 
 <details>
 <summary>查询行情</summary>
 
+<img width="974" alt="qry_depth_market_data" src="https://github.com/openctp/webctp/assets/17944025/1efe7bca-7166-4c22-8d4a-750054890d6a">
 </details>
 
 <details>
 <summary>查询产品</summary>
 
+<img width="977" alt="qry_product" src="https://github.com/openctp/webctp/assets/17944025/398fc449-a6b4-487e-a62c-37314d0cee52">
 </details>
 
 <details>
 <summary>查询交易所</summary>
 
+<img width="974" alt="qry_exchange" src="https://github.com/openctp/webctp/assets/17944025/24ac101d-fadb-48e8-b0e2-8698ec802f84">
 </details>
 
 <details>
 <summary>查询合约</summary>
 
+<img width="979" alt="qry_instrument" src="https://github.com/openctp/webctp/assets/17944025/12860cda-aa82-44ce-a05b-4f666c27b3ab">
 </details>
 
 ## 协议
@@ -182,7 +195,6 @@ TODO: 添加postman的请求样例
 ErrorID="-400" ErrorMsg="参数有误"
 ErrorID="-401" ErrorMsg="未登录"
 ErrorID="-404" ErrorMsg="Webctp还未实现该方法"
-ErrorID="-1" ErrorMsg="CTP:请求失败"
 ErrorID="-1" ErrorMsg="CTP:请求失败"
 ErrorID="-2" ErrorMsg="CTP:未处理请求超过许可数"
 ErrorID="-3" ErrorMsg="CTP:每秒发送请求数超过许可数"

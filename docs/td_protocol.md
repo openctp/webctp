@@ -263,7 +263,8 @@
   "QryTradingCode": {
     "BrokerID": "9999",
     "InvestorID": "028742",
-    "ExchangeID": "DCE"
+    "ExchangeID": "DCE",
+    "ClientIDType": "1"
   },
   "RequestID": 0
 }
@@ -429,7 +430,7 @@
 }
 ```
 
-### 查询报单手续费
+### 查询报单手续费率
 
 #### 请求
 
@@ -465,7 +466,6 @@
   "MsgType": "ReqQryExchangeMarginRate",
   "QryExchangeMarginRate": {
     "BrokerID": "9999",
-    "InvestorID": "028742",
     "InstrumentID": "m2309",
     "ExchangeID": "DCE"
   },
