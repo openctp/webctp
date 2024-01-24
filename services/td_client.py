@@ -78,6 +78,13 @@ class TdClient(object):
                 if message_type in self._call_map:
                     await anyio.to_thread.run_sync(
                         self._call_map[message_type], request)
+                elif not self._call_map:
+                    response = {
+                        Constant.MessageType: message_type,
+                        Constant.RspInfo: CallError.get_rsp_info(401)
+                    }
+                    await self.rsp_callback(response)
+
                 else:
                     response = {
                         Constant.MessageType: message_type,
