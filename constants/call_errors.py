@@ -26,9 +26,9 @@ class CallError(object):
         return cls._errors[ret].to_rsp_info()
 
 
-CallError.register_error(1, -1, "CTP:请求失败")
-CallError.register_error(2, -2, "CTP:未处理请求超过许可数")
-CallError.register_error(3, -3, "CTP:每秒发送请求数超过许可数")
+CallError.register_error(-1, -1, "CTP:请求失败")
+CallError.register_error(-2, -2, "CTP:未处理请求超过许可数")
+CallError.register_error(-3, -3, "CTP:每秒发送请求数超过许可数")
 CallError.register_error(404, -404, "Not implemented")
 CallError.register_error(401, -401, "未登录")
 CallError.register_error(400, -400, "参数有误")
