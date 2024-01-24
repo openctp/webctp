@@ -194,7 +194,7 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
         if pExchange:
             result = {
                 "ExchangeID": pExchange.ExchangeID,
-                "ExchangeName": pExchange.ExchangeName.encode('unicode-escape').decode(),
+                "ExchangeName": pExchange.ExchangeName,
                 "ExchangeProperty": pExchange.ExchangeProperty
             }
         response[Constant.Exchange] = result
