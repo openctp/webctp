@@ -36,7 +36,7 @@ class UserLogoutField(BaseModel):
 
 
 class WebCTPReqUserLogout(WebCTPRequest):
-    ReqUserLogout: UserLogoutField = Field(title="用户登出请求")
+    UserLogout: UserLogoutField = Field(title="用户登出请求")
 
 
 class ForceUserLogoutField(BaseModel):
@@ -47,7 +47,7 @@ class ForceUserLogoutField(BaseModel):
 
 
 class WebCTPReqForceUserLogout(WebCTPRequest):
-    ReqForceUserLogout: ForceUserLogoutField = Field(title="强制交易员退出")
+    ForceUserLogout: ForceUserLogoutField = Field(title="强制交易员退出")
 
 
 class ReqAuthenticateField(BaseModel):
@@ -79,8 +79,7 @@ class AuthenticationInfoField(BaseModel):
 
 
 class WebCTPReqAuthenticationInfo(WebCTPRequest):
-    ReqAuthenticationInfo: AuthenticationInfoField = Field(
-        title="客户端认证信息")
+    AuthenticationInfo: AuthenticationInfoField = Field(title="客户端认证信息")
 
 
 class TransferHeaderField(BaseModel):
@@ -102,7 +101,7 @@ class TransferHeaderField(BaseModel):
 
 
 class WebCTPReqTransferHeader(WebCTPRequest):
-    ReqTransferHeader: TransferHeaderField = Field(title="银期转帐报文头")
+    TransferHeader: TransferHeaderField = Field(title="银期转帐报文头")
 
 
 class TransferBankToFutureReqField(BaseModel):
@@ -117,7 +116,7 @@ class TransferBankToFutureReqField(BaseModel):
 
 
 class WebCTPReqTransferBankToFutureReq(WebCTPRequest):
-    ReqTransferBankToFutureReq: TransferBankToFutureReqField = Field(
+    TransferBankToFutureReq: TransferBankToFutureReqField = Field(
         title="银行资金转期货请求，TradeCode=202001")
 
 
@@ -133,7 +132,7 @@ class TransferBankToFutureRspField(BaseModel):
 
 
 class WebCTPReqTransferBankToFutureRsp(WebCTPRequest):
-    ReqTransferBankToFutureRsp: TransferBankToFutureRspField = Field(
+    TransferBankToFutureRsp: TransferBankToFutureRspField = Field(
         title="银行资金转期货请求响应")
 
 
@@ -149,7 +148,7 @@ class TransferFutureToBankReqField(BaseModel):
 
 
 class WebCTPReqTransferFutureToBankReq(WebCTPRequest):
-    ReqTransferFutureToBankReq: TransferFutureToBankReqField = Field(
+    TransferFutureToBankReq: TransferFutureToBankReqField = Field(
         title="期货资金转银行请求，TradeCode=202002")
 
 
@@ -165,7 +164,7 @@ class TransferFutureToBankRspField(BaseModel):
 
 
 class WebCTPReqTransferFutureToBankRsp(WebCTPRequest):
-    ReqTransferFutureToBankRsp: TransferFutureToBankRspField = Field(
+    TransferFutureToBankRsp: TransferFutureToBankRspField = Field(
         title="期货资金转银行请求响应")
 
 
@@ -179,7 +178,7 @@ class TransferQryBankReqField(BaseModel):
 
 
 class WebCTPReqTransferQryBankReq(WebCTPRequest):
-    ReqTransferQryBankReq: TransferQryBankReqField = Field(
+    TransferQryBankReq: TransferQryBankReqField = Field(
         title="查询银行资金请求，TradeCode=204002")
 
 
@@ -196,7 +195,7 @@ class TransferQryBankRspField(BaseModel):
 
 
 class WebCTPReqTransferQryBankRsp(WebCTPRequest):
-    ReqTransferQryBankRsp: TransferQryBankRspField = Field(
+    TransferQryBankRsp: TransferQryBankRspField = Field(
         title="查询银行资金请求响应")
 
 
@@ -207,7 +206,7 @@ class TransferQryDetailReqField(BaseModel):
 
 
 class WebCTPReqTransferQryDetailReq(WebCTPRequest):
-    ReqTransferQryDetailReq: TransferQryDetailReqField = Field(
+    TransferQryDetailReq: TransferQryDetailReqField = Field(
         title="查询银行交易明细请求，TradeCode=204999")
 
 
@@ -231,7 +230,7 @@ class TransferQryDetailRspField(BaseModel):
 
 
 class WebCTPReqTransferQryDetailRsp(WebCTPRequest):
-    ReqTransferQryDetailRsp: TransferQryDetailRspField = Field(
+    TransferQryDetailRsp: TransferQryDetailRspField = Field(
         title="查询银行交易明细请求响应")
 
 
@@ -244,7 +243,7 @@ class ExchangeField(BaseModel):
 
 
 class WebCTPReqExchange(WebCTPRequest):
-    ReqExchange: ExchangeField = Field(title="交易所")
+    Exchange: ExchangeField = Field(title="交易所")
 
 
 class ProductField(BaseModel):
@@ -274,7 +273,7 @@ class ProductField(BaseModel):
 
 
 class WebCTPReqProduct(WebCTPRequest):
-    ReqProduct: ProductField = Field(title="产品")
+    Product: ProductField = Field(title="产品")
 
 
 class InstrumentField(BaseModel):
@@ -318,7 +317,7 @@ class InstrumentField(BaseModel):
 
 
 class WebCTPReqInstrument(WebCTPRequest):
-    ReqInstrument: InstrumentField = Field(title="合约")
+    Instrument: InstrumentField = Field(title="合约")
 
 
 class BrokerField(BaseModel):
@@ -331,7 +330,7 @@ class BrokerField(BaseModel):
 
 
 class WebCTPReqBroker(WebCTPRequest):
-    ReqBroker: BrokerField = Field(title="经纪公司")
+    Broker: BrokerField = Field(title="经纪公司")
 
 
 class TraderField(BaseModel):
@@ -349,7 +348,7 @@ class TraderField(BaseModel):
 
 
 class WebCTPReqTrader(WebCTPRequest):
-    ReqTrader: TraderField = Field(title="交易所交易员")
+    Trader: TraderField = Field(title="交易所交易员")
 
 
 class InvestorField(BaseModel):
@@ -373,7 +372,7 @@ class InvestorField(BaseModel):
 
 
 class WebCTPReqInvestor(WebCTPRequest):
-    ReqInvestor: InvestorField = Field(title="投资者")
+    Investor: InvestorField = Field(title="投资者")
 
 
 class TradingCodeField(BaseModel):
@@ -391,7 +390,7 @@ class TradingCodeField(BaseModel):
 
 
 class WebCTPReqTradingCode(WebCTPRequest):
-    ReqTradingCode: TradingCodeField = Field(title="交易编码")
+    TradingCode: TradingCodeField = Field(title="交易编码")
 
 
 class PartBrokerField(BaseModel):
@@ -404,8 +403,7 @@ class PartBrokerField(BaseModel):
 
 
 class WebCTPReqPartBroker(WebCTPRequest):
-    ReqPartBroker: PartBrokerField = Field(
-        title="会员编码和经纪公司编码对照表")
+    PartBroker: PartBrokerField = Field(title="会员编码和经纪公司编码对照表")
 
 
 class SuperUserField(BaseModel):
@@ -418,7 +416,7 @@ class SuperUserField(BaseModel):
 
 
 class WebCTPReqSuperUser(WebCTPRequest):
-    ReqSuperUser: SuperUserField = Field(title="管理用户")
+    SuperUser: SuperUserField = Field(title="管理用户")
 
 
 class SuperUserFunctionField(BaseModel):
@@ -429,8 +427,7 @@ class SuperUserFunctionField(BaseModel):
 
 
 class WebCTPReqSuperUserFunction(WebCTPRequest):
-    ReqSuperUserFunction: SuperUserFunctionField = Field(
-        title="管理用户功能权限")
+    SuperUserFunction: SuperUserFunctionField = Field(title="管理用户功能权限")
 
 
 class InvestorGroupField(BaseModel):
@@ -442,7 +439,7 @@ class InvestorGroupField(BaseModel):
 
 
 class WebCTPReqInvestorGroup(WebCTPRequest):
-    ReqInvestorGroup: InvestorGroupField = Field(title="投资者组")
+    InvestorGroup: InvestorGroupField = Field(title="投资者组")
 
 
 class TradingAccountField(BaseModel):
@@ -501,7 +498,7 @@ class TradingAccountField(BaseModel):
 
 
 class WebCTPReqTradingAccount(WebCTPRequest):
-    ReqTradingAccount: TradingAccountField = Field(title="资金账户")
+    TradingAccount: TradingAccountField = Field(title="资金账户")
 
 
 class InvestorPositionField(BaseModel):
@@ -560,7 +557,7 @@ class InvestorPositionField(BaseModel):
 
 
 class WebCTPReqInvestorPosition(WebCTPRequest):
-    ReqInvestorPosition: InvestorPositionField = Field(title="投资者持仓")
+    InvestorPosition: InvestorPositionField = Field(title="投资者持仓")
 
 
 class InstrumentMarginRateField(BaseModel):
@@ -582,7 +579,7 @@ class InstrumentMarginRateField(BaseModel):
 
 
 class WebCTPReqInstrumentMarginRate(WebCTPRequest):
-    ReqInstrumentMarginRate: InstrumentMarginRateField = Field(
+    InstrumentMarginRate: InstrumentMarginRateField = Field(
         title="合约保证金率")
 
 
@@ -606,7 +603,7 @@ class InstrumentCommissionRateField(BaseModel):
 
 
 class WebCTPReqInstrumentCommissionRate(WebCTPRequest):
-    ReqInstrumentCommissionRate: InstrumentCommissionRateField = Field(
+    InstrumentCommissionRate: InstrumentCommissionRateField = Field(
         title="合约手续费率")
 
 
@@ -664,7 +661,7 @@ class DepthMarketDataField(BaseModel):
 
 
 class WebCTPReqDepthMarketData(WebCTPRequest):
-    ReqDepthMarketData: DepthMarketDataField = Field(title="深度行情")
+    DepthMarketData: DepthMarketDataField = Field(title="深度行情")
 
 
 class InstrumentTradingRightField(BaseModel):
@@ -679,7 +676,7 @@ class InstrumentTradingRightField(BaseModel):
 
 
 class WebCTPReqInstrumentTradingRight(WebCTPRequest):
-    ReqInstrumentTradingRight: InstrumentTradingRightField = Field(
+    InstrumentTradingRight: InstrumentTradingRightField = Field(
         title="投资者合约交易权限")
 
 
@@ -696,7 +693,7 @@ class BrokerUserField(BaseModel):
 
 
 class WebCTPReqBrokerUser(WebCTPRequest):
-    ReqBrokerUser: BrokerUserField = Field(title="经纪公司用户")
+    BrokerUser: BrokerUserField = Field(title="经纪公司用户")
 
 
 class BrokerUserPasswordField(BaseModel):
@@ -712,7 +709,7 @@ class BrokerUserPasswordField(BaseModel):
 
 
 class WebCTPReqBrokerUserPassword(WebCTPRequest):
-    ReqBrokerUserPassword: BrokerUserPasswordField = Field(
+    BrokerUserPassword: BrokerUserPasswordField = Field(
         title="经纪公司用户口令")
 
 
@@ -725,7 +722,7 @@ class BrokerUserFunctionField(BaseModel):
 
 
 class WebCTPReqBrokerUserFunction(WebCTPRequest):
-    ReqBrokerUserFunction: BrokerUserFunctionField = Field(
+    BrokerUserFunction: BrokerUserFunctionField = Field(
         title="经纪公司用户功能权限")
 
 
@@ -755,7 +752,7 @@ class TraderOfferField(BaseModel):
 
 
 class WebCTPReqTraderOffer(WebCTPRequest):
-    ReqTraderOffer: TraderOfferField = Field(title="交易所交易员报盘机")
+    TraderOffer: TraderOfferField = Field(title="交易所交易员报盘机")
 
 
 class SettlementInfoField(BaseModel):
@@ -772,7 +769,7 @@ class SettlementInfoField(BaseModel):
 
 
 class WebCTPReqSettlementInfo(WebCTPRequest):
-    ReqSettlementInfo: SettlementInfoField = Field(title="投资者结算结果")
+    SettlementInfo: SettlementInfoField = Field(title="投资者结算结果")
 
 
 class InstrumentMarginRateAdjustField(BaseModel):
@@ -792,7 +789,7 @@ class InstrumentMarginRateAdjustField(BaseModel):
 
 
 class WebCTPReqInstrumentMarginRateAdjust(WebCTPRequest):
-    ReqInstrumentMarginRateAdjust: InstrumentMarginRateAdjustField = Field(
+    InstrumentMarginRateAdjust: InstrumentMarginRateAdjustField = Field(
         title="合约保证金率调整")
 
 
@@ -811,8 +808,7 @@ class ExchangeMarginRateField(BaseModel):
 
 
 class WebCTPReqExchangeMarginRate(WebCTPRequest):
-    ReqExchangeMarginRate: ExchangeMarginRateField = Field(
-        title="交易所保证金率")
+    ExchangeMarginRate: ExchangeMarginRateField = Field(title="交易所保证金率")
 
 
 class ExchangeMarginRateAdjustField(BaseModel):
@@ -846,7 +842,7 @@ class ExchangeMarginRateAdjustField(BaseModel):
 
 
 class WebCTPReqExchangeMarginRateAdjust(WebCTPRequest):
-    ReqExchangeMarginRateAdjust: ExchangeMarginRateAdjustField = Field(
+    ExchangeMarginRateAdjust: ExchangeMarginRateAdjustField = Field(
         title="交易所保证金率调整")
 
 
@@ -861,7 +857,7 @@ class ExchangeRateField(BaseModel):
 
 
 class WebCTPReqExchangeRate(WebCTPRequest):
-    ReqExchangeRate: ExchangeRateField = Field(title="汇率")
+    ExchangeRate: ExchangeRateField = Field(title="汇率")
 
 
 class SettlementRefField(BaseModel):
@@ -872,7 +868,7 @@ class SettlementRefField(BaseModel):
 
 
 class WebCTPReqSettlementRef(WebCTPRequest):
-    ReqSettlementRef: SettlementRefField = Field(title="结算引用")
+    SettlementRef: SettlementRefField = Field(title="结算引用")
 
 
 class CurrentTimeField(BaseModel):
@@ -885,7 +881,7 @@ class CurrentTimeField(BaseModel):
 
 
 class WebCTPReqCurrentTime(WebCTPRequest):
-    ReqCurrentTime: CurrentTimeField = Field(title="当前时间")
+    CurrentTime: CurrentTimeField = Field(title="当前时间")
 
 
 class CommPhaseField(BaseModel):
@@ -897,7 +893,7 @@ class CommPhaseField(BaseModel):
 
 
 class WebCTPReqCommPhase(WebCTPRequest):
-    ReqCommPhase: CommPhaseField = Field(title="通讯阶段")
+    CommPhase: CommPhaseField = Field(title="通讯阶段")
 
 
 class LoginInfoField(BaseModel):
@@ -930,7 +926,7 @@ class LoginInfoField(BaseModel):
 
 
 class WebCTPReqLoginInfo(WebCTPRequest):
-    ReqLoginInfo: LoginInfoField = Field(title="登录信息")
+    LoginInfo: LoginInfoField = Field(title="登录信息")
 
 
 class LogoutAllField(BaseModel):
@@ -942,7 +938,7 @@ class LogoutAllField(BaseModel):
 
 
 class WebCTPReqLogoutAll(WebCTPRequest):
-    ReqLogoutAll: LogoutAllField = Field(title="登录信息")
+    LogoutAll: LogoutAllField = Field(title="登录信息")
 
 
 class FrontStatusField(BaseModel):
@@ -955,7 +951,7 @@ class FrontStatusField(BaseModel):
 
 
 class WebCTPReqFrontStatus(WebCTPRequest):
-    ReqFrontStatus: FrontStatusField = Field(title="前置状态")
+    FrontStatus: FrontStatusField = Field(title="前置状态")
 
 
 class UserPasswordUpdateField(BaseModel):
@@ -968,8 +964,7 @@ class UserPasswordUpdateField(BaseModel):
 
 
 class WebCTPReqUserPasswordUpdate(WebCTPRequest):
-    ReqUserPasswordUpdate: UserPasswordUpdateField = Field(
-        title="用户口令变更")
+    UserPasswordUpdate: UserPasswordUpdateField = Field(title="用户口令变更")
 
 
 class InputOrderField(BaseModel):
@@ -1010,7 +1005,7 @@ class InputOrderField(BaseModel):
 
 
 class WebCTPReqInputOrder(WebCTPRequest):
-    ReqInputOrder: InputOrderField = Field(title="输入报单")
+    InputOrder: InputOrderField = Field(title="输入报单")
 
 
 class OrderField(BaseModel):
@@ -1085,7 +1080,7 @@ class OrderField(BaseModel):
 
 
 class WebCTPReqOrder(WebCTPRequest):
-    ReqOrder: OrderField = Field(title="报单")
+    Order: OrderField = Field(title="报单")
 
 
 class ExchangeOrderField(BaseModel):
@@ -1141,7 +1136,7 @@ class ExchangeOrderField(BaseModel):
 
 
 class WebCTPReqExchangeOrder(WebCTPRequest):
-    ReqExchangeOrder: ExchangeOrderField = Field(title="交易所报单")
+    ExchangeOrder: ExchangeOrderField = Field(title="交易所报单")
 
 
 class ExchangeOrderInsertErrorField(BaseModel):
@@ -1157,7 +1152,7 @@ class ExchangeOrderInsertErrorField(BaseModel):
 
 
 class WebCTPReqExchangeOrderInsertError(WebCTPRequest):
-    ReqExchangeOrderInsertError: ExchangeOrderInsertErrorField = Field(
+    ExchangeOrderInsertError: ExchangeOrderInsertErrorField = Field(
         title="交易所报单插入失败")
 
 
@@ -1186,7 +1181,7 @@ class InputOrderActionField(BaseModel):
 
 
 class WebCTPReqInputOrderAction(WebCTPRequest):
-    ReqInputOrderAction: InputOrderActionField = Field(title="输入报单操作")
+    InputOrderAction: InputOrderActionField = Field(title="输入报单操作")
 
 
 class OrderActionField(BaseModel):
@@ -1226,7 +1221,7 @@ class OrderActionField(BaseModel):
 
 
 class WebCTPReqOrderAction(WebCTPRequest):
-    ReqOrderAction: OrderActionField = Field(title="报单操作")
+    OrderAction: OrderActionField = Field(title="报单操作")
 
 
 class ExchangeOrderActionField(BaseModel):
@@ -1255,7 +1250,7 @@ class ExchangeOrderActionField(BaseModel):
 
 
 class WebCTPReqExchangeOrderAction(WebCTPRequest):
-    ReqExchangeOrderAction: ExchangeOrderActionField = Field(
+    ExchangeOrderAction: ExchangeOrderActionField = Field(
         title="交易所报单操作")
 
 
@@ -1273,7 +1268,7 @@ class ExchangeOrderActionErrorField(BaseModel):
 
 
 class WebCTPReqExchangeOrderActionError(WebCTPRequest):
-    ReqExchangeOrderActionError: ExchangeOrderActionErrorField = Field(
+    ExchangeOrderActionError: ExchangeOrderActionErrorField = Field(
         title="交易所报单操作失败")
 
 
@@ -1306,7 +1301,7 @@ class ExchangeTradeField(BaseModel):
 
 
 class WebCTPReqExchangeTrade(WebCTPRequest):
-    ReqExchangeTrade: ExchangeTradeField = Field(title="交易所成交")
+    ExchangeTrade: ExchangeTradeField = Field(title="交易所成交")
 
 
 class TradeField(BaseModel):
@@ -1348,7 +1343,7 @@ class TradeField(BaseModel):
 
 
 class WebCTPReqTrade(WebCTPRequest):
-    ReqTrade: TradeField = Field(title="成交")
+    Trade: TradeField = Field(title="成交")
 
 
 class UserSessionField(BaseModel):
@@ -1370,7 +1365,7 @@ class UserSessionField(BaseModel):
 
 
 class WebCTPReqUserSession(WebCTPRequest):
-    ReqUserSession: UserSessionField = Field(title="用户会话")
+    UserSession: UserSessionField = Field(title="用户会话")
 
 
 class QueryMaxOrderVolumeField(BaseModel):
@@ -1388,7 +1383,7 @@ class QueryMaxOrderVolumeField(BaseModel):
 
 
 class WebCTPReqQueryMaxOrderVolume(WebCTPRequest):
-    ReqQueryMaxOrderVolume: QueryMaxOrderVolumeField = Field(
+    QueryMaxOrderVolume: QueryMaxOrderVolumeField = Field(
         title="查询最大报单数量")
 
 
@@ -1405,7 +1400,7 @@ class SettlementInfoConfirmField(BaseModel):
 
 
 class WebCTPReqSettlementInfoConfirm(WebCTPRequest):
-    ReqSettlementInfoConfirm: SettlementInfoConfirmField = Field(
+    SettlementInfoConfirm: SettlementInfoConfirmField = Field(
         title="投资者结算结果确认信息")
 
 
@@ -1423,7 +1418,7 @@ class SyncDepositField(BaseModel):
 
 
 class WebCTPReqSyncDeposit(WebCTPRequest):
-    ReqSyncDeposit: SyncDepositField = Field(title="出入金同步")
+    SyncDeposit: SyncDepositField = Field(title="出入金同步")
 
 
 class SyncFundMortgageField(BaseModel):
@@ -1438,7 +1433,7 @@ class SyncFundMortgageField(BaseModel):
 
 
 class WebCTPReqSyncFundMortgage(WebCTPRequest):
-    ReqSyncFundMortgage: SyncFundMortgageField = Field(title="货币质押同步")
+    SyncFundMortgage: SyncFundMortgageField = Field(title="货币质押同步")
 
 
 class BrokerSyncField(BaseModel):
@@ -1448,7 +1443,7 @@ class BrokerSyncField(BaseModel):
 
 
 class WebCTPReqBrokerSync(WebCTPRequest):
-    ReqBrokerSync: BrokerSyncField = Field(title="经纪公司同步")
+    BrokerSync: BrokerSyncField = Field(title="经纪公司同步")
 
 
 class SyncingInvestorField(BaseModel):
@@ -1472,8 +1467,7 @@ class SyncingInvestorField(BaseModel):
 
 
 class WebCTPReqSyncingInvestor(WebCTPRequest):
-    ReqSyncingInvestor: SyncingInvestorField = Field(
-        title="正在同步中的投资者")
+    SyncingInvestor: SyncingInvestorField = Field(title="正在同步中的投资者")
 
 
 class SyncingTradingCodeField(BaseModel):
@@ -1488,7 +1482,7 @@ class SyncingTradingCodeField(BaseModel):
 
 
 class WebCTPReqSyncingTradingCode(WebCTPRequest):
-    ReqSyncingTradingCode: SyncingTradingCodeField = Field(
+    SyncingTradingCode: SyncingTradingCodeField = Field(
         title="正在同步中的交易代码")
 
 
@@ -1501,7 +1495,7 @@ class SyncingInvestorGroupField(BaseModel):
 
 
 class WebCTPReqSyncingInvestorGroup(WebCTPRequest):
-    ReqSyncingInvestorGroup: SyncingInvestorGroupField = Field(
+    SyncingInvestorGroup: SyncingInvestorGroupField = Field(
         title="正在同步中的投资者分组")
 
 
@@ -1560,7 +1554,7 @@ class SyncingTradingAccountField(BaseModel):
 
 
 class WebCTPReqSyncingTradingAccount(WebCTPRequest):
-    ReqSyncingTradingAccount: SyncingTradingAccountField = Field(
+    SyncingTradingAccount: SyncingTradingAccountField = Field(
         title="正在同步中的交易账号")
 
 
@@ -1620,7 +1614,7 @@ class SyncingInvestorPositionField(BaseModel):
 
 
 class WebCTPReqSyncingInvestorPosition(WebCTPRequest):
-    ReqSyncingInvestorPosition: SyncingInvestorPositionField = Field(
+    SyncingInvestorPosition: SyncingInvestorPositionField = Field(
         title="正在同步中的投资者持仓")
 
 
@@ -1641,7 +1635,7 @@ class SyncingInstrumentMarginRateField(BaseModel):
 
 
 class WebCTPReqSyncingInstrumentMarginRate(WebCTPRequest):
-    ReqSyncingInstrumentMarginRate: SyncingInstrumentMarginRateField = Field(
+    SyncingInstrumentMarginRate: SyncingInstrumentMarginRateField = Field(
         title="正在同步中的合约保证金率")
 
 
@@ -1662,7 +1656,7 @@ class SyncingInstrumentCommissionRateField(BaseModel):
 
 
 class WebCTPReqSyncingInstrumentCommissionRate(WebCTPRequest):
-    ReqSyncingInstrumentCommissionRate: SyncingInstrumentCommissionRateField = Field(
+    SyncingInstrumentCommissionRate: SyncingInstrumentCommissionRateField = Field(
         title="正在同步中的合约手续费率")
 
 
@@ -1678,7 +1672,7 @@ class SyncingInstrumentTradingRightField(BaseModel):
 
 
 class WebCTPReqSyncingInstrumentTradingRight(WebCTPRequest):
-    ReqSyncingInstrumentTradingRight: SyncingInstrumentTradingRightField = Field(
+    SyncingInstrumentTradingRight: SyncingInstrumentTradingRightField = Field(
         title="正在同步中的合约交易权限")
 
 
@@ -1697,7 +1691,7 @@ class QryOrderField(BaseModel):
 
 
 class WebCTPReqQryOrder(WebCTPRequest):
-    ReqQryOrder: QryOrderField = Field(title="查询报单")
+    QryOrder: QryOrderField = Field(title="查询报单")
 
 
 class QryTradeField(BaseModel):
@@ -1715,7 +1709,7 @@ class QryTradeField(BaseModel):
 
 
 class WebCTPReqQryTrade(WebCTPRequest):
-    ReqQryTrade: QryTradeField = Field(title="查询成交")
+    QryTrade: QryTradeField = Field(title="查询成交")
 
 
 class QryInvestorPositionField(BaseModel):
@@ -1730,7 +1724,7 @@ class QryInvestorPositionField(BaseModel):
 
 
 class WebCTPReqQryInvestorPosition(WebCTPRequest):
-    ReqQryInvestorPosition: QryInvestorPositionField = Field(
+    QryInvestorPosition: QryInvestorPositionField = Field(
         title="查询投资者持仓")
 
 
@@ -1745,7 +1739,7 @@ class QryTradingAccountField(BaseModel):
 
 
 class WebCTPReqQryTradingAccount(WebCTPRequest):
-    ReqQryTradingAccount: QryTradingAccountField = Field(title="查询资金账户")
+    QryTradingAccount: QryTradingAccountField = Field(title="查询资金账户")
 
 
 class QryInvestorField(BaseModel):
@@ -1756,7 +1750,7 @@ class QryInvestorField(BaseModel):
 
 
 class WebCTPReqQryInvestor(WebCTPRequest):
-    ReqQryInvestor: QryInvestorField = Field(title="查询投资者")
+    QryInvestor: QryInvestorField = Field(title="查询投资者")
 
 
 class QryTradingCodeField(BaseModel):
@@ -1771,7 +1765,7 @@ class QryTradingCodeField(BaseModel):
 
 
 class WebCTPReqQryTradingCode(WebCTPRequest):
-    ReqQryTradingCode: QryTradingCodeField = Field(title="查询交易编码")
+    QryTradingCode: QryTradingCodeField = Field(title="查询交易编码")
 
 
 class QryInvestorGroupField(BaseModel):
@@ -1781,7 +1775,7 @@ class QryInvestorGroupField(BaseModel):
 
 
 class WebCTPReqQryInvestorGroup(WebCTPRequest):
-    ReqQryInvestorGroup: QryInvestorGroupField = Field(title="查询投资者组")
+    QryInvestorGroup: QryInvestorGroupField = Field(title="查询投资者组")
 
 
 class QryInstrumentMarginRateField(BaseModel):
@@ -1797,7 +1791,7 @@ class QryInstrumentMarginRateField(BaseModel):
 
 
 class WebCTPReqQryInstrumentMarginRate(WebCTPRequest):
-    ReqQryInstrumentMarginRate: QryInstrumentMarginRateField = Field(
+    QryInstrumentMarginRate: QryInstrumentMarginRateField = Field(
         title="查询合约保证金率")
 
 
@@ -1813,7 +1807,7 @@ class QryInstrumentCommissionRateField(BaseModel):
 
 
 class WebCTPReqQryInstrumentCommissionRate(WebCTPRequest):
-    ReqQryInstrumentCommissionRate: QryInstrumentCommissionRateField = Field(
+    QryInstrumentCommissionRate: QryInstrumentCommissionRateField = Field(
         title="查询手续费率")
 
 
@@ -1827,7 +1821,7 @@ class QryInstrumentTradingRightField(BaseModel):
 
 
 class WebCTPReqQryInstrumentTradingRight(WebCTPRequest):
-    ReqQryInstrumentTradingRight: QryInstrumentTradingRightField = Field(
+    QryInstrumentTradingRight: QryInstrumentTradingRightField = Field(
         title="查询合约交易权限")
 
 
@@ -1838,7 +1832,7 @@ class QryBrokerField(BaseModel):
 
 
 class WebCTPReqQryBroker(WebCTPRequest):
-    ReqQryBroker: QryBrokerField = Field(title="查询经纪公司")
+    QryBroker: QryBrokerField = Field(title="查询经纪公司")
 
 
 class QryTraderField(BaseModel):
@@ -1850,7 +1844,7 @@ class QryTraderField(BaseModel):
 
 
 class WebCTPReqQryTrader(WebCTPRequest):
-    ReqQryTrader: QryTraderField = Field(title="查询交易员")
+    QryTrader: QryTraderField = Field(title="查询交易员")
 
 
 class QrySuperUserFunctionField(BaseModel):
@@ -1860,7 +1854,7 @@ class QrySuperUserFunctionField(BaseModel):
 
 
 class WebCTPReqQrySuperUserFunction(WebCTPRequest):
-    ReqQrySuperUserFunction: QrySuperUserFunctionField = Field(
+    QrySuperUserFunction: QrySuperUserFunctionField = Field(
         title="查询管理用户功能权限")
 
 
@@ -1874,7 +1868,7 @@ class QryUserSessionField(BaseModel):
 
 
 class WebCTPReqQryUserSession(WebCTPRequest):
-    ReqQryUserSession: QryUserSessionField = Field(title="查询用户会话")
+    QryUserSession: QryUserSessionField = Field(title="查询用户会话")
 
 
 class QryPartBrokerField(BaseModel):
@@ -1886,7 +1880,7 @@ class QryPartBrokerField(BaseModel):
 
 
 class WebCTPReqQryPartBroker(WebCTPRequest):
-    ReqQryPartBroker: QryPartBrokerField = Field(title="查询经纪公司会员代码")
+    QryPartBroker: QryPartBrokerField = Field(title="查询经纪公司会员代码")
 
 
 class QryFrontStatusField(BaseModel):
@@ -1896,7 +1890,7 @@ class QryFrontStatusField(BaseModel):
 
 
 class WebCTPReqQryFrontStatus(WebCTPRequest):
-    ReqQryFrontStatus: QryFrontStatusField = Field(title="查询前置状态")
+    QryFrontStatus: QryFrontStatusField = Field(title="查询前置状态")
 
 
 class QryExchangeOrderField(BaseModel):
@@ -1911,7 +1905,7 @@ class QryExchangeOrderField(BaseModel):
 
 
 class WebCTPReqQryExchangeOrder(WebCTPRequest):
-    ReqQryExchangeOrder: QryExchangeOrderField = Field(title="查询交易所报单")
+    QryExchangeOrder: QryExchangeOrderField = Field(title="查询交易所报单")
 
 
 class QryOrderActionField(BaseModel):
@@ -1923,7 +1917,7 @@ class QryOrderActionField(BaseModel):
 
 
 class WebCTPReqQryOrderAction(WebCTPRequest):
-    ReqQryOrderAction: QryOrderActionField = Field(title="查询报单操作")
+    QryOrderAction: QryOrderActionField = Field(title="查询报单操作")
 
 
 class QryExchangeOrderActionField(BaseModel):
@@ -1936,7 +1930,7 @@ class QryExchangeOrderActionField(BaseModel):
 
 
 class WebCTPReqQryExchangeOrderAction(WebCTPRequest):
-    ReqQryExchangeOrderAction: QryExchangeOrderActionField = Field(
+    QryExchangeOrderAction: QryExchangeOrderActionField = Field(
         title="查询交易所报单操作")
 
 
@@ -1947,7 +1941,7 @@ class QrySuperUserField(BaseModel):
 
 
 class WebCTPReqQrySuperUser(WebCTPRequest):
-    ReqQrySuperUser: QrySuperUserField = Field(title="查询管理用户")
+    QrySuperUser: QrySuperUserField = Field(title="查询管理用户")
 
 
 class QryExchangeField(BaseModel):
@@ -1957,7 +1951,7 @@ class QryExchangeField(BaseModel):
 
 
 class WebCTPReqQryExchange(WebCTPRequest):
-    ReqQryExchange: QryExchangeField = Field(title="查询交易所")
+    QryExchange: QryExchangeField = Field(title="查询交易所")
 
 
 class QryProductField(BaseModel):
@@ -1970,7 +1964,7 @@ class QryProductField(BaseModel):
 
 
 class WebCTPReqQryProduct(WebCTPRequest):
-    ReqQryProduct: QryProductField = Field(title="查询产品")
+    QryProduct: QryProductField = Field(title="查询产品")
 
 
 class QryInstrumentField(BaseModel):
@@ -1986,7 +1980,7 @@ class QryInstrumentField(BaseModel):
 
 
 class WebCTPReqQryInstrument(WebCTPRequest):
-    ReqQryInstrument: QryInstrumentField = Field(title="查询合约")
+    QryInstrument: QryInstrumentField = Field(title="查询合约")
 
 
 class QryDepthMarketDataField(BaseModel):
@@ -1998,7 +1992,7 @@ class QryDepthMarketDataField(BaseModel):
 
 
 class WebCTPReqQryDepthMarketData(WebCTPRequest):
-    ReqQryDepthMarketData: QryDepthMarketDataField = Field(title="查询行情")
+    QryDepthMarketData: QryDepthMarketDataField = Field(title="查询行情")
 
 
 class QryBrokerUserField(BaseModel):
@@ -2009,7 +2003,7 @@ class QryBrokerUserField(BaseModel):
 
 
 class WebCTPReqQryBrokerUser(WebCTPRequest):
-    ReqQryBrokerUser: QryBrokerUserField = Field(title="查询经纪公司用户")
+    QryBrokerUser: QryBrokerUserField = Field(title="查询经纪公司用户")
 
 
 class QryBrokerUserFunctionField(BaseModel):
@@ -2020,7 +2014,7 @@ class QryBrokerUserFunctionField(BaseModel):
 
 
 class WebCTPReqQryBrokerUserFunction(WebCTPRequest):
-    ReqQryBrokerUserFunction: QryBrokerUserFunctionField = Field(
+    QryBrokerUserFunction: QryBrokerUserFunctionField = Field(
         title="查询经纪公司用户权限")
 
 
@@ -2033,7 +2027,7 @@ class QryTraderOfferField(BaseModel):
 
 
 class WebCTPReqQryTraderOffer(WebCTPRequest):
-    ReqQryTraderOffer: QryTraderOfferField = Field(title="查询交易员报盘机")
+    QryTraderOffer: QryTraderOfferField = Field(title="查询交易员报盘机")
 
 
 class QrySyncDepositField(BaseModel):
@@ -2044,7 +2038,7 @@ class QrySyncDepositField(BaseModel):
 
 
 class WebCTPReqQrySyncDeposit(WebCTPRequest):
-    ReqQrySyncDeposit: QrySyncDepositField = Field(title="查询出入金流水")
+    QrySyncDeposit: QrySyncDepositField = Field(title="查询出入金流水")
 
 
 class QrySettlementInfoField(BaseModel):
@@ -2058,7 +2052,7 @@ class QrySettlementInfoField(BaseModel):
 
 
 class WebCTPReqQrySettlementInfo(WebCTPRequest):
-    ReqQrySettlementInfo: QrySettlementInfoField = Field(
+    QrySettlementInfo: QrySettlementInfoField = Field(
         title="查询投资者结算结果")
 
 
@@ -2073,7 +2067,7 @@ class QryExchangeMarginRateField(BaseModel):
 
 
 class WebCTPReqQryExchangeMarginRate(WebCTPRequest):
-    ReqQryExchangeMarginRate: QryExchangeMarginRateField = Field(
+    QryExchangeMarginRate: QryExchangeMarginRateField = Field(
         title="查询交易所保证金率")
 
 
@@ -2087,7 +2081,7 @@ class QryExchangeMarginRateAdjustField(BaseModel):
 
 
 class WebCTPReqQryExchangeMarginRateAdjust(WebCTPRequest):
-    ReqQryExchangeMarginRateAdjust: QryExchangeMarginRateAdjustField = Field(
+    QryExchangeMarginRateAdjust: QryExchangeMarginRateAdjustField = Field(
         title="查询交易所调整保证金率")
 
 
@@ -2100,7 +2094,7 @@ class QryExchangeRateField(BaseModel):
 
 
 class WebCTPReqQryExchangeRate(WebCTPRequest):
-    ReqQryExchangeRate: QryExchangeRateField = Field(title="查询汇率")
+    QryExchangeRate: QryExchangeRateField = Field(title="查询汇率")
 
 
 class QrySyncFundMortgageField(BaseModel):
@@ -2111,7 +2105,7 @@ class QrySyncFundMortgageField(BaseModel):
 
 
 class WebCTPReqQrySyncFundMortgage(WebCTPRequest):
-    ReqQrySyncFundMortgage: QrySyncFundMortgageField = Field(
+    QrySyncFundMortgage: QrySyncFundMortgageField = Field(
         title="查询货币质押流水")
 
 
@@ -2131,7 +2125,7 @@ class QryHisOrderField(BaseModel):
 
 
 class WebCTPReqQryHisOrder(WebCTPRequest):
-    ReqQryHisOrder: QryHisOrderField = Field(title="查询报单")
+    QryHisOrder: QryHisOrderField = Field(title="查询报单")
 
 
 class OptionInstrMiniMarginField(BaseModel):
@@ -2148,7 +2142,7 @@ class OptionInstrMiniMarginField(BaseModel):
 
 
 class WebCTPReqOptionInstrMiniMargin(WebCTPRequest):
-    ReqOptionInstrMiniMargin: OptionInstrMiniMarginField = Field(
+    OptionInstrMiniMargin: OptionInstrMiniMarginField = Field(
         title="当前期权合约最小保证金")
 
 
@@ -2180,7 +2174,7 @@ class OptionInstrMarginAdjustField(BaseModel):
 
 
 class WebCTPReqOptionInstrMarginAdjust(WebCTPRequest):
-    ReqOptionInstrMarginAdjust: OptionInstrMarginAdjustField = Field(
+    OptionInstrMarginAdjust: OptionInstrMarginAdjustField = Field(
         title="当前期权合约保证金调整系数")
 
 
@@ -2205,7 +2199,7 @@ class OptionInstrCommRateField(BaseModel):
 
 
 class WebCTPReqOptionInstrCommRate(WebCTPRequest):
-    ReqOptionInstrCommRate: OptionInstrCommRateField = Field(
+    OptionInstrCommRate: OptionInstrCommRateField = Field(
         title="当前期权合约手续费的详细内容")
 
 
@@ -2227,7 +2221,7 @@ class OptionInstrTradeCostField(BaseModel):
 
 
 class WebCTPReqOptionInstrTradeCost(WebCTPRequest):
-    ReqOptionInstrTradeCost: OptionInstrTradeCostField = Field(
+    OptionInstrTradeCost: OptionInstrTradeCostField = Field(
         title="期权交易成本")
 
 
@@ -2246,7 +2240,7 @@ class QryOptionInstrTradeCostField(BaseModel):
 
 
 class WebCTPReqQryOptionInstrTradeCost(WebCTPRequest):
-    ReqQryOptionInstrTradeCost: QryOptionInstrTradeCostField = Field(
+    QryOptionInstrTradeCost: QryOptionInstrTradeCostField = Field(
         title="期权交易成本查询")
 
 
@@ -2262,7 +2256,7 @@ class QryOptionInstrCommRateField(BaseModel):
 
 
 class WebCTPReqQryOptionInstrCommRate(WebCTPRequest):
-    ReqQryOptionInstrCommRate: QryOptionInstrCommRateField = Field(
+    QryOptionInstrCommRate: QryOptionInstrCommRateField = Field(
         title="期权手续费率查询")
 
 
@@ -2276,7 +2270,7 @@ class IndexPriceField(BaseModel):
 
 
 class WebCTPReqIndexPrice(WebCTPRequest):
-    ReqIndexPrice: IndexPriceField = Field(title="股指现货指数")
+    IndexPrice: IndexPriceField = Field(title="股指现货指数")
 
 
 class InputExecOrderField(BaseModel):
@@ -2309,7 +2303,7 @@ class InputExecOrderField(BaseModel):
 
 
 class WebCTPReqInputExecOrder(WebCTPRequest):
-    ReqInputExecOrder: InputExecOrderField = Field(title="输入的执行宣告")
+    InputExecOrder: InputExecOrderField = Field(title="输入的执行宣告")
 
 
 class InputExecOrderActionField(BaseModel):
@@ -2335,7 +2329,7 @@ class InputExecOrderActionField(BaseModel):
 
 
 class WebCTPReqInputExecOrderAction(WebCTPRequest):
-    ReqInputExecOrderAction: InputExecOrderActionField = Field(
+    InputExecOrderAction: InputExecOrderActionField = Field(
         title="输入执行宣告操作")
 
 
@@ -2393,7 +2387,7 @@ class ExecOrderField(BaseModel):
 
 
 class WebCTPReqExecOrder(WebCTPRequest):
-    ReqExecOrder: ExecOrderField = Field(title="执行宣告")
+    ExecOrder: ExecOrderField = Field(title="执行宣告")
 
 
 class ExecOrderActionField(BaseModel):
@@ -2432,7 +2426,7 @@ class ExecOrderActionField(BaseModel):
 
 
 class WebCTPReqExecOrderAction(WebCTPRequest):
-    ReqExecOrderAction: ExecOrderActionField = Field(title="执行宣告操作")
+    ExecOrderAction: ExecOrderActionField = Field(title="执行宣告操作")
 
 
 class QryExecOrderField(BaseModel):
@@ -2449,7 +2443,7 @@ class QryExecOrderField(BaseModel):
 
 
 class WebCTPReqQryExecOrder(WebCTPRequest):
-    ReqQryExecOrder: QryExecOrderField = Field(title="执行宣告查询")
+    QryExecOrder: QryExecOrderField = Field(title="执行宣告查询")
 
 
 class ExchangeExecOrderField(BaseModel):
@@ -2491,7 +2485,7 @@ class ExchangeExecOrderField(BaseModel):
 
 
 class WebCTPReqExchangeExecOrder(WebCTPRequest):
-    ReqExchangeExecOrder: ExchangeExecOrderField = Field(
+    ExchangeExecOrder: ExchangeExecOrderField = Field(
         title="交易所执行宣告信息")
 
 
@@ -2507,7 +2501,7 @@ class QryExchangeExecOrderField(BaseModel):
 
 
 class WebCTPReqQryExchangeExecOrder(WebCTPRequest):
-    ReqQryExchangeExecOrder: QryExchangeExecOrderField = Field(
+    QryExchangeExecOrder: QryExchangeExecOrderField = Field(
         title="交易所执行宣告查询")
 
 
@@ -2520,7 +2514,7 @@ class QryExecOrderActionField(BaseModel):
 
 
 class WebCTPReqQryExecOrderAction(WebCTPRequest):
-    ReqQryExecOrderAction: QryExecOrderActionField = Field(
+    QryExecOrderAction: QryExecOrderActionField = Field(
         title="执行宣告操作查询")
 
 
@@ -2552,7 +2546,7 @@ class ExchangeExecOrderActionField(BaseModel):
 
 
 class WebCTPReqExchangeExecOrderAction(WebCTPRequest):
-    ReqExchangeExecOrderAction: ExchangeExecOrderActionField = Field(
+    ExchangeExecOrderAction: ExchangeExecOrderActionField = Field(
         title="交易所执行宣告操作")
 
 
@@ -2566,7 +2560,7 @@ class QryExchangeExecOrderActionField(BaseModel):
 
 
 class WebCTPReqQryExchangeExecOrderAction(WebCTPRequest):
-    ReqQryExchangeExecOrderAction: QryExchangeExecOrderActionField = Field(
+    QryExchangeExecOrderAction: QryExchangeExecOrderActionField = Field(
         title="交易所执行宣告操作查询")
 
 
@@ -2602,7 +2596,7 @@ class ErrExecOrderField(BaseModel):
 
 
 class WebCTPReqErrExecOrder(WebCTPRequest):
-    ReqErrExecOrder: ErrExecOrderField = Field(title="错误执行宣告")
+    ErrExecOrder: ErrExecOrderField = Field(title="错误执行宣告")
 
 
 class QryErrExecOrderField(BaseModel):
@@ -2613,7 +2607,7 @@ class QryErrExecOrderField(BaseModel):
 
 
 class WebCTPReqQryErrExecOrder(WebCTPRequest):
-    ReqQryErrExecOrder: QryErrExecOrderField = Field(title="查询错误执行宣告")
+    QryErrExecOrder: QryErrExecOrderField = Field(title="查询错误执行宣告")
 
 
 class ErrExecOrderActionField(BaseModel):
@@ -2641,7 +2635,7 @@ class ErrExecOrderActionField(BaseModel):
 
 
 class WebCTPReqErrExecOrderAction(WebCTPRequest):
-    ReqErrExecOrderAction: ErrExecOrderActionField = Field(
+    ErrExecOrderAction: ErrExecOrderActionField = Field(
         title="错误执行宣告操作")
 
 
@@ -2653,7 +2647,7 @@ class QryErrExecOrderActionField(BaseModel):
 
 
 class WebCTPReqQryErrExecOrderAction(WebCTPRequest):
-    ReqQryErrExecOrderAction: QryErrExecOrderActionField = Field(
+    QryErrExecOrderAction: QryErrExecOrderActionField = Field(
         title="查询错误执行宣告操作")
 
 
@@ -2670,7 +2664,7 @@ class OptionInstrTradingRightField(BaseModel):
 
 
 class WebCTPReqOptionInstrTradingRight(WebCTPRequest):
-    ReqOptionInstrTradingRight: OptionInstrTradingRightField = Field(
+    OptionInstrTradingRight: OptionInstrTradingRightField = Field(
         title="投资者期权合约交易权限")
 
 
@@ -2685,7 +2679,7 @@ class QryOptionInstrTradingRightField(BaseModel):
 
 
 class WebCTPReqQryOptionInstrTradingRight(WebCTPRequest):
-    ReqQryOptionInstrTradingRight: QryOptionInstrTradingRightField = Field(
+    QryOptionInstrTradingRight: QryOptionInstrTradingRightField = Field(
         title="查询期权合约交易权限")
 
 
@@ -2706,7 +2700,7 @@ class InputForQuoteField(BaseModel):
 
 
 class WebCTPReqInputForQuote(WebCTPRequest):
-    ReqInputForQuote: InputForQuoteField = Field(title="输入的询价")
+    InputForQuote: InputForQuoteField = Field(title="输入的询价")
 
 
 class ForQuoteField(BaseModel):
@@ -2741,7 +2735,7 @@ class ForQuoteField(BaseModel):
 
 
 class WebCTPReqForQuote(WebCTPRequest):
-    ReqForQuote: ForQuoteField = Field(title="询价")
+    ForQuote: ForQuoteField = Field(title="询价")
 
 
 class QryForQuoteField(BaseModel):
@@ -2758,7 +2752,7 @@ class QryForQuoteField(BaseModel):
 
 
 class WebCTPReqQryForQuote(WebCTPRequest):
-    ReqQryForQuote: QryForQuoteField = Field(title="询价查询")
+    QryForQuote: QryForQuoteField = Field(title="询价查询")
 
 
 class ExchangeForQuoteField(BaseModel):
@@ -2781,7 +2775,7 @@ class ExchangeForQuoteField(BaseModel):
 
 
 class WebCTPReqExchangeForQuote(WebCTPRequest):
-    ReqExchangeForQuote: ExchangeForQuoteField = Field(title="交易所询价信息")
+    ExchangeForQuote: ExchangeForQuoteField = Field(title="交易所询价信息")
 
 
 class QryExchangeForQuoteField(BaseModel):
@@ -2796,7 +2790,7 @@ class QryExchangeForQuoteField(BaseModel):
 
 
 class WebCTPReqQryExchangeForQuote(WebCTPRequest):
-    ReqQryExchangeForQuote: QryExchangeForQuoteField = Field(
+    QryExchangeForQuote: QryExchangeForQuoteField = Field(
         title="交易所询价查询")
 
 
@@ -2833,7 +2827,7 @@ class InputQuoteField(BaseModel):
 
 
 class WebCTPReqInputQuote(WebCTPRequest):
-    ReqInputQuote: InputQuoteField = Field(title="输入的报价")
+    InputQuote: InputQuoteField = Field(title="输入的报价")
 
 
 class InputQuoteActionField(BaseModel):
@@ -2860,7 +2854,7 @@ class InputQuoteActionField(BaseModel):
 
 
 class WebCTPReqInputQuoteAction(WebCTPRequest):
-    ReqInputQuoteAction: InputQuoteActionField = Field(title="输入报价操作")
+    InputQuoteAction: InputQuoteActionField = Field(title="输入报价操作")
 
 
 class QuoteField(BaseModel):
@@ -2924,7 +2918,7 @@ class QuoteField(BaseModel):
 
 
 class WebCTPReqQuote(WebCTPRequest):
-    ReqQuote: QuoteField = Field(title="报价")
+    Quote: QuoteField = Field(title="报价")
 
 
 class QuoteActionField(BaseModel):
@@ -2962,7 +2956,7 @@ class QuoteActionField(BaseModel):
 
 
 class WebCTPReqQuoteAction(WebCTPRequest):
-    ReqQuoteAction: QuoteActionField = Field(title="报价操作")
+    QuoteAction: QuoteActionField = Field(title="报价操作")
 
 
 class QryQuoteField(BaseModel):
@@ -2980,7 +2974,7 @@ class QryQuoteField(BaseModel):
 
 
 class WebCTPReqQryQuote(WebCTPRequest):
-    ReqQryQuote: QryQuoteField = Field(title="报价查询")
+    QryQuote: QryQuoteField = Field(title="报价查询")
 
 
 class ExchangeQuoteField(BaseModel):
@@ -3026,7 +3020,7 @@ class ExchangeQuoteField(BaseModel):
 
 
 class WebCTPReqExchangeQuote(WebCTPRequest):
-    ReqExchangeQuote: ExchangeQuoteField = Field(title="交易所报价信息")
+    ExchangeQuote: ExchangeQuoteField = Field(title="交易所报价信息")
 
 
 class QryExchangeQuoteField(BaseModel):
@@ -3041,7 +3035,7 @@ class QryExchangeQuoteField(BaseModel):
 
 
 class WebCTPReqQryExchangeQuote(WebCTPRequest):
-    ReqQryExchangeQuote: QryExchangeQuoteField = Field(title="交易所报价查询")
+    QryExchangeQuote: QryExchangeQuoteField = Field(title="交易所报价查询")
 
 
 class QryQuoteActionField(BaseModel):
@@ -3053,7 +3047,7 @@ class QryQuoteActionField(BaseModel):
 
 
 class WebCTPReqQryQuoteAction(WebCTPRequest):
-    ReqQryQuoteAction: QryQuoteActionField = Field(title="报价操作查询")
+    QryQuoteAction: QryQuoteActionField = Field(title="报价操作查询")
 
 
 class ExchangeQuoteActionField(BaseModel):
@@ -3079,7 +3073,7 @@ class ExchangeQuoteActionField(BaseModel):
 
 
 class WebCTPReqExchangeQuoteAction(WebCTPRequest):
-    ReqExchangeQuoteAction: ExchangeQuoteActionField = Field(
+    ExchangeQuoteAction: ExchangeQuoteActionField = Field(
         title="交易所报价操作")
 
 
@@ -3093,7 +3087,7 @@ class QryExchangeQuoteActionField(BaseModel):
 
 
 class WebCTPReqQryExchangeQuoteAction(WebCTPRequest):
-    ReqQryExchangeQuoteAction: QryExchangeQuoteActionField = Field(
+    QryExchangeQuoteAction: QryExchangeQuoteActionField = Field(
         title="交易所报价操作查询")
 
 
@@ -3109,7 +3103,7 @@ class OptionInstrDeltaField(BaseModel):
 
 
 class WebCTPReqOptionInstrDelta(WebCTPRequest):
-    ReqOptionInstrDelta: OptionInstrDeltaField = Field(title="期权合约delta值")
+    OptionInstrDelta: OptionInstrDeltaField = Field(title="期权合约delta值")
 
 
 class ForQuoteRspField(BaseModel):
@@ -3125,7 +3119,7 @@ class ForQuoteRspField(BaseModel):
 
 
 class WebCTPReqForQuoteRsp(WebCTPRequest):
-    ReqForQuoteRsp: ForQuoteRspField = Field(title="发给做市商的询价请求")
+    ForQuoteRsp: ForQuoteRspField = Field(title="发给做市商的询价请求")
 
 
 class StrikeOffsetField(BaseModel):
@@ -3141,7 +3135,7 @@ class StrikeOffsetField(BaseModel):
 
 
 class WebCTPReqStrikeOffset(WebCTPRequest):
-    ReqStrikeOffset: StrikeOffsetField = Field(
+    StrikeOffset: StrikeOffsetField = Field(
         title="当前期权合约执行偏移值的详细内容")
 
 
@@ -3155,8 +3149,7 @@ class QryStrikeOffsetField(BaseModel):
 
 
 class WebCTPReqQryStrikeOffset(WebCTPRequest):
-    ReqQryStrikeOffset: QryStrikeOffsetField = Field(
-        title="期权执行偏移值查询")
+    QryStrikeOffset: QryStrikeOffsetField = Field(title="期权执行偏移值查询")
 
 
 class InputBatchOrderActionField(BaseModel):
@@ -3177,7 +3170,7 @@ class InputBatchOrderActionField(BaseModel):
 
 
 class WebCTPReqInputBatchOrderAction(WebCTPRequest):
-    ReqInputBatchOrderAction: InputBatchOrderActionField = Field(
+    InputBatchOrderAction: InputBatchOrderActionField = Field(
         title="输入批量报单操作")
 
 
@@ -3209,7 +3202,7 @@ class BatchOrderActionField(BaseModel):
 
 
 class WebCTPReqBatchOrderAction(WebCTPRequest):
-    ReqBatchOrderAction: BatchOrderActionField = Field(title="批量报单操作")
+    BatchOrderAction: BatchOrderActionField = Field(title="批量报单操作")
 
 
 class ExchangeBatchOrderActionField(BaseModel):
@@ -3232,7 +3225,7 @@ class ExchangeBatchOrderActionField(BaseModel):
 
 
 class WebCTPReqExchangeBatchOrderAction(WebCTPRequest):
-    ReqExchangeBatchOrderAction: ExchangeBatchOrderActionField = Field(
+    ExchangeBatchOrderAction: ExchangeBatchOrderActionField = Field(
         title="交易所批量报单操作")
 
 
@@ -3245,7 +3238,7 @@ class QryBatchOrderActionField(BaseModel):
 
 
 class WebCTPReqQryBatchOrderAction(WebCTPRequest):
-    ReqQryBatchOrderAction: QryBatchOrderActionField = Field(
+    QryBatchOrderAction: QryBatchOrderActionField = Field(
         title="查询批量报单操作")
 
 
@@ -3260,7 +3253,7 @@ class CombInstrumentGuardField(BaseModel):
 
 
 class WebCTPReqCombInstrumentGuard(WebCTPRequest):
-    ReqCombInstrumentGuard: CombInstrumentGuardField = Field(
+    CombInstrumentGuard: CombInstrumentGuardField = Field(
         title="组合合约安全系数")
 
 
@@ -3274,7 +3267,7 @@ class QryCombInstrumentGuardField(BaseModel):
 
 
 class WebCTPReqQryCombInstrumentGuard(WebCTPRequest):
-    ReqQryCombInstrumentGuard: QryCombInstrumentGuardField = Field(
+    QryCombInstrumentGuard: QryCombInstrumentGuardField = Field(
         title="组合合约安全系数查询")
 
 
@@ -3301,7 +3294,7 @@ class InputCombActionField(BaseModel):
 
 
 class WebCTPReqInputCombAction(WebCTPRequest):
-    ReqInputCombAction: InputCombActionField = Field(title="输入的申请组合")
+    InputCombAction: InputCombActionField = Field(title="输入的申请组合")
 
 
 class CombActionField(BaseModel):
@@ -3343,7 +3336,7 @@ class CombActionField(BaseModel):
 
 
 class WebCTPReqCombAction(WebCTPRequest):
-    ReqCombAction: CombActionField = Field(title="申请组合")
+    CombAction: CombActionField = Field(title="申请组合")
 
 
 class QryCombActionField(BaseModel):
@@ -3358,7 +3351,7 @@ class QryCombActionField(BaseModel):
 
 
 class WebCTPReqQryCombAction(WebCTPRequest):
-    ReqQryCombAction: QryCombActionField = Field(title="申请组合查询")
+    QryCombAction: QryCombActionField = Field(title="申请组合查询")
 
 
 class ExchangeCombActionField(BaseModel):
@@ -3389,7 +3382,7 @@ class ExchangeCombActionField(BaseModel):
 
 
 class WebCTPReqExchangeCombAction(WebCTPRequest):
-    ReqExchangeCombAction: ExchangeCombActionField = Field(
+    ExchangeCombAction: ExchangeCombActionField = Field(
         title="交易所申请组合信息")
 
 
@@ -3405,7 +3398,7 @@ class QryExchangeCombActionField(BaseModel):
 
 
 class WebCTPReqQryExchangeCombAction(WebCTPRequest):
-    ReqQryExchangeCombAction: QryExchangeCombActionField = Field(
+    QryExchangeCombAction: QryExchangeCombActionField = Field(
         title="交易所申请组合查询")
 
 
@@ -3420,7 +3413,7 @@ class ProductExchRateField(BaseModel):
 
 
 class WebCTPReqProductExchRate(WebCTPRequest):
-    ReqProductExchRate: ProductExchRateField = Field(title="产品报价汇率")
+    ProductExchRate: ProductExchRateField = Field(title="产品报价汇率")
 
 
 class QryProductExchRateField(BaseModel):
@@ -3432,7 +3425,7 @@ class QryProductExchRateField(BaseModel):
 
 
 class WebCTPReqQryProductExchRate(WebCTPRequest):
-    ReqQryProductExchRate: QryProductExchRateField = Field(
+    QryProductExchRate: QryProductExchRateField = Field(
         title="产品报价汇率查询")
 
 
@@ -3446,8 +3439,7 @@ class QryForQuoteParamField(BaseModel):
 
 
 class WebCTPReqQryForQuoteParam(WebCTPRequest):
-    ReqQryForQuoteParam: QryForQuoteParamField = Field(
-        title="查询询价价差参数")
+    QryForQuoteParam: QryForQuoteParamField = Field(title="查询询价价差参数")
 
 
 class ForQuoteParamField(BaseModel):
@@ -3462,7 +3454,7 @@ class ForQuoteParamField(BaseModel):
 
 
 class WebCTPReqForQuoteParam(WebCTPRequest):
-    ReqForQuoteParam: ForQuoteParamField = Field(title="询价价差参数")
+    ForQuoteParam: ForQuoteParamField = Field(title="询价价差参数")
 
 
 class MMOptionInstrCommRateField(BaseModel):
@@ -3484,7 +3476,7 @@ class MMOptionInstrCommRateField(BaseModel):
 
 
 class WebCTPReqMMOptionInstrCommRate(WebCTPRequest):
-    ReqMMOptionInstrCommRate: MMOptionInstrCommRateField = Field(
+    MMOptionInstrCommRate: MMOptionInstrCommRateField = Field(
         title="当前做市商期权合约手续费的详细内容")
 
 
@@ -3498,7 +3490,7 @@ class QryMMOptionInstrCommRateField(BaseModel):
 
 
 class WebCTPReqQryMMOptionInstrCommRate(WebCTPRequest):
-    ReqQryMMOptionInstrCommRate: QryMMOptionInstrCommRateField = Field(
+    QryMMOptionInstrCommRate: QryMMOptionInstrCommRateField = Field(
         title="做市商期权手续费率查询")
 
 
@@ -3519,7 +3511,7 @@ class MMInstrumentCommissionRateField(BaseModel):
 
 
 class WebCTPReqMMInstrumentCommissionRate(WebCTPRequest):
-    ReqMMInstrumentCommissionRate: MMInstrumentCommissionRateField = Field(
+    MMInstrumentCommissionRate: MMInstrumentCommissionRateField = Field(
         title="做市商合约手续费率")
 
 
@@ -3533,7 +3525,7 @@ class QryMMInstrumentCommissionRateField(BaseModel):
 
 
 class WebCTPReqQryMMInstrumentCommissionRate(WebCTPRequest):
-    ReqQryMMInstrumentCommissionRate: QryMMInstrumentCommissionRateField = Field(
+    QryMMInstrumentCommissionRate: QryMMInstrumentCommissionRateField = Field(
         title="查询做市商合约手续费率")
 
 
@@ -3555,7 +3547,7 @@ class InstrumentOrderCommRateField(BaseModel):
 
 
 class WebCTPReqInstrumentOrderCommRate(WebCTPRequest):
-    ReqInstrumentOrderCommRate: InstrumentOrderCommRateField = Field(
+    InstrumentOrderCommRate: InstrumentOrderCommRateField = Field(
         title="当前报单手续费的详细内容")
 
 
@@ -3569,7 +3561,7 @@ class QryInstrumentOrderCommRateField(BaseModel):
 
 
 class WebCTPReqQryInstrumentOrderCommRate(WebCTPRequest):
-    ReqQryInstrumentOrderCommRate: QryInstrumentOrderCommRateField = Field(
+    QryInstrumentOrderCommRate: QryInstrumentOrderCommRateField = Field(
         title="报单手续费率查询")
 
 
@@ -3583,7 +3575,7 @@ class TradeParamField(BaseModel):
 
 
 class WebCTPReqTradeParam(WebCTPRequest):
-    ReqTradeParam: TradeParamField = Field(title="交易参数")
+    TradeParam: TradeParamField = Field(title="交易参数")
 
 
 class InstrumentMarginRateULField(BaseModel):
@@ -3602,7 +3594,7 @@ class InstrumentMarginRateULField(BaseModel):
 
 
 class WebCTPReqInstrumentMarginRateUL(WebCTPRequest):
-    ReqInstrumentMarginRateUL: InstrumentMarginRateULField = Field(
+    InstrumentMarginRateUL: InstrumentMarginRateULField = Field(
         title="合约保证金率调整")
 
 
@@ -3620,7 +3612,7 @@ class FutureLimitPosiParamField(BaseModel):
 
 
 class WebCTPReqFutureLimitPosiParam(WebCTPRequest):
-    ReqFutureLimitPosiParam: FutureLimitPosiParamField = Field(
+    FutureLimitPosiParam: FutureLimitPosiParamField = Field(
         title="期货持仓限制参数")
 
 
@@ -3632,7 +3624,7 @@ class LoginForbiddenIPField(BaseModel):
 
 
 class WebCTPReqLoginForbiddenIP(WebCTPRequest):
-    ReqLoginForbiddenIP: LoginForbiddenIPField = Field(title="禁止登录IP")
+    LoginForbiddenIP: LoginForbiddenIPField = Field(title="禁止登录IP")
 
 
 class IPListField(BaseModel):
@@ -3644,7 +3636,7 @@ class IPListField(BaseModel):
 
 
 class WebCTPReqIPList(WebCTPRequest):
-    ReqIPList: IPListField = Field(title="IP列表")
+    IPList: IPListField = Field(title="IP列表")
 
 
 class InputOptionSelfCloseField(BaseModel):
@@ -3672,7 +3664,7 @@ class InputOptionSelfCloseField(BaseModel):
 
 
 class WebCTPReqInputOptionSelfClose(WebCTPRequest):
-    ReqInputOptionSelfClose: InputOptionSelfCloseField = Field(
+    InputOptionSelfClose: InputOptionSelfCloseField = Field(
         title="输入的期权自对冲")
 
 
@@ -3699,7 +3691,7 @@ class InputOptionSelfCloseActionField(BaseModel):
 
 
 class WebCTPReqInputOptionSelfCloseAction(WebCTPRequest):
-    ReqInputOptionSelfCloseAction: InputOptionSelfCloseActionField = Field(
+    InputOptionSelfCloseAction: InputOptionSelfCloseActionField = Field(
         title="输入期权自对冲操作")
 
 
@@ -3752,7 +3744,7 @@ class OptionSelfCloseField(BaseModel):
 
 
 class WebCTPReqOptionSelfClose(WebCTPRequest):
-    ReqOptionSelfClose: OptionSelfCloseField = Field(title="期权自对冲")
+    OptionSelfClose: OptionSelfCloseField = Field(title="期权自对冲")
 
 
 class OptionSelfCloseActionField(BaseModel):
@@ -3790,7 +3782,7 @@ class OptionSelfCloseActionField(BaseModel):
 
 
 class WebCTPReqOptionSelfCloseAction(WebCTPRequest):
-    ReqOptionSelfCloseAction: OptionSelfCloseActionField = Field(
+    OptionSelfCloseAction: OptionSelfCloseActionField = Field(
         title="期权自对冲操作")
 
 
@@ -3808,8 +3800,7 @@ class QryOptionSelfCloseField(BaseModel):
 
 
 class WebCTPReqQryOptionSelfClose(WebCTPRequest):
-    ReqQryOptionSelfClose: QryOptionSelfCloseField = Field(
-        title="期权自对冲查询")
+    QryOptionSelfClose: QryOptionSelfCloseField = Field(title="期权自对冲查询")
 
 
 class ExchangeOptionSelfCloseField(BaseModel):
@@ -3846,7 +3837,7 @@ class ExchangeOptionSelfCloseField(BaseModel):
 
 
 class WebCTPReqExchangeOptionSelfClose(WebCTPRequest):
-    ReqExchangeOptionSelfClose: ExchangeOptionSelfCloseField = Field(
+    ExchangeOptionSelfClose: ExchangeOptionSelfCloseField = Field(
         title="交易所期权自对冲信息")
 
 
@@ -3859,7 +3850,7 @@ class QryOptionSelfCloseActionField(BaseModel):
 
 
 class WebCTPReqQryOptionSelfCloseAction(WebCTPRequest):
-    ReqQryOptionSelfCloseAction: QryOptionSelfCloseActionField = Field(
+    QryOptionSelfCloseAction: QryOptionSelfCloseActionField = Field(
         title="期权自对冲操作查询")
 
 
@@ -3890,7 +3881,7 @@ class ExchangeOptionSelfCloseActionField(BaseModel):
 
 
 class WebCTPReqExchangeOptionSelfCloseAction(WebCTPRequest):
-    ReqExchangeOptionSelfCloseAction: ExchangeOptionSelfCloseActionField = Field(
+    ExchangeOptionSelfCloseAction: ExchangeOptionSelfCloseActionField = Field(
         title="交易所期权自对冲操作")
 
 
@@ -3912,7 +3903,7 @@ class SyncDelaySwapField(BaseModel):
 
 
 class WebCTPReqSyncDelaySwap(WebCTPRequest):
-    ReqSyncDelaySwap: SyncDelaySwapField = Field(title="延时换汇同步")
+    SyncDelaySwap: SyncDelaySwapField = Field(title="延时换汇同步")
 
 
 class QrySyncDelaySwapField(BaseModel):
@@ -3923,8 +3914,7 @@ class QrySyncDelaySwapField(BaseModel):
 
 
 class WebCTPReqQrySyncDelaySwap(WebCTPRequest):
-    ReqQrySyncDelaySwap: QrySyncDelaySwapField = Field(
-        title="查询延时换汇同步")
+    QrySyncDelaySwap: QrySyncDelaySwapField = Field(title="查询延时换汇同步")
 
 
 class InvestUnitField(BaseModel):
@@ -3942,7 +3932,7 @@ class InvestUnitField(BaseModel):
 
 
 class WebCTPReqInvestUnit(WebCTPRequest):
-    ReqInvestUnit: InvestUnitField = Field(title="投资单元")
+    InvestUnit: InvestUnitField = Field(title="投资单元")
 
 
 class QryInvestUnitField(BaseModel):
@@ -3954,7 +3944,7 @@ class QryInvestUnitField(BaseModel):
 
 
 class WebCTPReqQryInvestUnit(WebCTPRequest):
-    ReqQryInvestUnit: QryInvestUnitField = Field(title="查询投资单元")
+    QryInvestUnit: QryInvestUnitField = Field(title="查询投资单元")
 
 
 class SecAgentCheckModeField(BaseModel):
@@ -3968,7 +3958,7 @@ class SecAgentCheckModeField(BaseModel):
 
 
 class WebCTPReqSecAgentCheckMode(WebCTPRequest):
-    ReqSecAgentCheckMode: SecAgentCheckModeField = Field(
+    SecAgentCheckMode: SecAgentCheckModeField = Field(
         title="二级代理商资金校验模式")
 
 
@@ -3982,8 +3972,7 @@ class SecAgentTradeInfoField(BaseModel):
 
 
 class WebCTPReqSecAgentTradeInfo(WebCTPRequest):
-    ReqSecAgentTradeInfo: SecAgentTradeInfoField = Field(
-        title="二级代理商信息")
+    SecAgentTradeInfo: SecAgentTradeInfoField = Field(title="二级代理商信息")
 
 
 class MarketDataField(BaseModel):
@@ -4017,7 +4006,7 @@ class MarketDataField(BaseModel):
 
 
 class WebCTPReqMarketData(WebCTPRequest):
-    ReqMarketData: MarketDataField = Field(title="市场行情")
+    MarketData: MarketDataField = Field(title="市场行情")
 
 
 class MarketDataBaseField(BaseModel):
@@ -4031,7 +4020,7 @@ class MarketDataBaseField(BaseModel):
 
 
 class WebCTPReqMarketDataBase(WebCTPRequest):
-    ReqMarketDataBase: MarketDataBaseField = Field(title="行情基础属性")
+    MarketDataBase: MarketDataBaseField = Field(title="行情基础属性")
 
 
 class MarketDataStaticField(BaseModel):
@@ -4048,7 +4037,7 @@ class MarketDataStaticField(BaseModel):
 
 
 class WebCTPReqMarketDataStatic(WebCTPRequest):
-    ReqMarketDataStatic: MarketDataStaticField = Field(title="行情静态属性")
+    MarketDataStatic: MarketDataStaticField = Field(title="行情静态属性")
 
 
 class MarketDataLastMatchField(BaseModel):
@@ -4061,7 +4050,7 @@ class MarketDataLastMatchField(BaseModel):
 
 
 class WebCTPReqMarketDataLastMatch(WebCTPRequest):
-    ReqMarketDataLastMatch: MarketDataLastMatchField = Field(
+    MarketDataLastMatch: MarketDataLastMatchField = Field(
         title="行情最新成交属性")
 
 
@@ -4075,7 +4064,7 @@ class MarketDataBestPriceField(BaseModel):
 
 
 class WebCTPReqMarketDataBestPrice(WebCTPRequest):
-    ReqMarketDataBestPrice: MarketDataBestPriceField = Field(
+    MarketDataBestPrice: MarketDataBestPriceField = Field(
         title="行情最优价属性")
 
 
@@ -4089,7 +4078,7 @@ class MarketDataBid23Field(BaseModel):
 
 
 class WebCTPReqMarketDataBid23(WebCTPRequest):
-    ReqMarketDataBid23: MarketDataBid23Field = Field(title="行情申买二、三属性")
+    MarketDataBid23: MarketDataBid23Field = Field(title="行情申买二、三属性")
 
 
 class MarketDataAsk23Field(BaseModel):
@@ -4102,7 +4091,7 @@ class MarketDataAsk23Field(BaseModel):
 
 
 class WebCTPReqMarketDataAsk23(WebCTPRequest):
-    ReqMarketDataAsk23: MarketDataAsk23Field = Field(title="行情申卖二、三属性")
+    MarketDataAsk23: MarketDataAsk23Field = Field(title="行情申卖二、三属性")
 
 
 class MarketDataBid45Field(BaseModel):
@@ -4115,7 +4104,7 @@ class MarketDataBid45Field(BaseModel):
 
 
 class WebCTPReqMarketDataBid45(WebCTPRequest):
-    ReqMarketDataBid45: MarketDataBid45Field = Field(title="行情申买四、五属性")
+    MarketDataBid45: MarketDataBid45Field = Field(title="行情申买四、五属性")
 
 
 class MarketDataAsk45Field(BaseModel):
@@ -4128,7 +4117,7 @@ class MarketDataAsk45Field(BaseModel):
 
 
 class WebCTPReqMarketDataAsk45(WebCTPRequest):
-    ReqMarketDataAsk45: MarketDataAsk45Field = Field(title="行情申卖四、五属性")
+    MarketDataAsk45: MarketDataAsk45Field = Field(title="行情申卖四、五属性")
 
 
 class MarketDataUpdateTimeField(BaseModel):
@@ -4142,7 +4131,7 @@ class MarketDataUpdateTimeField(BaseModel):
 
 
 class WebCTPReqMarketDataUpdateTime(WebCTPRequest):
-    ReqMarketDataUpdateTime: MarketDataUpdateTimeField = Field(
+    MarketDataUpdateTime: MarketDataUpdateTimeField = Field(
         title="行情更新时间属性")
 
 
@@ -4153,7 +4142,7 @@ class MarketDataExchangeField(BaseModel):
 
 
 class WebCTPReqMarketDataExchange(WebCTPRequest):
-    ReqMarketDataExchange: MarketDataExchangeField = Field(
+    MarketDataExchange: MarketDataExchangeField = Field(
         title="行情交易所代码属性")
 
 
@@ -4165,7 +4154,7 @@ class SpecificInstrumentField(BaseModel):
 
 
 class WebCTPReqSpecificInstrument(WebCTPRequest):
-    ReqSpecificInstrument: SpecificInstrumentField = Field(title="指定的合约")
+    SpecificInstrument: SpecificInstrumentField = Field(title="指定的合约")
 
 
 class InstrumentStatusField(BaseModel):
@@ -4184,7 +4173,7 @@ class InstrumentStatusField(BaseModel):
 
 
 class WebCTPReqInstrumentStatus(WebCTPRequest):
-    ReqInstrumentStatus: InstrumentStatusField = Field(title="合约状态")
+    InstrumentStatus: InstrumentStatusField = Field(title="合约状态")
 
 
 class QryInstrumentStatusField(BaseModel):
@@ -4196,8 +4185,7 @@ class QryInstrumentStatusField(BaseModel):
 
 
 class WebCTPReqQryInstrumentStatus(WebCTPRequest):
-    ReqQryInstrumentStatus: QryInstrumentStatusField = Field(
-        title="查询合约状态")
+    QryInstrumentStatus: QryInstrumentStatusField = Field(title="查询合约状态")
 
 
 class InvestorAccountField(BaseModel):
@@ -4210,7 +4198,7 @@ class InvestorAccountField(BaseModel):
 
 
 class WebCTPReqInvestorAccount(WebCTPRequest):
-    ReqInvestorAccount: InvestorAccountField = Field(title="投资者账户")
+    InvestorAccount: InvestorAccountField = Field(title="投资者账户")
 
 
 class PositionProfitAlgorithmField(BaseModel):
@@ -4224,7 +4212,7 @@ class PositionProfitAlgorithmField(BaseModel):
 
 
 class WebCTPReqPositionProfitAlgorithm(WebCTPRequest):
-    ReqPositionProfitAlgorithm: PositionProfitAlgorithmField = Field(
+    PositionProfitAlgorithm: PositionProfitAlgorithmField = Field(
         title="浮动盈亏算法")
 
 
@@ -4238,7 +4226,7 @@ class DiscountField(BaseModel):
 
 
 class WebCTPReqDiscount(WebCTPRequest):
-    ReqDiscount: DiscountField = Field(title="会员资金折扣")
+    Discount: DiscountField = Field(title="会员资金折扣")
 
 
 class QryTransferBankField(BaseModel):
@@ -4249,7 +4237,7 @@ class QryTransferBankField(BaseModel):
 
 
 class WebCTPReqQryTransferBank(WebCTPRequest):
-    ReqQryTransferBank: QryTransferBankField = Field(title="查询转帐银行")
+    QryTransferBank: QryTransferBankField = Field(title="查询转帐银行")
 
 
 class TransferBankField(BaseModel):
@@ -4262,7 +4250,7 @@ class TransferBankField(BaseModel):
 
 
 class WebCTPReqTransferBank(WebCTPRequest):
-    ReqTransferBank: TransferBankField = Field(title="转帐银行")
+    TransferBank: TransferBankField = Field(title="转帐银行")
 
 
 class QryInvestorPositionDetailField(BaseModel):
@@ -4277,7 +4265,7 @@ class QryInvestorPositionDetailField(BaseModel):
 
 
 class WebCTPReqQryInvestorPositionDetail(WebCTPRequest):
-    ReqQryInvestorPositionDetail: QryInvestorPositionDetailField = Field(
+    QryInvestorPositionDetail: QryInvestorPositionDetailField = Field(
         title="查询投资者持仓明细")
 
 
@@ -4318,7 +4306,7 @@ class InvestorPositionDetailField(BaseModel):
 
 
 class WebCTPReqInvestorPositionDetail(WebCTPRequest):
-    ReqInvestorPositionDetail: InvestorPositionDetailField = Field(
+    InvestorPositionDetail: InvestorPositionDetailField = Field(
         title="投资者持仓明细")
 
 
@@ -4332,7 +4320,7 @@ class TradingAccountPasswordField(BaseModel):
 
 
 class WebCTPReqTradingAccountPassword(WebCTPRequest):
-    ReqTradingAccountPassword: TradingAccountPasswordField = Field(
+    TradingAccountPassword: TradingAccountPasswordField = Field(
         title="资金账户口令域")
 
 
@@ -4362,7 +4350,7 @@ class MDTraderOfferField(BaseModel):
 
 
 class WebCTPReqMDTraderOffer(WebCTPRequest):
-    ReqMDTraderOffer: MDTraderOfferField = Field(title="交易所行情报盘机")
+    MDTraderOffer: MDTraderOfferField = Field(title="交易所行情报盘机")
 
 
 class QryMDTraderOfferField(BaseModel):
@@ -4374,7 +4362,7 @@ class QryMDTraderOfferField(BaseModel):
 
 
 class WebCTPReqQryMDTraderOffer(WebCTPRequest):
-    ReqQryMDTraderOffer: QryMDTraderOfferField = Field(title="查询行情报盘机")
+    QryMDTraderOffer: QryMDTraderOfferField = Field(title="查询行情报盘机")
 
 
 class QryNoticeField(BaseModel):
@@ -4384,7 +4372,7 @@ class QryNoticeField(BaseModel):
 
 
 class WebCTPReqQryNotice(WebCTPRequest):
-    ReqQryNotice: QryNoticeField = Field(title="查询客户通知")
+    QryNotice: QryNoticeField = Field(title="查询客户通知")
 
 
 class NoticeField(BaseModel):
@@ -4396,7 +4384,7 @@ class NoticeField(BaseModel):
 
 
 class WebCTPReqNotice(WebCTPRequest):
-    ReqNotice: NoticeField = Field(title="客户通知")
+    Notice: NoticeField = Field(title="客户通知")
 
 
 class UserRightField(BaseModel):
@@ -4409,7 +4397,7 @@ class UserRightField(BaseModel):
 
 
 class WebCTPReqUserRight(WebCTPRequest):
-    ReqUserRight: UserRightField = Field(title="用户权限")
+    UserRight: UserRightField = Field(title="用户权限")
 
 
 class QrySettlementInfoConfirmField(BaseModel):
@@ -4422,7 +4410,7 @@ class QrySettlementInfoConfirmField(BaseModel):
 
 
 class WebCTPReqQrySettlementInfoConfirm(WebCTPRequest):
-    ReqQrySettlementInfoConfirm: QrySettlementInfoConfirmField = Field(
+    QrySettlementInfoConfirm: QrySettlementInfoConfirmField = Field(
         title="查询结算信息确认域")
 
 
@@ -4433,8 +4421,7 @@ class LoadSettlementInfoField(BaseModel):
 
 
 class WebCTPReqLoadSettlementInfo(WebCTPRequest):
-    ReqLoadSettlementInfo: LoadSettlementInfoField = Field(
-        title="装载结算信息")
+    LoadSettlementInfo: LoadSettlementInfoField = Field(title="装载结算信息")
 
 
 class BrokerWithdrawAlgorithmField(BaseModel):
@@ -4454,7 +4441,7 @@ class BrokerWithdrawAlgorithmField(BaseModel):
 
 
 class WebCTPReqBrokerWithdrawAlgorithm(WebCTPRequest):
-    ReqBrokerWithdrawAlgorithm: BrokerWithdrawAlgorithmField = Field(
+    BrokerWithdrawAlgorithm: BrokerWithdrawAlgorithmField = Field(
         title="经纪公司可提资金算法表")
 
 
@@ -4468,7 +4455,7 @@ class TradingAccountPasswordUpdateV1Field(BaseModel):
 
 
 class WebCTPReqTradingAccountPasswordUpdateV1(WebCTPRequest):
-    ReqTradingAccountPasswordUpdateV1: TradingAccountPasswordUpdateV1Field = Field(
+    TradingAccountPasswordUpdateV1: TradingAccountPasswordUpdateV1Field = Field(
         title="资金账户口令变更域")
 
 
@@ -4483,7 +4470,7 @@ class TradingAccountPasswordUpdateField(BaseModel):
 
 
 class WebCTPReqTradingAccountPasswordUpdate(WebCTPRequest):
-    ReqTradingAccountPasswordUpdate: TradingAccountPasswordUpdateField = Field(
+    TradingAccountPasswordUpdate: TradingAccountPasswordUpdateField = Field(
         title="资金账户口令变更域")
 
 
@@ -4498,8 +4485,7 @@ class QryCombinationLegField(BaseModel):
 
 
 class WebCTPReqQryCombinationLeg(WebCTPRequest):
-    ReqQryCombinationLeg: QryCombinationLegField = Field(
-        title="查询组合合约分腿")
+    QryCombinationLeg: QryCombinationLegField = Field(title="查询组合合约分腿")
 
 
 class QrySyncStatusField(BaseModel):
@@ -4509,7 +4495,7 @@ class QrySyncStatusField(BaseModel):
 
 
 class WebCTPReqQrySyncStatus(WebCTPRequest):
-    ReqQrySyncStatus: QrySyncStatusField = Field(title="查询组合合约分腿")
+    QrySyncStatus: QrySyncStatusField = Field(title="查询组合合约分腿")
 
 
 class CombinationLegField(BaseModel):
@@ -4526,7 +4512,7 @@ class CombinationLegField(BaseModel):
 
 
 class WebCTPReqCombinationLeg(WebCTPRequest):
-    ReqCombinationLeg: CombinationLegField = Field(title="组合交易合约的单腿")
+    CombinationLeg: CombinationLegField = Field(title="组合交易合约的单腿")
 
 
 class SyncStatusField(BaseModel):
@@ -4537,7 +4523,7 @@ class SyncStatusField(BaseModel):
 
 
 class WebCTPReqSyncStatus(WebCTPRequest):
-    ReqSyncStatus: SyncStatusField = Field(title="数据同步状态")
+    SyncStatus: SyncStatusField = Field(title="数据同步状态")
 
 
 class QryLinkManField(BaseModel):
@@ -4548,7 +4534,7 @@ class QryLinkManField(BaseModel):
 
 
 class WebCTPReqQryLinkMan(WebCTPRequest):
-    ReqQryLinkMan: QryLinkManField = Field(title="查询联系人")
+    QryLinkMan: QryLinkManField = Field(title="查询联系人")
 
 
 class LinkManField(BaseModel):
@@ -4569,7 +4555,7 @@ class LinkManField(BaseModel):
 
 
 class WebCTPReqLinkMan(WebCTPRequest):
-    ReqLinkMan: LinkManField = Field(title="联系人")
+    LinkMan: LinkManField = Field(title="联系人")
 
 
 class QryBrokerUserEventField(BaseModel):
@@ -4581,7 +4567,7 @@ class QryBrokerUserEventField(BaseModel):
 
 
 class WebCTPReqQryBrokerUserEvent(WebCTPRequest):
-    ReqQryBrokerUserEvent: QryBrokerUserEventField = Field(
+    QryBrokerUserEvent: QryBrokerUserEventField = Field(
         title="查询经纪公司用户事件")
 
 
@@ -4603,8 +4589,7 @@ class BrokerUserEventField(BaseModel):
 
 
 class WebCTPReqBrokerUserEvent(WebCTPRequest):
-    ReqBrokerUserEvent: BrokerUserEventField = Field(
-        title="查询经纪公司用户事件")
+    BrokerUserEvent: BrokerUserEventField = Field(title="查询经纪公司用户事件")
 
 
 class QryContractBankField(BaseModel):
@@ -4616,7 +4601,7 @@ class QryContractBankField(BaseModel):
 
 
 class WebCTPReqQryContractBank(WebCTPRequest):
-    ReqQryContractBank: QryContractBankField = Field(title="查询签约银行请求")
+    QryContractBank: QryContractBankField = Field(title="查询签约银行请求")
 
 
 class ContractBankField(BaseModel):
@@ -4629,7 +4614,7 @@ class ContractBankField(BaseModel):
 
 
 class WebCTPReqContractBank(WebCTPRequest):
-    ReqContractBank: ContractBankField = Field(title="查询签约银行响应")
+    ContractBank: ContractBankField = Field(title="查询签约银行响应")
 
 
 class InvestorPositionCombineDetailField(BaseModel):
@@ -4661,7 +4646,7 @@ class InvestorPositionCombineDetailField(BaseModel):
 
 
 class WebCTPReqInvestorPositionCombineDetail(WebCTPRequest):
-    ReqInvestorPositionCombineDetail: InvestorPositionCombineDetailField = Field(
+    InvestorPositionCombineDetail: InvestorPositionCombineDetailField = Field(
         title="投资者组合持仓明细")
 
 
@@ -4708,7 +4693,7 @@ class ParkedOrderField(BaseModel):
 
 
 class WebCTPReqParkedOrder(WebCTPRequest):
-    ReqParkedOrder: ParkedOrderField = Field(title="预埋单")
+    ParkedOrder: ParkedOrderField = Field(title="预埋单")
 
 
 class ParkedOrderActionField(BaseModel):
@@ -4741,8 +4726,7 @@ class ParkedOrderActionField(BaseModel):
 
 
 class WebCTPReqParkedOrderAction(WebCTPRequest):
-    ReqParkedOrderAction: ParkedOrderActionField = Field(
-        title="输入预埋单操作")
+    ParkedOrderAction: ParkedOrderActionField = Field(title="输入预埋单操作")
 
 
 class QryParkedOrderField(BaseModel):
@@ -4757,7 +4741,7 @@ class QryParkedOrderField(BaseModel):
 
 
 class WebCTPReqQryParkedOrder(WebCTPRequest):
-    ReqQryParkedOrder: QryParkedOrderField = Field(title="查询预埋单")
+    QryParkedOrder: QryParkedOrderField = Field(title="查询预埋单")
 
 
 class QryParkedOrderActionField(BaseModel):
@@ -4772,7 +4756,7 @@ class QryParkedOrderActionField(BaseModel):
 
 
 class WebCTPReqQryParkedOrderAction(WebCTPRequest):
-    ReqQryParkedOrderAction: QryParkedOrderActionField = Field(
+    QryParkedOrderAction: QryParkedOrderActionField = Field(
         title="查询预埋撤单")
 
 
@@ -4786,7 +4770,7 @@ class RemoveParkedOrderField(BaseModel):
 
 
 class WebCTPReqRemoveParkedOrder(WebCTPRequest):
-    ReqRemoveParkedOrder: RemoveParkedOrderField = Field(title="删除预埋单")
+    RemoveParkedOrder: RemoveParkedOrderField = Field(title="删除预埋单")
 
 
 class RemoveParkedOrderActionField(BaseModel):
@@ -4799,7 +4783,7 @@ class RemoveParkedOrderActionField(BaseModel):
 
 
 class WebCTPReqRemoveParkedOrderAction(WebCTPRequest):
-    ReqRemoveParkedOrderAction: RemoveParkedOrderActionField = Field(
+    RemoveParkedOrderAction: RemoveParkedOrderActionField = Field(
         title="删除预埋撤单")
 
 
@@ -4815,7 +4799,7 @@ class InvestorWithdrawAlgorithmField(BaseModel):
 
 
 class WebCTPReqInvestorWithdrawAlgorithm(WebCTPRequest):
-    ReqInvestorWithdrawAlgorithm: InvestorWithdrawAlgorithmField = Field(
+    InvestorWithdrawAlgorithm: InvestorWithdrawAlgorithmField = Field(
         title="经纪公司可提资金算法表")
 
 
@@ -4831,7 +4815,7 @@ class QryInvestorPositionCombineDetailField(BaseModel):
 
 
 class WebCTPReqQryInvestorPositionCombineDetail(WebCTPRequest):
-    ReqQryInvestorPositionCombineDetail: QryInvestorPositionCombineDetailField = Field(
+    QryInvestorPositionCombineDetail: QryInvestorPositionCombineDetailField = Field(
         title="查询组合持仓明细")
 
 
@@ -4842,7 +4826,7 @@ class MarketDataAveragePriceField(BaseModel):
 
 
 class WebCTPReqMarketDataAveragePrice(WebCTPRequest):
-    ReqMarketDataAveragePrice: MarketDataAveragePriceField = Field(
+    MarketDataAveragePrice: MarketDataAveragePriceField = Field(
         title="成交均价")
 
 
@@ -4855,7 +4839,7 @@ class VerifyInvestorPasswordField(BaseModel):
 
 
 class WebCTPReqVerifyInvestorPassword(WebCTPRequest):
-    ReqVerifyInvestorPassword: VerifyInvestorPasswordField = Field(
+    VerifyInvestorPassword: VerifyInvestorPasswordField = Field(
         title="校验投资者密码")
 
 
@@ -4872,7 +4856,7 @@ class UserIPField(BaseModel):
 
 
 class WebCTPReqUserIP(WebCTPRequest):
-    ReqUserIP: UserIPField = Field(title="用户IP")
+    UserIP: UserIPField = Field(title="用户IP")
 
 
 class TradingNoticeInfoField(BaseModel):
@@ -4888,8 +4872,7 @@ class TradingNoticeInfoField(BaseModel):
 
 
 class WebCTPReqTradingNoticeInfo(WebCTPRequest):
-    ReqTradingNoticeInfo: TradingNoticeInfoField = Field(
-        title="用户事件通知信息")
+    TradingNoticeInfo: TradingNoticeInfoField = Field(title="用户事件通知信息")
 
 
 class TradingNoticeField(BaseModel):
@@ -4907,7 +4890,7 @@ class TradingNoticeField(BaseModel):
 
 
 class WebCTPReqTradingNotice(WebCTPRequest):
-    ReqTradingNotice: TradingNoticeField = Field(title="用户事件通知")
+    TradingNotice: TradingNoticeField = Field(title="用户事件通知")
 
 
 class QryTradingNoticeField(BaseModel):
@@ -4919,8 +4902,7 @@ class QryTradingNoticeField(BaseModel):
 
 
 class WebCTPReqQryTradingNotice(WebCTPRequest):
-    ReqQryTradingNotice: QryTradingNoticeField = Field(
-        title="查询交易事件通知")
+    QryTradingNotice: QryTradingNoticeField = Field(title="查询交易事件通知")
 
 
 class QryErrOrderField(BaseModel):
@@ -4931,7 +4913,7 @@ class QryErrOrderField(BaseModel):
 
 
 class WebCTPReqQryErrOrder(WebCTPRequest):
-    ReqQryErrOrder: QryErrOrderField = Field(title="查询错误报单")
+    QryErrOrder: QryErrOrderField = Field(title="查询错误报单")
 
 
 class ErrOrderField(BaseModel):
@@ -4974,7 +4956,7 @@ class ErrOrderField(BaseModel):
 
 
 class WebCTPReqErrOrder(WebCTPRequest):
-    ReqErrOrder: ErrOrderField = Field(title="错误报单")
+    ErrOrder: ErrOrderField = Field(title="错误报单")
 
 
 class ErrorConditionalOrderField(BaseModel):
@@ -5051,7 +5033,7 @@ class ErrorConditionalOrderField(BaseModel):
 
 
 class WebCTPReqErrorConditionalOrder(WebCTPRequest):
-    ReqErrorConditionalOrder: ErrorConditionalOrderField = Field(
+    ErrorConditionalOrder: ErrorConditionalOrderField = Field(
         title="查询错误报单操作")
 
 
@@ -5063,8 +5045,7 @@ class QryErrOrderActionField(BaseModel):
 
 
 class WebCTPReqQryErrOrderAction(WebCTPRequest):
-    ReqQryErrOrderAction: QryErrOrderActionField = Field(
-        title="查询错误报单操作")
+    QryErrOrderAction: QryErrOrderActionField = Field(title="查询错误报单操作")
 
 
 class ErrOrderActionField(BaseModel):
@@ -5106,7 +5087,7 @@ class ErrOrderActionField(BaseModel):
 
 
 class WebCTPReqErrOrderAction(WebCTPRequest):
-    ReqErrOrderAction: ErrOrderActionField = Field(title="错误报单操作")
+    ErrOrderAction: ErrOrderActionField = Field(title="错误报单操作")
 
 
 class QryExchangeSequenceField(BaseModel):
@@ -5116,7 +5097,7 @@ class QryExchangeSequenceField(BaseModel):
 
 
 class WebCTPReqQryExchangeSequence(WebCTPRequest):
-    ReqQryExchangeSequence: QryExchangeSequenceField = Field(
+    QryExchangeSequence: QryExchangeSequenceField = Field(
         title="查询交易所状态")
 
 
@@ -5129,7 +5110,7 @@ class ExchangeSequenceField(BaseModel):
 
 
 class WebCTPReqExchangeSequence(WebCTPRequest):
-    ReqExchangeSequence: ExchangeSequenceField = Field(title="交易所状态")
+    ExchangeSequence: ExchangeSequenceField = Field(title="交易所状态")
 
 
 class QueryMaxOrderVolumeWithPriceField(BaseModel):
@@ -5148,7 +5129,7 @@ class QueryMaxOrderVolumeWithPriceField(BaseModel):
 
 
 class WebCTPReqQueryMaxOrderVolumeWithPrice(WebCTPRequest):
-    ReqQueryMaxOrderVolumeWithPrice: QueryMaxOrderVolumeWithPriceField = Field(
+    QueryMaxOrderVolumeWithPrice: QueryMaxOrderVolumeWithPriceField = Field(
         title="根据价格查询最大报单数量")
 
 
@@ -5162,7 +5143,7 @@ class QryBrokerTradingParamsField(BaseModel):
 
 
 class WebCTPReqQryBrokerTradingParams(WebCTPRequest):
-    ReqQryBrokerTradingParams: QryBrokerTradingParamsField = Field(
+    QryBrokerTradingParams: QryBrokerTradingParamsField = Field(
         title="查询经纪公司交易参数")
 
 
@@ -5180,7 +5161,7 @@ class BrokerTradingParamsField(BaseModel):
 
 
 class WebCTPReqBrokerTradingParams(WebCTPRequest):
-    ReqBrokerTradingParams: BrokerTradingParamsField = Field(
+    BrokerTradingParams: BrokerTradingParamsField = Field(
         title="经纪公司交易参数")
 
 
@@ -5194,7 +5175,7 @@ class QryBrokerTradingAlgosField(BaseModel):
 
 
 class WebCTPReqQryBrokerTradingAlgos(WebCTPRequest):
-    ReqQryBrokerTradingAlgos: QryBrokerTradingAlgosField = Field(
+    QryBrokerTradingAlgos: QryBrokerTradingAlgosField = Field(
         title="查询经纪公司交易算法")
 
 
@@ -5211,7 +5192,7 @@ class BrokerTradingAlgosField(BaseModel):
 
 
 class WebCTPReqBrokerTradingAlgos(WebCTPRequest):
-    ReqBrokerTradingAlgos: BrokerTradingAlgosField = Field(
+    BrokerTradingAlgos: BrokerTradingAlgosField = Field(
         title="经纪公司交易算法")
 
 
@@ -5223,7 +5204,7 @@ class QueryBrokerDepositField(BaseModel):
 
 
 class WebCTPReqQueryBrokerDeposit(WebCTPRequest):
-    ReqQueryBrokerDeposit: QueryBrokerDepositField = Field(
+    QueryBrokerDeposit: QueryBrokerDepositField = Field(
         title="查询经纪公司资金")
 
 
@@ -5246,7 +5227,7 @@ class BrokerDepositField(BaseModel):
 
 
 class WebCTPReqBrokerDeposit(WebCTPRequest):
-    ReqBrokerDeposit: BrokerDepositField = Field(title="经纪公司资金")
+    BrokerDeposit: BrokerDepositField = Field(title="经纪公司资金")
 
 
 class QryCFMMCBrokerKeyField(BaseModel):
@@ -5256,7 +5237,7 @@ class QryCFMMCBrokerKeyField(BaseModel):
 
 
 class WebCTPReqQryCFMMCBrokerKey(WebCTPRequest):
-    ReqQryCFMMCBrokerKey: QryCFMMCBrokerKeyField = Field(
+    QryCFMMCBrokerKey: QryCFMMCBrokerKeyField = Field(
         title="查询保证金监管系统经纪公司密钥")
 
 
@@ -5273,7 +5254,7 @@ class CFMMCBrokerKeyField(BaseModel):
 
 
 class WebCTPReqCFMMCBrokerKey(WebCTPRequest):
-    ReqCFMMCBrokerKey: CFMMCBrokerKeyField = Field(
+    CFMMCBrokerKey: CFMMCBrokerKeyField = Field(
         title="保证金监管系统经纪公司密钥")
 
 
@@ -5288,7 +5269,7 @@ class CFMMCTradingAccountKeyField(BaseModel):
 
 
 class WebCTPReqCFMMCTradingAccountKey(WebCTPRequest):
-    ReqCFMMCTradingAccountKey: CFMMCTradingAccountKeyField = Field(
+    CFMMCTradingAccountKey: CFMMCTradingAccountKeyField = Field(
         title="保证金监管系统经纪公司资金账户密钥")
 
 
@@ -5300,7 +5281,7 @@ class QryCFMMCTradingAccountKeyField(BaseModel):
 
 
 class WebCTPReqQryCFMMCTradingAccountKey(WebCTPRequest):
-    ReqQryCFMMCTradingAccountKey: QryCFMMCTradingAccountKeyField = Field(
+    QryCFMMCTradingAccountKey: QryCFMMCTradingAccountKeyField = Field(
         title="请求查询保证金监管系统经纪公司资金账户密钥")
 
 
@@ -5318,7 +5299,7 @@ class BrokerUserOTPParamField(BaseModel):
 
 
 class WebCTPReqBrokerUserOTPParam(WebCTPRequest):
-    ReqBrokerUserOTPParam: BrokerUserOTPParamField = Field(
+    BrokerUserOTPParam: BrokerUserOTPParamField = Field(
         title="用户动态令牌参数")
 
 
@@ -5333,7 +5314,7 @@ class ManualSyncBrokerUserOTPField(BaseModel):
 
 
 class WebCTPReqManualSyncBrokerUserOTP(WebCTPRequest):
-    ReqManualSyncBrokerUserOTP: ManualSyncBrokerUserOTPField = Field(
+    ManualSyncBrokerUserOTP: ManualSyncBrokerUserOTPField = Field(
         title="手工同步用户动态令牌")
 
 
@@ -5346,7 +5327,7 @@ class CommRateModelField(BaseModel):
 
 
 class WebCTPReqCommRateModel(WebCTPRequest):
-    ReqCommRateModel: CommRateModelField = Field(title="投资者手续费率模板")
+    CommRateModel: CommRateModelField = Field(title="投资者手续费率模板")
 
 
 class QryCommRateModelField(BaseModel):
@@ -5357,7 +5338,7 @@ class QryCommRateModelField(BaseModel):
 
 
 class WebCTPReqQryCommRateModel(WebCTPRequest):
-    ReqQryCommRateModel: QryCommRateModelField = Field(
+    QryCommRateModel: QryCommRateModelField = Field(
         title="请求查询投资者手续费率模板")
 
 
@@ -5370,7 +5351,7 @@ class MarginModelField(BaseModel):
 
 
 class WebCTPReqMarginModel(WebCTPRequest):
-    ReqMarginModel: MarginModelField = Field(title="投资者保证金率模板")
+    MarginModel: MarginModelField = Field(title="投资者保证金率模板")
 
 
 class QryMarginModelField(BaseModel):
@@ -5381,7 +5362,7 @@ class QryMarginModelField(BaseModel):
 
 
 class WebCTPReqQryMarginModel(WebCTPRequest):
-    ReqQryMarginModel: QryMarginModelField = Field(
+    QryMarginModel: QryMarginModelField = Field(
         title="请求查询投资者保证金率模板")
 
 
@@ -5401,7 +5382,7 @@ class EWarrantOffsetField(BaseModel):
 
 
 class WebCTPReqEWarrantOffset(WebCTPRequest):
-    ReqEWarrantOffset: EWarrantOffsetField = Field(title="仓单折抵信息")
+    EWarrantOffset: EWarrantOffsetField = Field(title="仓单折抵信息")
 
 
 class QryEWarrantOffsetField(BaseModel):
@@ -5416,8 +5397,7 @@ class QryEWarrantOffsetField(BaseModel):
 
 
 class WebCTPReqQryEWarrantOffset(WebCTPRequest):
-    ReqQryEWarrantOffset: QryEWarrantOffsetField = Field(
-        title="查询仓单折抵信息")
+    QryEWarrantOffset: QryEWarrantOffsetField = Field(title="查询仓单折抵信息")
 
 
 class QryInvestorProductGroupMarginField(BaseModel):
@@ -5433,7 +5413,7 @@ class QryInvestorProductGroupMarginField(BaseModel):
 
 
 class WebCTPReqQryInvestorProductGroupMargin(WebCTPRequest):
-    ReqQryInvestorProductGroupMargin: QryInvestorProductGroupMarginField = Field(
+    QryInvestorProductGroupMargin: QryInvestorProductGroupMarginField = Field(
         title="查询投资者品种/跨品种保证金")
 
 
@@ -5473,7 +5453,7 @@ class InvestorProductGroupMarginField(BaseModel):
 
 
 class WebCTPReqInvestorProductGroupMargin(WebCTPRequest):
-    ReqInvestorProductGroupMargin: InvestorProductGroupMarginField = Field(
+    InvestorProductGroupMargin: InvestorProductGroupMarginField = Field(
         title="投资者品种/跨品种保证金")
 
 
@@ -5486,7 +5466,7 @@ class QueryCFMMCTradingAccountTokenField(BaseModel):
 
 
 class WebCTPReqQueryCFMMCTradingAccountToken(WebCTPRequest):
-    ReqQueryCFMMCTradingAccountToken: QueryCFMMCTradingAccountTokenField = Field(
+    QueryCFMMCTradingAccountToken: QueryCFMMCTradingAccountTokenField = Field(
         title="查询监控中心用户令牌")
 
 
@@ -5501,7 +5481,7 @@ class CFMMCTradingAccountTokenField(BaseModel):
 
 
 class WebCTPReqCFMMCTradingAccountToken(WebCTPRequest):
-    ReqCFMMCTradingAccountToken: CFMMCTradingAccountTokenField = Field(
+    CFMMCTradingAccountToken: CFMMCTradingAccountTokenField = Field(
         title="监控中心用户令牌")
 
 
@@ -5514,7 +5494,7 @@ class QryProductGroupField(BaseModel):
 
 
 class WebCTPReqQryProductGroup(WebCTPRequest):
-    ReqQryProductGroup: QryProductGroupField = Field(title="查询产品组")
+    QryProductGroup: QryProductGroupField = Field(title="查询产品组")
 
 
 class ProductGroupField(BaseModel):
@@ -5528,7 +5508,7 @@ class ProductGroupField(BaseModel):
 
 
 class WebCTPReqProductGroup(WebCTPRequest):
-    ReqProductGroup: ProductGroupField = Field(
+    ProductGroup: ProductGroupField = Field(
         title="投资者品种/跨品种保证金产品组")
 
 
@@ -5550,7 +5530,7 @@ class BulletinField(BaseModel):
 
 
 class WebCTPReqBulletin(WebCTPRequest):
-    ReqBulletin: BulletinField = Field(title="交易所公告")
+    Bulletin: BulletinField = Field(title="交易所公告")
 
 
 class QryBulletinField(BaseModel):
@@ -5564,7 +5544,7 @@ class QryBulletinField(BaseModel):
 
 
 class WebCTPReqQryBulletin(WebCTPRequest):
-    ReqQryBulletin: QryBulletinField = Field(title="查询交易所公告")
+    QryBulletin: QryBulletinField = Field(title="查询交易所公告")
 
 
 class ReqOpenAccountField(BaseModel):
@@ -5911,7 +5891,7 @@ class FutureSignIOField(BaseModel):
 
 
 class WebCTPReqFutureSignIO(WebCTPRequest):
-    ReqFutureSignIO: FutureSignIOField = Field(title="期商签到签退")
+    FutureSignIO: FutureSignIOField = Field(title="期商签到签退")
 
 
 class ReqFutureSignOutField(BaseModel):
@@ -6013,7 +5993,7 @@ class ReturnResultField(BaseModel):
 
 
 class WebCTPReqReturnResult(WebCTPRequest):
-    ReqReturnResult: ReturnResultField = Field(title="返回结果")
+    ReturnResult: ReturnResultField = Field(title="返回结果")
 
 
 class VerifyFuturePasswordField(BaseModel):
@@ -6041,7 +6021,7 @@ class VerifyFuturePasswordField(BaseModel):
 
 
 class WebCTPReqVerifyFuturePassword(WebCTPRequest):
-    ReqVerifyFuturePassword: VerifyFuturePasswordField = Field(
+    VerifyFuturePassword: VerifyFuturePasswordField = Field(
         title="验证期货资金密码")
 
 
@@ -6056,7 +6036,7 @@ class VerifyCustInfoField(BaseModel):
 
 
 class WebCTPReqVerifyCustInfo(WebCTPRequest):
-    ReqVerifyCustInfo: VerifyCustInfoField = Field(title="验证客户信息")
+    VerifyCustInfo: VerifyCustInfoField = Field(title="验证客户信息")
 
 
 class VerifyFuturePasswordAndCustInfoField(BaseModel):
@@ -6073,7 +6053,7 @@ class VerifyFuturePasswordAndCustInfoField(BaseModel):
 
 
 class WebCTPReqVerifyFuturePasswordAndCustInfo(WebCTPRequest):
-    ReqVerifyFuturePasswordAndCustInfo: VerifyFuturePasswordAndCustInfoField = Field(
+    VerifyFuturePasswordAndCustInfo: VerifyFuturePasswordAndCustInfoField = Field(
         title="验证期货资金密码和客户信息")
 
 
@@ -6091,7 +6071,7 @@ class DepositResultInformField(BaseModel):
 
 
 class WebCTPReqDepositResultInform(WebCTPRequest):
-    ReqDepositResultInform: DepositResultInformField = Field(
+    DepositResultInform: DepositResultInformField = Field(
         title="验证期货资金密码和客户信息")
 
 
@@ -6172,7 +6152,7 @@ class NotifyQueryAccountField(BaseModel):
 
 
 class WebCTPReqNotifyQueryAccount(WebCTPRequest):
-    ReqNotifyQueryAccount: NotifyQueryAccountField = Field(
+    NotifyQueryAccount: NotifyQueryAccountField = Field(
         title="查询账户信息通知")
 
 
@@ -6210,7 +6190,7 @@ class TransferSerialField(BaseModel):
 
 
 class WebCTPReqTransferSerial(WebCTPRequest):
-    ReqTransferSerial: TransferSerialField = Field(title="银期转账交易流水表")
+    TransferSerial: TransferSerialField = Field(title="银期转账交易流水表")
 
 
 class QryTransferSerialField(BaseModel):
@@ -6223,8 +6203,7 @@ class QryTransferSerialField(BaseModel):
 
 
 class WebCTPReqQryTransferSerial(WebCTPRequest):
-    ReqQryTransferSerial: QryTransferSerialField = Field(
-        title="请求查询转帐流水")
+    QryTransferSerial: QryTransferSerialField = Field(title="请求查询转帐流水")
 
 
 class NotifyFutureSignInField(BaseModel):
@@ -6258,8 +6237,7 @@ class NotifyFutureSignInField(BaseModel):
 
 
 class WebCTPReqNotifyFutureSignIn(WebCTPRequest):
-    ReqNotifyFutureSignIn: NotifyFutureSignInField = Field(
-        title="期商签到通知")
+    NotifyFutureSignIn: NotifyFutureSignInField = Field(title="期商签到通知")
 
 
 class NotifyFutureSignOutField(BaseModel):
@@ -6291,8 +6269,7 @@ class NotifyFutureSignOutField(BaseModel):
 
 
 class WebCTPReqNotifyFutureSignOut(WebCTPRequest):
-    ReqNotifyFutureSignOut: NotifyFutureSignOutField = Field(
-        title="期商签退通知")
+    NotifyFutureSignOut: NotifyFutureSignOutField = Field(title="期商签退通知")
 
 
 class NotifySyncKeyField(BaseModel):
@@ -6323,7 +6300,7 @@ class NotifySyncKeyField(BaseModel):
 
 
 class WebCTPReqNotifySyncKey(WebCTPRequest):
-    ReqNotifySyncKey: NotifySyncKeyField = Field(
+    NotifySyncKey: NotifySyncKeyField = Field(
         title="交易核心向银期报盘发出密钥同步处理结果的通知")
 
 
@@ -6338,7 +6315,7 @@ class QryAccountregisterField(BaseModel):
 
 
 class WebCTPReqQryAccountregister(WebCTPRequest):
-    ReqQryAccountregister: QryAccountregisterField = Field(
+    QryAccountregister: QryAccountregisterField = Field(
         title="请求查询银期签约关系")
 
 
@@ -6366,7 +6343,7 @@ class AccountregisterField(BaseModel):
 
 
 class WebCTPReqAccountregister(WebCTPRequest):
-    ReqAccountregister: AccountregisterField = Field(title="客户开销户信息表")
+    Accountregister: AccountregisterField = Field(title="客户开销户信息表")
 
 
 class OpenAccountField(BaseModel):
@@ -6422,7 +6399,7 @@ class OpenAccountField(BaseModel):
 
 
 class WebCTPReqOpenAccount(WebCTPRequest):
-    ReqOpenAccount: OpenAccountField = Field(title="银期开户信息")
+    OpenAccount: OpenAccountField = Field(title="银期开户信息")
 
 
 class CancelAccountField(BaseModel):
@@ -6478,7 +6455,7 @@ class CancelAccountField(BaseModel):
 
 
 class WebCTPReqCancelAccount(WebCTPRequest):
-    ReqCancelAccount: CancelAccountField = Field(title="银期销户信息")
+    CancelAccount: CancelAccountField = Field(title="银期销户信息")
 
 
 class ChangeAccountField(BaseModel):
@@ -6530,7 +6507,7 @@ class ChangeAccountField(BaseModel):
 
 
 class WebCTPReqChangeAccount(WebCTPRequest):
-    ReqChangeAccount: ChangeAccountField = Field(title="银期变更银行账号信息")
+    ChangeAccount: ChangeAccountField = Field(title="银期变更银行账号信息")
 
 
 class SecAgentACIDMapField(BaseModel):
@@ -6544,7 +6521,7 @@ class SecAgentACIDMapField(BaseModel):
 
 
 class WebCTPReqSecAgentACIDMap(WebCTPRequest):
-    ReqSecAgentACIDMap: SecAgentACIDMapField = Field(
+    SecAgentACIDMap: SecAgentACIDMapField = Field(
         title="二级代理操作员银期权限")
 
 
@@ -6558,7 +6535,7 @@ class QrySecAgentACIDMapField(BaseModel):
 
 
 class WebCTPReqQrySecAgentACIDMap(WebCTPRequest):
-    ReqQrySecAgentACIDMap: QrySecAgentACIDMapField = Field(
+    QrySecAgentACIDMap: QrySecAgentACIDMapField = Field(
         title="二级代理操作员银期权限查询")
 
 
@@ -6571,8 +6548,7 @@ class UserRightsAssignField(BaseModel):
 
 
 class WebCTPReqUserRightsAssign(WebCTPRequest):
-    ReqUserRightsAssign: UserRightsAssignField = Field(
-        title="灾备中心交易权限")
+    UserRightsAssign: UserRightsAssignField = Field(title="灾备中心交易权限")
 
 
 class BrokerUserRightAssignField(BaseModel):
@@ -6584,7 +6560,7 @@ class BrokerUserRightAssignField(BaseModel):
 
 
 class WebCTPReqBrokerUserRightAssign(WebCTPRequest):
-    ReqBrokerUserRightAssign: BrokerUserRightAssignField = Field(
+    BrokerUserRightAssign: BrokerUserRightAssignField = Field(
         title="经济公司是否有在本标示的交易权限")
 
 
@@ -6598,7 +6574,7 @@ class DRTransferField(BaseModel):
 
 
 class WebCTPReqDRTransfer(WebCTPRequest):
-    ReqDRTransfer: DRTransferField = Field(title="灾备交易转换报文")
+    DRTransfer: DRTransferField = Field(title="灾备交易转换报文")
 
 
 class FensUserInfoField(BaseModel):
@@ -6610,7 +6586,7 @@ class FensUserInfoField(BaseModel):
 
 
 class WebCTPReqFensUserInfo(WebCTPRequest):
-    ReqFensUserInfo: FensUserInfoField = Field(title="Fens用户信息")
+    FensUserInfo: FensUserInfoField = Field(title="Fens用户信息")
 
 
 class CurrTransferIdentityField(BaseModel):
@@ -6620,7 +6596,7 @@ class CurrTransferIdentityField(BaseModel):
 
 
 class WebCTPReqCurrTransferIdentity(WebCTPRequest):
-    ReqCurrTransferIdentity: CurrTransferIdentityField = Field(
+    CurrTransferIdentity: CurrTransferIdentityField = Field(
         title="当前银期所属交易中心")
 
 
@@ -6634,8 +6610,7 @@ class LoginForbiddenUserField(BaseModel):
 
 
 class WebCTPReqLoginForbiddenUser(WebCTPRequest):
-    ReqLoginForbiddenUser: LoginForbiddenUserField = Field(
-        title="禁止登录用户")
+    LoginForbiddenUser: LoginForbiddenUserField = Field(title="禁止登录用户")
 
 
 class QryLoginForbiddenUserField(BaseModel):
@@ -6646,7 +6621,7 @@ class QryLoginForbiddenUserField(BaseModel):
 
 
 class WebCTPReqQryLoginForbiddenUser(WebCTPRequest):
-    ReqQryLoginForbiddenUser: QryLoginForbiddenUserField = Field(
+    QryLoginForbiddenUser: QryLoginForbiddenUserField = Field(
         title="查询禁止登录用户")
 
 
@@ -6659,8 +6634,7 @@ class MulticastGroupInfoField(BaseModel):
 
 
 class WebCTPReqMulticastGroupInfo(WebCTPRequest):
-    ReqMulticastGroupInfo: MulticastGroupInfoField = Field(
-        title="UDP组播组信息")
+    MulticastGroupInfo: MulticastGroupInfoField = Field(title="UDP组播组信息")
 
 
 class TradingAccountReserveField(BaseModel):
@@ -6673,7 +6647,7 @@ class TradingAccountReserveField(BaseModel):
 
 
 class WebCTPReqTradingAccountReserve(WebCTPRequest):
-    ReqTradingAccountReserve: TradingAccountReserveField = Field(
+    TradingAccountReserve: TradingAccountReserveField = Field(
         title="资金账户基本准备金")
 
 
@@ -6685,7 +6659,7 @@ class QryLoginForbiddenIPField(BaseModel):
 
 
 class WebCTPReqQryLoginForbiddenIP(WebCTPRequest):
-    ReqQryLoginForbiddenIP: QryLoginForbiddenIPField = Field(
+    QryLoginForbiddenIP: QryLoginForbiddenIPField = Field(
         title="查询禁止登录IP")
 
 
@@ -6697,7 +6671,7 @@ class QryIPListField(BaseModel):
 
 
 class WebCTPReqQryIPList(WebCTPRequest):
-    ReqQryIPList: QryIPListField = Field(title="查询IP列表")
+    QryIPList: QryIPListField = Field(title="查询IP列表")
 
 
 class QryUserRightsAssignField(BaseModel):
@@ -6708,7 +6682,7 @@ class QryUserRightsAssignField(BaseModel):
 
 
 class WebCTPReqQryUserRightsAssign(WebCTPRequest):
-    ReqQryUserRightsAssign: QryUserRightsAssignField = Field(
+    QryUserRightsAssign: QryUserRightsAssignField = Field(
         title="查询用户下单权限分配表")
 
 
@@ -6759,7 +6733,7 @@ class ReserveOpenAccountConfirmField(BaseModel):
 
 
 class WebCTPReqReserveOpenAccountConfirm(WebCTPRequest):
-    ReqReserveOpenAccountConfirm: ReserveOpenAccountConfirmField = Field(
+    ReserveOpenAccountConfirm: ReserveOpenAccountConfirmField = Field(
         title="银期预约开户确认请求")
 
 
@@ -6806,8 +6780,7 @@ class ReserveOpenAccountField(BaseModel):
 
 
 class WebCTPReqReserveOpenAccount(WebCTPRequest):
-    ReqReserveOpenAccount: ReserveOpenAccountField = Field(
-        title="银期预约开户")
+    ReserveOpenAccount: ReserveOpenAccountField = Field(title="银期预约开户")
 
 
 class AccountPropertyField(BaseModel):
@@ -6830,7 +6803,7 @@ class AccountPropertyField(BaseModel):
 
 
 class WebCTPReqAccountProperty(WebCTPRequest):
-    ReqAccountProperty: AccountPropertyField = Field(title="银行账户属性")
+    AccountProperty: AccountPropertyField = Field(title="银行账户属性")
 
 
 class QryCurrDRIdentityField(BaseModel):
@@ -6840,8 +6813,7 @@ class QryCurrDRIdentityField(BaseModel):
 
 
 class WebCTPReqQryCurrDRIdentity(WebCTPRequest):
-    ReqQryCurrDRIdentity: QryCurrDRIdentityField = Field(
-        title="查询当前交易中心")
+    QryCurrDRIdentity: QryCurrDRIdentityField = Field(title="查询当前交易中心")
 
 
 class CurrDRIdentityField(BaseModel):
@@ -6851,7 +6823,7 @@ class CurrDRIdentityField(BaseModel):
 
 
 class WebCTPReqCurrDRIdentity(WebCTPRequest):
-    ReqCurrDRIdentity: CurrDRIdentityField = Field(title="当前交易中心")
+    CurrDRIdentity: CurrDRIdentityField = Field(title="当前交易中心")
 
 
 class QrySecAgentCheckModeField(BaseModel):
@@ -6862,7 +6834,7 @@ class QrySecAgentCheckModeField(BaseModel):
 
 
 class WebCTPReqQrySecAgentCheckMode(WebCTPRequest):
-    ReqQrySecAgentCheckMode: QrySecAgentCheckModeField = Field(
+    QrySecAgentCheckMode: QrySecAgentCheckModeField = Field(
         title="查询二级代理商资金校验模式")
 
 
@@ -6874,7 +6846,7 @@ class QrySecAgentTradeInfoField(BaseModel):
 
 
 class WebCTPReqQrySecAgentTradeInfo(WebCTPRequest):
-    ReqQrySecAgentTradeInfo: QrySecAgentTradeInfoField = Field(
+    QrySecAgentTradeInfo: QrySecAgentTradeInfoField = Field(
         title="查询二级代理商信息")
 
 
@@ -6894,7 +6866,7 @@ class UserSystemInfoField(BaseModel):
 
 
 class WebCTPReqUserSystemInfo(WebCTPRequest):
-    ReqUserSystemInfo: UserSystemInfoField = Field(title="用户系统信息")
+    UserSystemInfo: UserSystemInfoField = Field(title="用户系统信息")
 
 
 class ReqUserAuthMethodField(BaseModel):
@@ -7037,7 +7009,7 @@ class DepartmentUserField(BaseModel):
 
 
 class WebCTPReqDepartmentUser(WebCTPRequest):
-    ReqDepartmentUser: DepartmentUserField = Field(title="操作员组织架构关系")
+    DepartmentUser: DepartmentUserField = Field(title="操作员组织架构关系")
 
 
 class QueryFreqField(BaseModel):
@@ -7047,7 +7019,7 @@ class QueryFreqField(BaseModel):
 
 
 class WebCTPReqQueryFreq(WebCTPRequest):
-    ReqQueryFreq: QueryFreqField = Field(title="查询频率，每秒查询比数")
+    QueryFreq: QueryFreqField = Field(title="查询频率，每秒查询比数")
 
 
 class MulticastInstrumentField(BaseModel):
@@ -7063,7 +7035,7 @@ class MulticastInstrumentField(BaseModel):
 
 
 class WebCTPReqMulticastInstrument(WebCTPRequest):
-    ReqMulticastInstrument: MulticastInstrumentField = Field(
+    MulticastInstrument: MulticastInstrumentField = Field(
         title="MulticastInstrument")
 
 
@@ -7076,7 +7048,7 @@ class QryMulticastInstrumentField(BaseModel):
 
 
 class WebCTPReqQryMulticastInstrument(WebCTPRequest):
-    ReqQryMulticastInstrument: QryMulticastInstrumentField = Field(
+    QryMulticastInstrument: QryMulticastInstrumentField = Field(
         title="QryMulticastInstrument")
 
 
@@ -7089,7 +7061,7 @@ class AppIDAuthAssignField(BaseModel):
 
 
 class WebCTPReqAppIDAuthAssign(WebCTPRequest):
-    ReqAppIDAuthAssign: AppIDAuthAssignField = Field(title="App客户端权限分配")
+    AppIDAuthAssign: AppIDAuthAssignField = Field(title="App客户端权限分配")
 
 
 class AuthForbiddenIPField(BaseModel):
@@ -7099,7 +7071,7 @@ class AuthForbiddenIPField(BaseModel):
 
 
 class WebCTPReqAuthForbiddenIP(WebCTPRequest):
-    ReqAuthForbiddenIP: AuthForbiddenIPField = Field(title="禁止认证IP")
+    AuthForbiddenIP: AuthForbiddenIPField = Field(title="禁止认证IP")
 
 
 class QryAuthForbiddenIPField(BaseModel):
@@ -7109,8 +7081,7 @@ class QryAuthForbiddenIPField(BaseModel):
 
 
 class WebCTPReqQryAuthForbiddenIP(WebCTPRequest):
-    ReqQryAuthForbiddenIP: QryAuthForbiddenIPField = Field(
-        title="查询禁止认证IP")
+    QryAuthForbiddenIP: QryAuthForbiddenIPField = Field(title="查询禁止认证IP")
 
 
 class SyncDelaySwapFrozenField(BaseModel):
@@ -7125,8 +7096,7 @@ class SyncDelaySwapFrozenField(BaseModel):
 
 
 class WebCTPReqSyncDelaySwapFrozen(WebCTPRequest):
-    ReqSyncDelaySwapFrozen: SyncDelaySwapFrozenField = Field(
-        title="换汇可提冻结")
+    SyncDelaySwapFrozen: SyncDelaySwapFrozenField = Field(title="换汇可提冻结")
 
 
 class QryMaxOrderVolumeField(BaseModel):
@@ -7145,8 +7115,7 @@ class QryMaxOrderVolumeField(BaseModel):
 
 
 class WebCTPReqQryMaxOrderVolume(WebCTPRequest):
-    ReqQryMaxOrderVolume: QryMaxOrderVolumeField = Field(
-        title="查询最大报单数量")
+    QryMaxOrderVolume: QryMaxOrderVolumeField = Field(title="查询最大报单数量")
 
 
 class QryMaxOrderVolumeWithPriceField(BaseModel):
@@ -7166,7 +7135,7 @@ class QryMaxOrderVolumeWithPriceField(BaseModel):
 
 
 class WebCTPReqQryMaxOrderVolumeWithPrice(WebCTPRequest):
-    ReqQryMaxOrderVolumeWithPrice: QryMaxOrderVolumeWithPriceField = Field(
+    QryMaxOrderVolumeWithPrice: QryMaxOrderVolumeWithPriceField = Field(
         title="根据价格查询最大报单数量")
 
 
@@ -7180,7 +7149,7 @@ class AuthUserIDField(BaseModel):
 
 
 class WebCTPReqAuthUserID(WebCTPRequest):
-    ReqAuthUserID: AuthUserIDField = Field(title="终端用户绑定信息")
+    AuthUserID: AuthUserIDField = Field(title="终端用户绑定信息")
 
 
 class AuthIPField(BaseModel):
@@ -7192,7 +7161,7 @@ class AuthIPField(BaseModel):
 
 
 class WebCTPReqAuthIP(WebCTPRequest):
-    ReqAuthIP: AuthIPField = Field(title="用户IP绑定信息")
+    AuthIP: AuthIPField = Field(title="用户IP绑定信息")
 
 
 class QryClassifiedInstrumentField(BaseModel):
@@ -7207,7 +7176,7 @@ class QryClassifiedInstrumentField(BaseModel):
 
 
 class WebCTPReqQryClassifiedInstrument(WebCTPRequest):
-    ReqQryClassifiedInstrument: QryClassifiedInstrumentField = Field(
+    QryClassifiedInstrument: QryClassifiedInstrumentField = Field(
         title="查询分类合约")
 
 
@@ -7219,7 +7188,7 @@ class QryCombPromotionParamField(BaseModel):
 
 
 class WebCTPReqQryCombPromotionParam(WebCTPRequest):
-    ReqQryCombPromotionParam: QryCombPromotionParamField = Field(
+    QryCombPromotionParam: QryCombPromotionParamField = Field(
         title="查询组合优惠比例")
 
 
@@ -7233,8 +7202,7 @@ class CombPromotionParamField(BaseModel):
 
 
 class WebCTPReqCombPromotionParam(WebCTPRequest):
-    ReqCombPromotionParam: CombPromotionParamField = Field(
-        title="组合优惠比例")
+    CombPromotionParam: CombPromotionParamField = Field(title="组合优惠比例")
 
 
 class MarketDataBandingPriceField(BaseModel):
@@ -7245,7 +7213,7 @@ class MarketDataBandingPriceField(BaseModel):
 
 
 class WebCTPReqMarketDataBandingPrice(WebCTPRequest):
-    ReqMarketDataBandingPrice: MarketDataBandingPriceField = Field(
+    MarketDataBandingPrice: MarketDataBandingPriceField = Field(
         title="行情上下带价")
 
 
@@ -7258,7 +7226,7 @@ class QryRiskSettleInvstPositionField(BaseModel):
 
 
 class WebCTPReqQryRiskSettleInvstPosition(WebCTPRequest):
-    ReqQryRiskSettleInvstPosition: QryRiskSettleInvstPositionField = Field(
+    QryRiskSettleInvstPosition: QryRiskSettleInvstPositionField = Field(
         title="投资者风险结算持仓查询")
 
 
@@ -7269,7 +7237,7 @@ class QryRiskSettleProductStatusField(BaseModel):
 
 
 class WebCTPReqQryRiskSettleProductStatus(WebCTPRequest):
-    ReqQryRiskSettleProductStatus: QryRiskSettleProductStatusField = Field(
+    QryRiskSettleProductStatus: QryRiskSettleProductStatusField = Field(
         title="风险结算产品查询")
 
 
@@ -7328,7 +7296,7 @@ class RiskSettleInvstPositionField(BaseModel):
 
 
 class WebCTPReqRiskSettleInvstPosition(WebCTPRequest):
-    ReqRiskSettleInvstPosition: RiskSettleInvstPositionField = Field(
+    RiskSettleInvstPosition: RiskSettleInvstPositionField = Field(
         title="投资者风险结算持仓")
 
 
@@ -7341,7 +7309,7 @@ class RiskSettleProductStatusField(BaseModel):
 
 
 class WebCTPReqRiskSettleProductStatus(WebCTPRequest):
-    ReqRiskSettleProductStatus: RiskSettleProductStatusField = Field(
+    RiskSettleProductStatus: RiskSettleProductStatusField = Field(
         title="风险品种")
 
 
@@ -7355,7 +7323,7 @@ class SyncDeltaInfoField(BaseModel):
 
 
 class WebCTPReqSyncDeltaInfo(WebCTPRequest):
-    ReqSyncDeltaInfo: SyncDeltaInfoField = Field(title="风险结算追平信息")
+    SyncDeltaInfo: SyncDeltaInfoField = Field(title="风险结算追平信息")
 
 
 class SyncDeltaProductStatusField(BaseModel):
@@ -7368,7 +7336,7 @@ class SyncDeltaProductStatusField(BaseModel):
 
 
 class WebCTPReqSyncDeltaProductStatus(WebCTPRequest):
-    ReqSyncDeltaProductStatus: SyncDeltaProductStatusField = Field(
+    SyncDeltaProductStatus: SyncDeltaProductStatusField = Field(
         title="风险结算追平产品信息")
 
 
@@ -7408,7 +7376,7 @@ class SyncDeltaInvstPosDtlField(BaseModel):
 
 
 class WebCTPReqSyncDeltaInvstPosDtl(WebCTPRequest):
-    ReqSyncDeltaInvstPosDtl: SyncDeltaInvstPosDtlField = Field(
+    SyncDeltaInvstPosDtl: SyncDeltaInvstPosDtlField = Field(
         title="风险结算追平持仓明细")
 
 
@@ -7439,7 +7407,7 @@ class SyncDeltaInvstPosCombDtlField(BaseModel):
 
 
 class WebCTPReqSyncDeltaInvstPosCombDtl(WebCTPRequest):
-    ReqSyncDeltaInvstPosCombDtl: SyncDeltaInvstPosCombDtlField = Field(
+    SyncDeltaInvstPosCombDtl: SyncDeltaInvstPosCombDtlField = Field(
         title="风险结算追平组合持仓明细")
 
 
@@ -7499,7 +7467,7 @@ class SyncDeltaTradingAccountField(BaseModel):
 
 
 class WebCTPReqSyncDeltaTradingAccount(WebCTPRequest):
-    ReqSyncDeltaTradingAccount: SyncDeltaTradingAccountField = Field(
+    SyncDeltaTradingAccount: SyncDeltaTradingAccountField = Field(
         title="风险结算追平资金")
 
 
@@ -7532,7 +7500,7 @@ class SyncDeltaInitInvstMarginField(BaseModel):
 
 
 class WebCTPReqSyncDeltaInitInvstMargin(WebCTPRequest):
-    ReqSyncDeltaInitInvstMargin: SyncDeltaInitInvstMarginField = Field(
+    SyncDeltaInitInvstMargin: SyncDeltaInitInvstMarginField = Field(
         title="投资者风险结算总保证金")
 
 
@@ -7553,7 +7521,7 @@ class SyncDeltaDceCombInstrumentField(BaseModel):
 
 
 class WebCTPReqSyncDeltaDceCombInstrument(WebCTPRequest):
-    ReqSyncDeltaDceCombInstrument: SyncDeltaDceCombInstrumentField = Field(
+    SyncDeltaDceCombInstrument: SyncDeltaDceCombInstrumentField = Field(
         title="风险结算追平组合优先级")
 
 
@@ -7575,7 +7543,7 @@ class SyncDeltaInvstMarginRateField(BaseModel):
 
 
 class WebCTPReqSyncDeltaInvstMarginRate(WebCTPRequest):
-    ReqSyncDeltaInvstMarginRate: SyncDeltaInvstMarginRateField = Field(
+    SyncDeltaInvstMarginRate: SyncDeltaInvstMarginRateField = Field(
         title="风险结算追平投资者期货保证金率")
 
 
@@ -7594,7 +7562,7 @@ class SyncDeltaExchMarginRateField(BaseModel):
 
 
 class WebCTPReqSyncDeltaExchMarginRate(WebCTPRequest):
-    ReqSyncDeltaExchMarginRate: SyncDeltaExchMarginRateField = Field(
+    SyncDeltaExchMarginRate: SyncDeltaExchMarginRateField = Field(
         title="风险结算追平交易所期货保证金率")
 
 
@@ -7624,7 +7592,7 @@ class SyncDeltaOptExchMarginField(BaseModel):
 
 
 class WebCTPReqSyncDeltaOptExchMargin(WebCTPRequest):
-    ReqSyncDeltaOptExchMargin: SyncDeltaOptExchMarginField = Field(
+    SyncDeltaOptExchMargin: SyncDeltaOptExchMarginField = Field(
         title="风险结算追平中金现货期权交易所保证金率")
 
 
@@ -7657,7 +7625,7 @@ class SyncDeltaOptInvstMarginField(BaseModel):
 
 
 class WebCTPReqSyncDeltaOptInvstMargin(WebCTPRequest):
-    ReqSyncDeltaOptInvstMargin: SyncDeltaOptInvstMarginField = Field(
+    SyncDeltaOptInvstMargin: SyncDeltaOptInvstMarginField = Field(
         title="风险结算追平中金现货期权投资者保证金率")
 
 
@@ -7678,7 +7646,7 @@ class SyncDeltaInvstMarginRateULField(BaseModel):
 
 
 class WebCTPReqSyncDeltaInvstMarginRateUL(WebCTPRequest):
-    ReqSyncDeltaInvstMarginRateUL: SyncDeltaInvstMarginRateULField = Field(
+    SyncDeltaInvstMarginRateUL: SyncDeltaInvstMarginRateULField = Field(
         title="风险结算追平期权标的调整保证金率")
 
 
@@ -7702,7 +7670,7 @@ class SyncDeltaOptInvstCommRateField(BaseModel):
 
 
 class WebCTPReqSyncDeltaOptInvstCommRate(WebCTPRequest):
-    ReqSyncDeltaOptInvstCommRate: SyncDeltaOptInvstCommRateField = Field(
+    SyncDeltaOptInvstCommRate: SyncDeltaOptInvstCommRateField = Field(
         title="风险结算追平期权手续费率")
 
 
@@ -7724,7 +7692,7 @@ class SyncDeltaInvstCommRateField(BaseModel):
 
 
 class WebCTPReqSyncDeltaInvstCommRate(WebCTPRequest):
-    ReqSyncDeltaInvstCommRate: SyncDeltaInvstCommRateField = Field(
+    SyncDeltaInvstCommRate: SyncDeltaInvstCommRateField = Field(
         title="风险结算追平期货手续费率")
 
 
@@ -7739,7 +7707,7 @@ class SyncDeltaProductExchRateField(BaseModel):
 
 
 class WebCTPReqSyncDeltaProductExchRate(WebCTPRequest):
-    ReqSyncDeltaProductExchRate: SyncDeltaProductExchRateField = Field(
+    SyncDeltaProductExchRate: SyncDeltaProductExchRateField = Field(
         title="风险结算追平交叉汇率")
 
 
@@ -7797,7 +7765,7 @@ class SyncDeltaDepthMarketDataField(BaseModel):
 
 
 class WebCTPReqSyncDeltaDepthMarketData(WebCTPRequest):
-    ReqSyncDeltaDepthMarketData: SyncDeltaDepthMarketDataField = Field(
+    SyncDeltaDepthMarketData: SyncDeltaDepthMarketDataField = Field(
         title="风险结算追平行情")
 
 
@@ -7812,7 +7780,7 @@ class SyncDeltaIndexPriceField(BaseModel):
 
 
 class WebCTPReqSyncDeltaIndexPrice(WebCTPRequest):
-    ReqSyncDeltaIndexPrice: SyncDeltaIndexPriceField = Field(
+    SyncDeltaIndexPrice: SyncDeltaIndexPriceField = Field(
         title="风险结算追平现货指数")
 
 
@@ -7832,7 +7800,7 @@ class SyncDeltaEWarrantOffsetField(BaseModel):
 
 
 class WebCTPReqSyncDeltaEWarrantOffset(WebCTPRequest):
-    ReqSyncDeltaEWarrantOffset: SyncDeltaEWarrantOffsetField = Field(
+    SyncDeltaEWarrantOffset: SyncDeltaEWarrantOffsetField = Field(
         title="风险结算追平仓单折抵")
 
 
@@ -7877,7 +7845,7 @@ class SPBMFutureParameterField(BaseModel):
 
 
 class WebCTPReqSPBMFutureParameter(WebCTPRequest):
-    ReqSPBMFutureParameter: SPBMFutureParameterField = Field(
+    SPBMFutureParameter: SPBMFutureParameterField = Field(
         title="SPBM期货合约保证金参数")
 
 
@@ -7896,7 +7864,7 @@ class SPBMOptionParameterField(BaseModel):
 
 
 class WebCTPReqSPBMOptionParameter(WebCTPRequest):
-    ReqSPBMOptionParameter: SPBMOptionParameterField = Field(
+    SPBMOptionParameter: SPBMOptionParameterField = Field(
         title="SPBM期权合约保证金参数")
 
 
@@ -7912,7 +7880,7 @@ class SPBMIntraParameterField(BaseModel):
 
 
 class WebCTPReqSPBMIntraParameter(WebCTPRequest):
-    ReqSPBMIntraParameter: SPBMIntraParameterField = Field(
+    SPBMIntraParameter: SPBMIntraParameterField = Field(
         title="SPBM品种内对锁仓折扣参数")
 
 
@@ -7928,7 +7896,7 @@ class SPBMInterParameterField(BaseModel):
 
 
 class WebCTPReqSPBMInterParameter(WebCTPRequest):
-    ReqSPBMInterParameter: SPBMInterParameterField = Field(
+    SPBMInterParameter: SPBMInterParameterField = Field(
         title="SPBM跨品种抵扣参数")
 
 
@@ -7939,7 +7907,7 @@ class SyncSPBMParameterEndField(BaseModel):
 
 
 class WebCTPReqSyncSPBMParameterEnd(WebCTPRequest):
-    ReqSyncSPBMParameterEnd: SyncSPBMParameterEndField = Field(
+    SyncSPBMParameterEnd: SyncSPBMParameterEndField = Field(
         title="同步SPBM参数结束")
 
 
@@ -7952,7 +7920,7 @@ class QrySPBMFutureParameterField(BaseModel):
 
 
 class WebCTPReqQrySPBMFutureParameter(WebCTPRequest):
-    ReqQrySPBMFutureParameter: QrySPBMFutureParameterField = Field(
+    QrySPBMFutureParameter: QrySPBMFutureParameterField = Field(
         title="SPBM期货合约保证金参数查询")
 
 
@@ -7965,7 +7933,7 @@ class QrySPBMOptionParameterField(BaseModel):
 
 
 class WebCTPReqQrySPBMOptionParameter(WebCTPRequest):
-    ReqQrySPBMOptionParameter: QrySPBMOptionParameterField = Field(
+    QrySPBMOptionParameter: QrySPBMOptionParameterField = Field(
         title="SPBM期权合约保证金参数查询")
 
 
@@ -7977,7 +7945,7 @@ class QrySPBMIntraParameterField(BaseModel):
 
 
 class WebCTPReqQrySPBMIntraParameter(WebCTPRequest):
-    ReqQrySPBMIntraParameter: QrySPBMIntraParameterField = Field(
+    QrySPBMIntraParameter: QrySPBMIntraParameterField = Field(
         title="SPBM品种内对锁仓折扣参数查询")
 
 
@@ -7990,7 +7958,7 @@ class QrySPBMInterParameterField(BaseModel):
 
 
 class WebCTPReqQrySPBMInterParameter(WebCTPRequest):
-    ReqQrySPBMInterParameter: QrySPBMInterParameterField = Field(
+    QrySPBMInterParameter: QrySPBMInterParameterField = Field(
         title="SPBM跨品种抵扣参数查询")
 
 
@@ -8004,7 +7972,7 @@ class SPBMPortfDefinitionField(BaseModel):
 
 
 class WebCTPReqSPBMPortfDefinition(WebCTPRequest):
-    ReqSPBMPortfDefinition: SPBMPortfDefinitionField = Field(
+    SPBMPortfDefinition: SPBMPortfDefinitionField = Field(
         title="组合保证金套餐")
 
 
@@ -8018,7 +7986,7 @@ class SPBMInvestorPortfDefField(BaseModel):
 
 
 class WebCTPReqSPBMInvestorPortfDef(WebCTPRequest):
-    ReqSPBMInvestorPortfDef: SPBMInvestorPortfDefField = Field(
+    SPBMInvestorPortfDef: SPBMInvestorPortfDefField = Field(
         title="投资者套餐选择")
 
 
@@ -8034,7 +8002,7 @@ class InvestorPortfMarginRatioField(BaseModel):
 
 
 class WebCTPReqInvestorPortfMarginRatio(WebCTPRequest):
-    ReqInvestorPortfMarginRatio: InvestorPortfMarginRatioField = Field(
+    InvestorPortfMarginRatio: InvestorPortfMarginRatioField = Field(
         title="投资者新型组合保证金系数")
 
 
@@ -8047,7 +8015,7 @@ class QrySPBMPortfDefinitionField(BaseModel):
 
 
 class WebCTPReqQrySPBMPortfDefinition(WebCTPRequest):
-    ReqQrySPBMPortfDefinition: QrySPBMPortfDefinitionField = Field(
+    QrySPBMPortfDefinition: QrySPBMPortfDefinitionField = Field(
         title="组合保证金套餐查询")
 
 
@@ -8060,7 +8028,7 @@ class QrySPBMInvestorPortfDefField(BaseModel):
 
 
 class WebCTPReqQrySPBMInvestorPortfDef(WebCTPRequest):
-    ReqQrySPBMInvestorPortfDef: QrySPBMInvestorPortfDefField = Field(
+    QrySPBMInvestorPortfDef: QrySPBMInvestorPortfDefField = Field(
         title="投资者套餐选择查询")
 
 
@@ -8073,7 +8041,7 @@ class QryInvestorPortfMarginRatioField(BaseModel):
 
 
 class WebCTPReqQryInvestorPortfMarginRatio(WebCTPRequest):
-    ReqQryInvestorPortfMarginRatio: QryInvestorPortfMarginRatioField = Field(
+    QryInvestorPortfMarginRatio: QryInvestorPortfMarginRatioField = Field(
         title="投资者新型组合保证金系数查询")
 
 
@@ -8104,7 +8072,7 @@ class InvestorProdSPBMDetailField(BaseModel):
 
 
 class WebCTPReqInvestorProdSPBMDetail(WebCTPRequest):
-    ReqInvestorProdSPBMDetail: InvestorProdSPBMDetailField = Field(
+    InvestorProdSPBMDetail: InvestorProdSPBMDetailField = Field(
         title="投资者产品SPBM明细")
 
 
@@ -8118,7 +8086,7 @@ class QryInvestorProdSPBMDetailField(BaseModel):
 
 
 class WebCTPReqQryInvestorProdSPBMDetail(WebCTPRequest):
-    ReqQryInvestorProdSPBMDetail: QryInvestorProdSPBMDetailField = Field(
+    QryInvestorProdSPBMDetail: QryInvestorProdSPBMDetailField = Field(
         title="投资者产品SPBM明细查询")
 
 
@@ -8134,7 +8102,7 @@ class PortfTradeParamSettingField(BaseModel):
 
 
 class WebCTPReqPortfTradeParamSetting(WebCTPRequest):
-    ReqPortfTradeParamSetting: PortfTradeParamSettingField = Field(
+    PortfTradeParamSetting: PortfTradeParamSettingField = Field(
         title="组保交易参数设置")
 
 
@@ -8147,7 +8115,7 @@ class InvestorTradingRightField(BaseModel):
 
 
 class WebCTPReqInvestorTradingRight(WebCTPRequest):
-    ReqInvestorTradingRight: InvestorTradingRightField = Field(
+    InvestorTradingRight: InvestorTradingRightField = Field(
         title="投资者交易权限设置")
 
 
@@ -8161,7 +8129,7 @@ class MortgageParamField(BaseModel):
 
 
 class WebCTPReqMortgageParam(WebCTPRequest):
-    ReqMortgageParam: MortgageParamField = Field(title="质押配比参数")
+    MortgageParam: MortgageParamField = Field(title="质押配比参数")
 
 
 class WithDrawParamField(BaseModel):
@@ -8174,7 +8142,7 @@ class WithDrawParamField(BaseModel):
 
 
 class WebCTPReqWithDrawParam(WebCTPRequest):
-    ReqWithDrawParam: WithDrawParamField = Field(title="可提控制参数")
+    WithDrawParam: WithDrawParamField = Field(title="可提控制参数")
 
 
 class ThostUserFunctionField(BaseModel):
@@ -8186,7 +8154,7 @@ class ThostUserFunctionField(BaseModel):
 
 
 class WebCTPReqThostUserFunction(WebCTPRequest):
-    ReqThostUserFunction: ThostUserFunctionField = Field(
+    ThostUserFunction: ThostUserFunctionField = Field(
         title="Thost终端用户功能权限")
 
 
@@ -8198,7 +8166,7 @@ class QryThostUserFunctionField(BaseModel):
 
 
 class WebCTPReqQryThostUserFunction(WebCTPRequest):
-    ReqQryThostUserFunction: QryThostUserFunctionField = Field(
+    QryThostUserFunction: QryThostUserFunctionField = Field(
         title="Thost终端用户功能权限查询")
 
 
@@ -8211,7 +8179,7 @@ class QryInvestorCommoditySPMMMarginField(BaseModel):
 
 
 class WebCTPReqQryInvestorCommoditySPMMMargin(WebCTPRequest):
-    ReqQryInvestorCommoditySPMMMargin: QryInvestorCommoditySPMMMarginField = Field(
+    QryInvestorCommoditySPMMMargin: QryInvestorCommoditySPMMMarginField = Field(
         title="投资者商品组SPMM记录查询")
 
 
@@ -8224,7 +8192,7 @@ class QryInvestorCommodityGroupSPMMMarginField(BaseModel):
 
 
 class WebCTPReqQryInvestorCommodityGroupSPMMMargin(WebCTPRequest):
-    ReqQryInvestorCommodityGroupSPMMMargin: QryInvestorCommodityGroupSPMMMarginField = Field(
+    QryInvestorCommodityGroupSPMMMargin: QryInvestorCommodityGroupSPMMMarginField = Field(
         title="投资者商品群SPMM记录查询")
 
 
@@ -8235,8 +8203,7 @@ class QrySPMMInstParamField(BaseModel):
 
 
 class WebCTPReqQrySPMMInstParam(WebCTPRequest):
-    ReqQrySPMMInstParam: QrySPMMInstParamField = Field(
-        title="SPMM合约参数查询")
+    QrySPMMInstParam: QrySPMMInstParamField = Field(title="SPMM合约参数查询")
 
 
 class QrySPMMProductParamField(BaseModel):
@@ -8246,7 +8213,7 @@ class QrySPMMProductParamField(BaseModel):
 
 
 class WebCTPReqQrySPMMProductParam(WebCTPRequest):
-    ReqQrySPMMProductParam: QrySPMMProductParamField = Field(
+    QrySPMMProductParam: QrySPMMProductParamField = Field(
         title="SPMM产品参数查询")
 
 
@@ -8279,7 +8246,7 @@ class InvestorCommoditySPMMMarginField(BaseModel):
 
 
 class WebCTPReqInvestorCommoditySPMMMargin(WebCTPRequest):
-    ReqInvestorCommoditySPMMMargin: InvestorCommoditySPMMMarginField = Field(
+    InvestorCommoditySPMMMargin: InvestorCommoditySPMMMarginField = Field(
         title="投资者商品组SPMM记录")
 
 
@@ -8310,7 +8277,7 @@ class InvestorCommodityGroupSPMMMarginField(BaseModel):
 
 
 class WebCTPReqInvestorCommodityGroupSPMMMargin(WebCTPRequest):
-    ReqInvestorCommodityGroupSPMMMargin: InvestorCommodityGroupSPMMMarginField = Field(
+    InvestorCommodityGroupSPMMMargin: InvestorCommodityGroupSPMMMarginField = Field(
         title="投资者商品群SPMM记录")
 
 
@@ -8325,7 +8292,7 @@ class SPMMInstParamField(BaseModel):
 
 
 class WebCTPReqSPMMInstParam(WebCTPRequest):
-    ReqSPMMInstParam: SPMMInstParamField = Field(title="SPMM合约参数")
+    SPMMInstParam: SPMMInstParamField = Field(title="SPMM合约参数")
 
 
 class SPMMProductParamField(BaseModel):
@@ -8338,7 +8305,7 @@ class SPMMProductParamField(BaseModel):
 
 
 class WebCTPReqSPMMProductParam(WebCTPRequest):
-    ReqSPMMProductParam: SPMMProductParamField = Field(title="SPMM产品参数")
+    SPMMProductParam: SPMMProductParamField = Field(title="SPMM产品参数")
 
 
 class QryTraderAssignField(BaseModel):
@@ -8348,7 +8315,7 @@ class QryTraderAssignField(BaseModel):
 
 
 class WebCTPReqQryTraderAssign(WebCTPRequest):
-    ReqQryTraderAssign: QryTraderAssignField = Field(
+    QryTraderAssign: QryTraderAssignField = Field(
         title="席位与交易中心对应关系维护查询")
 
 
@@ -8363,7 +8330,7 @@ class TraderAssignField(BaseModel):
 
 
 class WebCTPReqTraderAssign(WebCTPRequest):
-    ReqTraderAssign: TraderAssignField = Field(title="席位与交易中心对应关系")
+    TraderAssign: TraderAssignField = Field(title="席位与交易中心对应关系")
 
 
 class InvestorInfoCntSettingField(BaseModel):
@@ -8379,7 +8346,7 @@ class InvestorInfoCntSettingField(BaseModel):
 
 
 class WebCTPReqInvestorInfoCntSetting(WebCTPRequest):
-    ReqInvestorInfoCntSetting: InvestorInfoCntSettingField = Field(
+    InvestorInfoCntSetting: InvestorInfoCntSettingField = Field(
         title="投资者申报费阶梯收取设置")
 
 
@@ -8395,7 +8362,7 @@ class SPBMAddOnInterParameterField(BaseModel):
 
 
 class WebCTPReqSPBMAddOnInterParameter(WebCTPRequest):
-    ReqSPBMAddOnInterParameter: SPBMAddOnInterParameterField = Field(
+    SPBMAddOnInterParameter: SPBMAddOnInterParameterField = Field(
         title="SPBM附加跨品种抵扣参数")
 
 
@@ -8408,7 +8375,7 @@ class QrySPBMAddOnInterParameterField(BaseModel):
 
 
 class WebCTPReqQrySPBMAddOnInterParameter(WebCTPRequest):
-    ReqQrySPBMAddOnInterParameter: QrySPBMAddOnInterParameterField = Field(
+    QrySPBMAddOnInterParameter: QrySPBMAddOnInterParameterField = Field(
         title="SPBM附加跨品种抵扣参数查询")
 
 
@@ -8423,7 +8390,7 @@ class RCAMSCombProductInfoField(BaseModel):
 
 
 class WebCTPReqRCAMSCombProductInfo(WebCTPRequest):
-    ReqRCAMSCombProductInfo: RCAMSCombProductInfoField = Field(
+    RCAMSCombProductInfo: RCAMSCombProductInfoField = Field(
         title="RCAMS产品组合信息")
 
 
@@ -8437,7 +8404,7 @@ class RCAMSInstrParameterField(BaseModel):
 
 
 class WebCTPReqRCAMSInstrParameter(WebCTPRequest):
-    ReqRCAMSInstrParameter: RCAMSInstrParameterField = Field(
+    RCAMSInstrParameter: RCAMSInstrParameterField = Field(
         title="RCAMS同合约风险对冲参数")
 
 
@@ -8451,7 +8418,7 @@ class RCAMSIntraParameterField(BaseModel):
 
 
 class WebCTPReqRCAMSIntraParameter(WebCTPRequest):
-    ReqRCAMSIntraParameter: RCAMSIntraParameterField = Field(
+    RCAMSIntraParameter: RCAMSIntraParameterField = Field(
         title="RCAMS品种内风险对冲参数")
 
 
@@ -8468,7 +8435,7 @@ class RCAMSInterParameterField(BaseModel):
 
 
 class WebCTPReqRCAMSInterParameter(WebCTPRequest):
-    ReqRCAMSInterParameter: RCAMSInterParameterField = Field(
+    RCAMSInterParameter: RCAMSInterParameterField = Field(
         title="RCAMS跨品种风险折抵参数")
 
 
@@ -8483,7 +8450,7 @@ class RCAMSShortOptAdjustParamField(BaseModel):
 
 
 class WebCTPReqRCAMSShortOptAdjustParam(WebCTPRequest):
-    ReqRCAMSShortOptAdjustParam: RCAMSShortOptAdjustParamField = Field(
+    RCAMSShortOptAdjustParam: RCAMSShortOptAdjustParamField = Field(
         title="RCAMS空头期权风险调整参数")
 
 
@@ -8505,7 +8472,7 @@ class RCAMSInvestorCombPositionField(BaseModel):
 
 
 class WebCTPReqRCAMSInvestorCombPosition(WebCTPRequest):
-    ReqRCAMSInvestorCombPosition: RCAMSInvestorCombPositionField = Field(
+    RCAMSInvestorCombPosition: RCAMSInvestorCombPositionField = Field(
         title="RCAMS策略组合持仓")
 
 
@@ -8543,7 +8510,7 @@ class InvestorProdRCAMSMarginField(BaseModel):
 
 
 class WebCTPReqInvestorProdRCAMSMargin(WebCTPRequest):
-    ReqInvestorProdRCAMSMargin: InvestorProdRCAMSMarginField = Field(
+    InvestorProdRCAMSMargin: InvestorProdRCAMSMarginField = Field(
         title="投资者品种RCAMS保证金")
 
 
@@ -8556,7 +8523,7 @@ class QryRCAMSCombProductInfoField(BaseModel):
 
 
 class WebCTPReqQryRCAMSCombProductInfo(WebCTPRequest):
-    ReqQryRCAMSCombProductInfo: QryRCAMSCombProductInfoField = Field(
+    QryRCAMSCombProductInfo: QryRCAMSCombProductInfoField = Field(
         title="RCAMS产品组合信息查询")
 
 
@@ -8567,7 +8534,7 @@ class QryRCAMSInstrParameterField(BaseModel):
 
 
 class WebCTPReqQryRCAMSInstrParameter(WebCTPRequest):
-    ReqQryRCAMSInstrParameter: QryRCAMSInstrParameterField = Field(
+    QryRCAMSInstrParameter: QryRCAMSInstrParameterField = Field(
         title="RCAMS同合约风险对冲参数查询")
 
 
@@ -8578,7 +8545,7 @@ class QryRCAMSIntraParameterField(BaseModel):
 
 
 class WebCTPReqQryRCAMSIntraParameter(WebCTPRequest):
-    ReqQryRCAMSIntraParameter: QryRCAMSIntraParameterField = Field(
+    QryRCAMSIntraParameter: QryRCAMSIntraParameterField = Field(
         title="RCAMS品种内风险对冲参数查询")
 
 
@@ -8591,7 +8558,7 @@ class QryRCAMSInterParameterField(BaseModel):
 
 
 class WebCTPReqQryRCAMSInterParameter(WebCTPRequest):
-    ReqQryRCAMSInterParameter: QryRCAMSInterParameterField = Field(
+    QryRCAMSInterParameter: QryRCAMSInterParameterField = Field(
         title="RCAMS跨品种风险折抵参数查询")
 
 
@@ -8602,7 +8569,7 @@ class QryRCAMSShortOptAdjustParamField(BaseModel):
 
 
 class WebCTPReqQryRCAMSShortOptAdjustParam(WebCTPRequest):
-    ReqQryRCAMSShortOptAdjustParam: QryRCAMSShortOptAdjustParamField = Field(
+    QryRCAMSShortOptAdjustParam: QryRCAMSShortOptAdjustParamField = Field(
         title="RCAMS空头期权风险调整参数查询")
 
 
@@ -8616,7 +8583,7 @@ class QryRCAMSInvestorCombPositionField(BaseModel):
 
 
 class WebCTPReqQryRCAMSInvestorCombPosition(WebCTPRequest):
-    ReqQryRCAMSInvestorCombPosition: QryRCAMSInvestorCombPositionField = Field(
+    QryRCAMSInvestorCombPosition: QryRCAMSInvestorCombPositionField = Field(
         title="RCAMS策略组合持仓查询")
 
 
@@ -8630,7 +8597,7 @@ class QryInvestorProdRCAMSMarginField(BaseModel):
 
 
 class WebCTPReqQryInvestorProdRCAMSMargin(WebCTPRequest):
-    ReqQryInvestorProdRCAMSMargin: QryInvestorProdRCAMSMarginField = Field(
+    QryInvestorProdRCAMSMargin: QryInvestorProdRCAMSMarginField = Field(
         title="投资者品种RCAMS保证金查询")
 
 
@@ -8652,7 +8619,7 @@ class RULEInstrParameterField(BaseModel):
 
 
 class WebCTPReqRULEInstrParameter(WebCTPRequest):
-    ReqRULEInstrParameter: RULEInstrParameterField = Field(
+    RULEInstrParameter: RULEInstrParameterField = Field(
         title="RULE合约保证金参数")
 
 
@@ -8669,7 +8636,7 @@ class RULEIntraParameterField(BaseModel):
 
 
 class WebCTPReqRULEIntraParameter(WebCTPRequest):
-    ReqRULEIntraParameter: RULEIntraParameterField = Field(
+    RULEIntraParameter: RULEIntraParameterField = Field(
         title="RULE品种内对锁仓折扣参数")
 
 
@@ -8689,7 +8656,7 @@ class RULEInterParameterField(BaseModel):
 
 
 class WebCTPReqRULEInterParameter(WebCTPRequest):
-    ReqRULEInterParameter: RULEInterParameterField = Field(
+    RULEInterParameter: RULEInterParameterField = Field(
         title="RULE跨品种抵扣参数")
 
 
@@ -8701,7 +8668,7 @@ class QryRULEInstrParameterField(BaseModel):
 
 
 class WebCTPReqQryRULEInstrParameter(WebCTPRequest):
-    ReqQryRULEInstrParameter: QryRULEInstrParameterField = Field(
+    QryRULEInstrParameter: QryRULEInstrParameterField = Field(
         title="RULE合约保证金参数查询")
 
 
@@ -8713,7 +8680,7 @@ class QryRULEIntraParameterField(BaseModel):
 
 
 class WebCTPReqQryRULEIntraParameter(WebCTPRequest):
-    ReqQryRULEIntraParameter: QryRULEIntraParameterField = Field(
+    QryRULEIntraParameter: QryRULEIntraParameterField = Field(
         title="RULE品种内对锁仓折扣参数查询")
 
 
@@ -8727,7 +8694,7 @@ class QryRULEInterParameterField(BaseModel):
 
 
 class WebCTPReqQryRULEInterParameter(WebCTPRequest):
-    ReqQryRULEInterParameter: QryRULEInterParameterField = Field(
+    QryRULEInterParameter: QryRULEInterParameterField = Field(
         title="RULE跨品种抵扣参数查询")
 
 
@@ -8764,7 +8731,7 @@ class InvestorProdRULEMarginField(BaseModel):
 
 
 class WebCTPReqInvestorProdRULEMargin(WebCTPRequest):
-    ReqInvestorProdRULEMargin: InvestorProdRULEMarginField = Field(
+    InvestorProdRULEMargin: InvestorProdRULEMarginField = Field(
         title="投资者产品RULE保证金")
 
 
@@ -8779,7 +8746,7 @@ class QryInvestorProdRULEMarginField(BaseModel):
 
 
 class WebCTPReqQryInvestorProdRULEMargin(WebCTPRequest):
-    ReqQryInvestorProdRULEMargin: QryInvestorProdRULEMarginField = Field(
+    QryInvestorProdRULEMargin: QryInvestorProdRULEMarginField = Field(
         title="投资者产品RULE保证金查询")
 
 
@@ -8795,7 +8762,7 @@ class SyncDeltaSPBMPortfDefinitionField(BaseModel):
 
 
 class WebCTPReqSyncDeltaSPBMPortfDefinition(WebCTPRequest):
-    ReqSyncDeltaSPBMPortfDefinition: SyncDeltaSPBMPortfDefinitionField = Field(
+    SyncDeltaSPBMPortfDefinition: SyncDeltaSPBMPortfDefinitionField = Field(
         title="风险结算追平SPBM组合保证金套餐")
 
 
@@ -8811,7 +8778,7 @@ class SyncDeltaSPBMInvstPortfDefField(BaseModel):
 
 
 class WebCTPReqSyncDeltaSPBMInvstPortfDef(WebCTPRequest):
-    ReqSyncDeltaSPBMInvstPortfDef: SyncDeltaSPBMInvstPortfDefField = Field(
+    SyncDeltaSPBMInvstPortfDef: SyncDeltaSPBMInvstPortfDefField = Field(
         title="风险结算追平投资者SPBM套餐选择")
 
 
@@ -8835,7 +8802,7 @@ class SyncDeltaSPBMFutureParameterField(BaseModel):
 
 
 class WebCTPReqSyncDeltaSPBMFutureParameter(WebCTPRequest):
-    ReqSyncDeltaSPBMFutureParameter: SyncDeltaSPBMFutureParameterField = Field(
+    SyncDeltaSPBMFutureParameter: SyncDeltaSPBMFutureParameterField = Field(
         title="风险结算追平SPBM期货合约保证金参数")
 
 
@@ -8856,7 +8823,7 @@ class SyncDeltaSPBMOptionParameterField(BaseModel):
 
 
 class WebCTPReqSyncDeltaSPBMOptionParameter(WebCTPRequest):
-    ReqSyncDeltaSPBMOptionParameter: SyncDeltaSPBMOptionParameterField = Field(
+    SyncDeltaSPBMOptionParameter: SyncDeltaSPBMOptionParameterField = Field(
         title="风险结算追平SPBM期权合约保证金参数")
 
 
@@ -8874,7 +8841,7 @@ class SyncDeltaSPBMIntraParameterField(BaseModel):
 
 
 class WebCTPReqSyncDeltaSPBMIntraParameter(WebCTPRequest):
-    ReqSyncDeltaSPBMIntraParameter: SyncDeltaSPBMIntraParameterField = Field(
+    SyncDeltaSPBMIntraParameter: SyncDeltaSPBMIntraParameterField = Field(
         title="风险结算追平SPBM品种内对锁仓折扣参数")
 
 
@@ -8892,7 +8859,7 @@ class SyncDeltaSPBMInterParameterField(BaseModel):
 
 
 class WebCTPReqSyncDeltaSPBMInterParameter(WebCTPRequest):
-    ReqSyncDeltaSPBMInterParameter: SyncDeltaSPBMInterParameterField = Field(
+    SyncDeltaSPBMInterParameter: SyncDeltaSPBMInterParameterField = Field(
         title="风险结算追平SPBM跨品种抵扣参数")
 
 
@@ -8910,7 +8877,7 @@ class SyncDeltaSPBMAddOnInterParamField(BaseModel):
 
 
 class WebCTPReqSyncDeltaSPBMAddOnInterParam(WebCTPRequest):
-    ReqSyncDeltaSPBMAddOnInterParam: SyncDeltaSPBMAddOnInterParamField = Field(
+    SyncDeltaSPBMAddOnInterParam: SyncDeltaSPBMAddOnInterParamField = Field(
         title="风险结算追平SPBM附加跨品种抵扣参数")
 
 
@@ -8927,7 +8894,7 @@ class SyncDeltaSPMMInstParamField(BaseModel):
 
 
 class WebCTPReqSyncDeltaSPMMInstParam(WebCTPRequest):
-    ReqSyncDeltaSPMMInstParam: SyncDeltaSPMMInstParamField = Field(
+    SyncDeltaSPMMInstParam: SyncDeltaSPMMInstParamField = Field(
         title="风险结算追平SPMM合约参数")
 
 
@@ -8943,7 +8910,7 @@ class SyncDeltaSPMMProductParamField(BaseModel):
 
 
 class WebCTPReqSyncDeltaSPMMProductParam(WebCTPRequest):
-    ReqSyncDeltaSPMMProductParam: SyncDeltaSPMMProductParamField = Field(
+    SyncDeltaSPMMProductParam: SyncDeltaSPMMProductParamField = Field(
         title="风险结算追平SPMM产品相关参数")
 
 
@@ -8959,7 +8926,7 @@ class SyncDeltaInvestorSPMMModelField(BaseModel):
 
 
 class WebCTPReqSyncDeltaInvestorSPMMModel(WebCTPRequest):
-    ReqSyncDeltaInvestorSPMMModel: SyncDeltaInvestorSPMMModelField = Field(
+    SyncDeltaInvestorSPMMModel: SyncDeltaInvestorSPMMModelField = Field(
         title="风险结算追平投资者SPMM模板选择")
 
 
@@ -8978,7 +8945,7 @@ class SyncDeltaSPMMModelParamField(BaseModel):
 
 
 class WebCTPReqSyncDeltaSPMMModelParam(WebCTPRequest):
-    ReqSyncDeltaSPMMModelParam: SyncDeltaSPMMModelParamField = Field(
+    SyncDeltaSPMMModelParam: SyncDeltaSPMMModelParamField = Field(
         title="风险结算追平SPMM模板参数设置")
 
 
@@ -8995,7 +8962,7 @@ class SyncDeltaRCAMSCombProdInfoField(BaseModel):
 
 
 class WebCTPReqSyncDeltaRCAMSCombProdInfo(WebCTPRequest):
-    ReqSyncDeltaRCAMSCombProdInfo: SyncDeltaRCAMSCombProdInfoField = Field(
+    SyncDeltaRCAMSCombProdInfo: SyncDeltaRCAMSCombProdInfoField = Field(
         title="风险结算追平RCAMS产品组合信息")
 
 
@@ -9011,7 +8978,7 @@ class SyncDeltaRCAMSInstrParameterField(BaseModel):
 
 
 class WebCTPReqSyncDeltaRCAMSInstrParameter(WebCTPRequest):
-    ReqSyncDeltaRCAMSInstrParameter: SyncDeltaRCAMSInstrParameterField = Field(
+    SyncDeltaRCAMSInstrParameter: SyncDeltaRCAMSInstrParameterField = Field(
         title="风险结算追平RCAMS同合约风险对冲参数")
 
 
@@ -9027,7 +8994,7 @@ class SyncDeltaRCAMSIntraParameterField(BaseModel):
 
 
 class WebCTPReqSyncDeltaRCAMSIntraParameter(WebCTPRequest):
-    ReqSyncDeltaRCAMSIntraParameter: SyncDeltaRCAMSIntraParameterField = Field(
+    SyncDeltaRCAMSIntraParameter: SyncDeltaRCAMSIntraParameterField = Field(
         title="风险结算追平RCAMS品种内风险对冲参数")
 
 
@@ -9046,7 +9013,7 @@ class SyncDeltaRCAMSInterParameterField(BaseModel):
 
 
 class WebCTPReqSyncDeltaRCAMSInterParameter(WebCTPRequest):
-    ReqSyncDeltaRCAMSInterParameter: SyncDeltaRCAMSInterParameterField = Field(
+    SyncDeltaRCAMSInterParameter: SyncDeltaRCAMSInterParameterField = Field(
         title="风险结算追平RCAMS跨品种风险折抵参数")
 
 
@@ -9063,7 +9030,7 @@ class SyncDeltaRCAMSSOptAdjParamField(BaseModel):
 
 
 class WebCTPReqSyncDeltaRCAMSSOptAdjParam(WebCTPRequest):
-    ReqSyncDeltaRCAMSSOptAdjParam: SyncDeltaRCAMSSOptAdjParamField = Field(
+    SyncDeltaRCAMSSOptAdjParam: SyncDeltaRCAMSSOptAdjParamField = Field(
         title="风险结算追平RCAMS空头期权风险调整参数")
 
 
@@ -9087,7 +9054,7 @@ class SyncDeltaRCAMSCombRuleDtlField(BaseModel):
 
 
 class WebCTPReqSyncDeltaRCAMSCombRuleDtl(WebCTPRequest):
-    ReqSyncDeltaRCAMSCombRuleDtl: SyncDeltaRCAMSCombRuleDtlField = Field(
+    SyncDeltaRCAMSCombRuleDtl: SyncDeltaRCAMSCombRuleDtlField = Field(
         title="风险结算追平RCAMS策略组合规则明细")
 
 
@@ -9111,7 +9078,7 @@ class SyncDeltaRCAMSInvstCombPosField(BaseModel):
 
 
 class WebCTPReqSyncDeltaRCAMSInvstCombPos(WebCTPRequest):
-    ReqSyncDeltaRCAMSInvstCombPos: SyncDeltaRCAMSInvstCombPosField = Field(
+    SyncDeltaRCAMSInvstCombPos: SyncDeltaRCAMSInvstCombPosField = Field(
         title="风险结算追平RCAMS策略组合持仓")
 
 
@@ -9135,7 +9102,7 @@ class SyncDeltaRULEInstrParameterField(BaseModel):
 
 
 class WebCTPReqSyncDeltaRULEInstrParameter(WebCTPRequest):
-    ReqSyncDeltaRULEInstrParameter: SyncDeltaRULEInstrParameterField = Field(
+    SyncDeltaRULEInstrParameter: SyncDeltaRULEInstrParameterField = Field(
         title="风险结算追平RULE合约保证金参数")
 
 
@@ -9154,7 +9121,7 @@ class SyncDeltaRULEIntraParameterField(BaseModel):
 
 
 class WebCTPReqSyncDeltaRULEIntraParameter(WebCTPRequest):
-    ReqSyncDeltaRULEIntraParameter: SyncDeltaRULEIntraParameterField = Field(
+    SyncDeltaRULEIntraParameter: SyncDeltaRULEIntraParameterField = Field(
         title="风险结算追平RULE品种内对锁仓折扣参数")
 
 
@@ -9176,5 +9143,5 @@ class SyncDeltaRULEInterParameterField(BaseModel):
 
 
 class WebCTPReqSyncDeltaRULEInterParameter(WebCTPRequest):
-    ReqSyncDeltaRULEInterParameter: SyncDeltaRULEInterParameterField = Field(
+    SyncDeltaRULEInterParameter: SyncDeltaRULEInterParameterField = Field(
         title="风险结算追平RULE跨品种抵扣参数")
