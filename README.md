@@ -6,7 +6,7 @@ webctp是一个基于 [openctp-ctp](https://github.com/openctp/openctp-ctp-pytho
 
 ## 环境搭建
 
-1. 准备Python环境(3.7~3.12)
+1. 准备Python环境(3.10, 其他版本未测试)
 2. 克隆 webctp
    ```bash
    $ git clone https://github.com/openctp/webctp.git
