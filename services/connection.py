@@ -1,9 +1,12 @@
 import abc
 import anyio
+import json
 import logging
 from fastapi import WebSocket, WebSocketDisconnect
 from starlette.websockets import WebSocketState
 
+from constants.call_errors import CallError
+from constants.constant import CommonConstant as Constant
 from .td_client import TdClient
 from .md_client import MdClient
 
@@ -34,8 +37,15 @@ class BaseConnection(abc.ABC):
             self._client.task_group = task_group
             try:
                 while True:
-                    data = await self.recv()
-                    await self._client.call(data)
+                    try:
+                        data = await self.recv()
+                        await self._client.call(data)
+                    except json.decoder.JSONDecodeError as err:
+                        await self.send({
+                            Constant.MessageType: "",
+                            Constant.RspInfo: CallError.get_rsp_info(400),
+                            "Detail": str(err),
+                        })
             except WebSocketDisconnect:
                 logging.debug("websocket disconnect")
                 await self.disconnect()
