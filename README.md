@@ -59,6 +59,14 @@ $ python main.py --config=config_md.yaml --app_type=md
 
 TODO: 添加postman的请求样例
 
+### Apifox 示例
+
+<details>
+<summary>交易登录</summary>
+
+![](docs/img/td_login.png)
+</details>
+
 ## 协议
 
 ### 通用协议格式
