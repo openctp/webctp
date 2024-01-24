@@ -41,7 +41,7 @@ webctp是一个基于 [openctp-ctp](https://github.com/openctp/openctp-ctp-pytho
    BrokerID: "9999"
    AuthCode: "0000000000000000"
    AppID: simnow_client_test
-   Port: 8081         # the listening port, default 8080
+   Port: 8081         # the listening port, default 8081
    Host: 0.0.0.0      # the bind ip address, default 0.0.0.0
    LogLevel: INFO     # NOTSET, DEBUG, INFO, WARN, ERROR, CRITICAL
    ```
@@ -59,7 +59,7 @@ $ python main.py --config=config_md.yaml --app_type=md
 
 TODO: 添加postman的请求样例
 
-### Apifox 示例
+### Apifox 示例（部分）
 
 <details>
 <summary>登录</summary>
@@ -113,7 +113,7 @@ TODO: 添加postman的请求样例
 </details>
 
 <details>
-<summary>查询报单手续费</summary>
+<summary>查询报单手续费率</summary>
 
 </details>
 
@@ -182,7 +182,6 @@ TODO: 添加postman的请求样例
 ErrorID="-400" ErrorMsg="参数有误"
 ErrorID="-401" ErrorMsg="未登录"
 ErrorID="-404" ErrorMsg="Webctp还未实现该方法"
-ErrorID="-1" ErrorMsg="CTP:请求失败"
 ErrorID="-1" ErrorMsg="CTP:请求失败"
 ErrorID="-2" ErrorMsg="CTP:未处理请求超过许可数"
 ErrorID="-3" ErrorMsg="CTP:每秒发送请求数超过许可数"
