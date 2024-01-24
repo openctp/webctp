@@ -7,6 +7,8 @@ from anyio.abc import TaskGroup
 from constants import CallError
 from constants import TdConstant as Constant
 from clients import CTPTdClient
+from model import REQUEST_PAYLOAD
+
 
 class TdClient(object):
     """
@@ -45,21 +47,43 @@ class TdClient(object):
     def on_rsp_or_rtn(self, data: dict[str, any]) -> None:
         self._queue.put_nowait(data)
 
+    def validate_request(self, message_type, data):
+        class_ = REQUEST_PAYLOAD.get(message_type)
+        if class_ is None:
+            return {
+                Constant.MessageType: message_type,
+                Constant.RspInfo: CallError.get_rsp_info(404)
+            }
+
+        try:
+            class_(**data)
+        except Exception as err:
+            return {
+                Constant.MessageType: message_type,
+                Constant.RspInfo: CallError.get_rsp_info(400),
+                "Detail": str(err),
+            }
+
     async def call(self, request: dict[str, any]) -> dict[str, any]:
         message_type = request[Constant.MessageType]
-        if message_type == Constant.ReqUserLogin:
-            user_id: str = request[Constant.ReqUserLogin]["UserID"]
-            password: str = request[Constant.ReqUserLogin]["Password"]
-            await self.start(user_id, password)
+        ret = self.validate_request(message_type, request)
+        if ret is not None:
+            await self.rsp_callback(ret)
         else:
-            if message_type in self._call_map:
-                await anyio.to_thread.run_sync(self._call_map[message_type], request)
+            if message_type == Constant.ReqUserLogin:
+                user_id: str = request[Constant.ReqUserLogin]["UserID"]
+                password: str = request[Constant.ReqUserLogin]["Password"]
+                await self.start(user_id, password)
             else:
-                response = {
-                    Constant.MessageType: message_type,
-                    Constant.RspInfo: CallError.get_rsp_info(404)
-                }
-                await self.rsp_callback(response)
+                if message_type in self._call_map:
+                    await anyio.to_thread.run_sync(
+                        self._call_map[message_type], request)
+                else:
+                    response = {
+                        Constant.MessageType: message_type,
+                        Constant.RspInfo: CallError.get_rsp_info(404)
+                    }
+                    await self.rsp_callback(response)
 
     async def start(self, user_id: str, password: str) -> None:
         # NOTE: This if clause avoid the following secenario
