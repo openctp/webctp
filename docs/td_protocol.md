@@ -15,6 +15,13 @@
 * [查询产品](#查询产品)
 * [查询交易所](#查询交易所)
 * [查询合约](#查询合约)
+* [查询报单](#查询报单)
+* [查询最大报单数量](#查询最大报单数量)
+* [用户口令变更](#用户口令变更)
+* [报单录入限价单](#报单录入限价单)
+* [报单撤销](#报单撤销)
+* [报单通知](#报单通知)
+* [报单操作错误通](#报单操作错误通知)
 
 ### 登录
 
@@ -26,7 +33,8 @@
   "ReqUserLogin": {
     "UserID": "028742",
     "Password": "123456"
-  }
+  },
+  "RequestID": 0
 }
 ```
 
@@ -738,5 +746,418 @@
   },
   "RequestID": 0,
   "IsLast": false
+}
+```
+
+### 查询报单
+
+#### 请求
+
+```json
+{
+  "MsgType": "ReqQryOrder",
+  "QryOrder": {
+    "InvestorID": "209025",
+    "InstrumentID": "ss2407"
+  },
+  "RequestID": 0
+}
+```
+
+#### 应答
+
+```json
+{
+  "MsgType": "RspQryOrder",
+  "RspInfo": null,
+  "IsLast": true,
+  "Order": {
+    "BrokerID": "9999",
+    "InvestorID": "209025",
+    "OrderRef": "1",
+    "UserID": "209025",
+    "OrderPriceType": "2",
+    "Direction": "0",
+    "CombOffsetFlag": "0",
+    "CombHedgeFlag": "1",
+    "LimitPrice": 14265.0,
+    "VolumeTotalOriginal": 1,
+    "TimeCondition": "3",
+    "GTDDate": "",
+    "VolumeCondition": "1",
+    "MinVolume": 1,
+    "ContingentCondition": "1",
+    "StopPrice": 0.0,
+    "ForceCloseReason": "0",
+    "IsAutoSuspend": 0,
+    "BusinessUnit": "9999xc6",
+    "RequestID": 0,
+    "OrderLocalID": "       26119",
+    "ExchangeID": "SHFE",
+    "ParticipantID": "9999",
+    "ClientID": "9999209003",
+    "TraderID": "9999xc6",
+    "InstallID": 1,
+    "OrderSubmitStatus": "0",
+    "NotifySequence": 0,
+    "TradingDay": "20240126",
+    "SettlementID": 1,
+    "OrderSysID": "       46792",
+    "OrderSource": "0",
+    "OrderStatus": "0",
+    "OrderType": "0",
+    "VolumeTraded": 1,
+    "VolumeTotal": 0,
+    "InsertDate": "20240125",
+    "InsertTime": "21:45:48",
+    "ActiveTime": "",
+    "SuspendTime": "",
+    "UpdateTime": "",
+    "CancelTime": "",
+    "ActiveTraderID": "9999xc6",
+    "ClearingPartID": "",
+    "SequenceNo": 32807,
+    "FrontID": 3,
+    "SessionID": 1653223221,
+    "UserProductInfo": "TickTrader",
+    "StatusMsg": "全部成交报单已提交",
+    "UserForceClose": 0,
+    "ActiveUserID": "",
+    "BrokerOrderSeq": 134843,
+    "RelativeOrderSysID": "",
+    "ZCETotalTradedVolume": 0,
+    "IsSwapOrder": 0,
+    "BranchID": "",
+    "InvestUnitID": "",
+    "AccountID": "",
+    "CurrencyID": "",
+    "MacAddress": "",
+    "InstrumentID": "ss2407",
+    "ExchangeInstID": "ss2407",
+    "IPAddress": ""
+  }
+}
+```
+
+### 查询最大报单数量
+
+#### 请求
+
+```json
+{
+  "MsgType": "ReqQryMaxOrderVolume",
+  "QryMaxOrderVolume": {
+    "BrokerID": "9999",
+    "InvestorID": "209025",
+    "InstrumentID": "ss2407"
+  },
+  "RequestID": 0
+}
+```
+
+#### 应答
+
+```json
+{
+  "MsgType": "RspQryMaxOrderVolume",
+  "RspInfo": {
+    "ErrorID": 0,
+    "ErrorMsg": "CTP:正确"
+  },
+  "IsLast": true,
+  "QryMaxOrderVolume": {
+    "BrokerID": "9999",
+    "InvestorID": "209025",
+    "InstrumentID": "ss2407",
+    "ExchangeID": "",
+    "InvestUnitID": "",
+    "MaxVolume": 0,
+    "Direction": "",
+    "OffsetFlag": "",
+    "HedgeFlag": ""
+  }
+}
+```
+
+### 用户口令变更
+
+变更完成后，需要等一会儿才会生效
+
+#### 请求
+
+```json
+{
+  "MsgType": "ReqUserPasswordUpdate",
+  "UserPasswordUpdate": {
+    "BrokerID": "9999",
+    "UserID": "209025",
+    "OldPassword": "************",
+    "NewPassword": "************"
+  },
+  "RequestID": 0
+}
+```
+
+#### 应答
+
+```json
+{
+  "MsgType": "RspUserPasswordUpdate",
+  "RspInfo": {
+    "ErrorID": 0,
+    "ErrorMsg": "CTP:正确"
+  },
+  "IsLast": true,
+  "UserPasswordUpdate": {
+    "BrokerID": "9999",
+    "UserID": "209025",
+    "OldPassword": "******",
+    "NewPassword": "******"
+  }
+}
+```
+
+### 报单录入（限价单）
+
+#### 请求
+
+```json
+{
+  "MsgType": "ReqInputOrder",
+  "RequestID": 0,
+  "InputOrder": {
+    "BrokerID": "9999",
+    "InvestorID": "209025",
+    "ExchangeID": "SHFE",
+    "InstrumentID": "ss2407",
+    "LimitPrice": 14000,
+    "OrderPriceType": "2",
+    "Direction": "0",
+    "CombOffsetFlag": "0",
+    "CombHedgeFlag": "1",
+    "VolumeTotalOriginal": 1,
+    "TimeCondition": "3",
+    "VolumeCondition": "1",
+    "ContingentCondition": "1",
+    "ForceCloseReason": "0",
+    "IsAutoSuspend": 0,
+    "IsSwapOrder": 0
+  }
+}
+```
+
+#### 应答
+
+成功时，会有报单通知；失败时，会有应答
+
+```json
+{
+  "MsgType": "RspOrderInsert",
+  "RspInfo": {
+    "ErrorID": 16,
+    "ErrorMsg": "CTP:找不到合约"
+  },
+  "IsLast": true,
+  "InputOrder": {
+    "BrokerID": "9999",
+    "InvestorID": "209025",
+    "OrderRef": "",
+    "UserID": "",
+    "OrderPriceType": "2",
+    "Direction": "0",
+    "CombOffsetFlag": "0",
+    "CombHedgeFlag": "1",
+    "LimitPrice": 14000.0,
+    "VolumeTotalOriginal": 1,
+    "TimeCondition": "3",
+    "GTDDate": "",
+    "VolumeCondition": "1",
+    "MinVolume": 0,
+    "ContingentCondition": "1",
+    "StopPrice": 0.0,
+    "ForceCloseReason": "0",
+    "IsAutoSuspend": 0,
+    "BusinessUnit": "",
+    "RequestID": 0,
+    "UserForceClose": 0,
+    "IsSwapOrder": 0,
+    "ExchangeID": "",
+    "InvestUnitID": "",
+    "AccountID": "",
+    "CurrencyID": "",
+    "ClientID": "",
+    "MacAddress": "",
+    "InstrumentID": "ss2407000",
+    "IPAddress": ""
+  }
+}
+```
+
+### 报单撤销
+
+#### 请求
+
+```json
+{
+  "MsgType": "ReqOrderAction",
+  "RequestID": 0,
+  "InputOrderAction": {
+    "BrokerID": "9999",
+    "InvestorID": "209025",
+    "UserID": "209025",
+    "ExchangeID": "SHFE",
+    "InstrumentID": "ss2407",
+    "ActionFlag": "0",
+    "OrderSysID": "      100128"
+  }
+}
+```
+
+#### 应答
+
+```json
+{
+  "MsgType": "RspOrderAction",
+  "RspInfo": {
+    "ErrorID": 25,
+    "ErrorMsg": "CTP:撤单找不到相应报单"
+  },
+  "IsLast": true,
+  "InputOrderAction": {
+    "BrokerID": "9999",
+    "InvestorID": "209025",
+    "OrderActionRef": 0,
+    "OrderRef": "",
+    "RequestID": 0,
+    "FrontID": 0,
+    "SessionID": 0,
+    "ExchangeID": "SHFE",
+    "OrderSysID": " 11     1001281",
+    "ActionFlag": "0",
+    "LimitPrice": 0.0,
+    "VolumeChange": 0,
+    "UserID": "209025",
+    "InvestUnitID": "",
+    "MacAddress": "",
+    "InstrumentID": "ss2407",
+    "IPAddress": ""
+  }
+}
+```
+
+### 报单通知
+
+```json
+{
+  "MsgType": "RtnOrder",
+  "RspInfo": null,
+  "Order": {
+    "BrokerID": "9999",
+    "InvestorID": "209025",
+    "OrderRef": "           1",
+    "UserID": "209025",
+    "OrderPriceType": "2",
+    "Direction": "0",
+    "CombOffsetFlag": "0",
+    "CombHedgeFlag": "1",
+    "LimitPrice": 14000.0,
+    "VolumeTotalOriginal": 1,
+    "TimeCondition": "3",
+    "GTDDate": "",
+    "VolumeCondition": "1",
+    "MinVolume": 0,
+    "ContingentCondition": "1",
+    "StopPrice": 0.0,
+    "ForceCloseReason": "0",
+    "IsAutoSuspend": 0,
+    "BusinessUnit": "9999xc6",
+    "RequestID": 0,
+    "OrderLocalID": "       72524",
+    "ExchangeID": "SHFE",
+    "ParticipantID": "9999",
+    "ClientID": "9999209003",
+    "TraderID": "9999xc6",
+    "InstallID": 1,
+    "OrderSubmitStatus": "0",
+    "NotifySequence": 0,
+    "TradingDay": "20240126",
+    "SettlementID": 1,
+    "OrderSysID": "",
+    "OrderSource": "0",
+    "OrderStatus": "a",
+    "OrderType": "0",
+    "VolumeTraded": 0,
+    "VolumeTotal": 1,
+    "InsertDate": "20240125",
+    "InsertTime": "23:33:29",
+    "ActiveTime": "",
+    "SuspendTime": "",
+    "UpdateTime": "",
+    "CancelTime": "",
+    "ActiveTraderID": "",
+    "ClearingPartID": "",
+    "SequenceNo": 0,
+    "FrontID": 1,
+    "SessionID": 2129811508,
+    "UserProductInfo": "",
+    "StatusMsg": "报单已提交",
+    "UserForceClose": 0,
+    "ActiveUserID": "",
+    "BrokerOrderSeq": 308670,
+    "RelativeOrderSysID": "",
+    "ZCETotalTradedVolume": 0,
+    "IsSwapOrder": 0,
+    "BranchID": "",
+    "InvestUnitID": "",
+    "AccountID": "",
+    "CurrencyID": "",
+    "MacAddress": "",
+    "InstrumentID": "ss2407",
+    "ExchangeInstID": "ss2407",
+    "IPAddress": ""
+  }
+}
+```
+
+### 报单操作错误通知
+
+```json
+{
+  "MsgType": "ErrRtnOrderAction",
+  "RspInfo": {
+    "ErrorID": 25,
+    "ErrorMsg": "CTP:撤单找不到相应报单"
+  },
+  "OrderAction": {
+    "BrokerID": "9999",
+    "InvestorID": "209025",
+    "OrderActionRef": 0,
+    "OrderRef": "",
+    "RequestID": 0,
+    "FrontID": 0,
+    "SessionID": 0,
+    "ExchangeID": "SHFE",
+    "OrderSysID": "     100128",
+    "ActionFlag": "0",
+    "LimitPrice": 0.0,
+    "VolumeChange": 0,
+    "ActionDate": "",
+    "ActionTime": "",
+    "TraderID": "",
+    "InstallID": 0,
+    "OrderLocalID": "",
+    "ActionLocalID": "",
+    "ParticipantID": "",
+    "ClientID": "",
+    "BusinessUnit": "",
+    "OrderActionStatus": "0",
+    "UserID": "209025",
+    "StatusMsg": "",
+    "BranchID": "",
+    "InvestUnitID": "",
+    "MacAddress": "",
+    "InstrumentID": "ss2407",
+    "IPAddress": ""
+  }
 }
 ```

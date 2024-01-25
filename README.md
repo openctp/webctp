@@ -2,6 +2,8 @@
 
 webctp是一个基于 [openctp-ctp](https://github.com/openctp/openctp-ctp-python) 开发的提供websocket接口的CTP服务。
 
+---
+
 * [安装及运行](#安装及运行)
     * [环境搭建](#环境搭建)
     * [运行](#运行)
@@ -11,6 +13,8 @@ webctp是一个基于 [openctp-ctp](https://github.com/openctp/openctp-ctp-pytho
     * [部分通用错误码说明](#部分通用错误码说明)
 * [开发说明](#开发说明)
 * [其他说明](#其他说明)
+
+---
 
 ## 安装及运行
 
@@ -173,6 +177,31 @@ TODO: 添加postman的请求样例
 <img width="979" alt="qry_instrument" src="https://github.com/openctp/webctp/assets/17944025/12860cda-aa82-44ce-a05b-4f666c27b3ab">
 </details>
 
+<details>
+<summary>查询报单</summary>
+
+</details>
+
+<details>
+<summary>查询最大报单数量</summary>
+
+</details>
+
+<details>
+<summary>用户口令变更</summary>
+
+</details>
+
+<details>
+<summary>报单录入</summary>
+
+</details>
+
+<details>
+<summary>报单撤销（限价单）</summary>
+
+</details>
+
 ## 协议
 
 ### 通用协议格式
@@ -186,7 +215,7 @@ TODO: 添加postman的请求样例
     "...": "...",
     "fieldn": {valuen}
   },
-  "RequestID": 1  # login无需该字段
+  "RequestID": 1
 }
 
 # 响应
@@ -197,7 +226,7 @@ TODO: 添加postman的请求样例
         "ErrorMsg": "OK"
     },
     "IsLast": true,
-    "RequestID": 1,   # login无该字段
+    "RequestID": 1
     "{response_filed}": {response_body}  # 具体参见详细文档
 }
 ```

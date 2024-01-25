@@ -3,7 +3,7 @@ from pydantic import BaseModel, Field
 
 class WebCTPRequest(BaseModel):
     MsgType: str
-    RequestID: int = 0
+    RequestID: int
 
 
 class ReqUserLoginField(BaseModel):
@@ -1004,7 +1004,7 @@ class InputOrderField(BaseModel):
     IPAddress: str = Field("", title="IP地址")
 
 
-class WebCTPReqInputOrder(WebCTPRequest):
+class WebCTPReqOrderInsert(WebCTPRequest):
     InputOrder: InputOrderField = Field(title="输入报单")
 
 
@@ -1180,48 +1180,48 @@ class InputOrderActionField(BaseModel):
     IPAddress: str = Field("", title="IP地址")
 
 
-class WebCTPReqInputOrderAction(WebCTPRequest):
-    InputOrderAction: InputOrderActionField = Field(title="输入报单操作")
+# class WebCTPReqInputOrderAction(WebCTPRequest):
+#     InputOrderAction: InputOrderActionField = Field(title="输入报单操作")
 
 
-class OrderActionField(BaseModel):
-    """报单操作"""
-
-    BrokerID: str = Field("", title="经纪公司代码")
-    InvestorID: str = Field("", title="投资者代码")
-    OrderActionRef: int = Field(0, title="报单操作引用")
-    OrderRef: str = Field("", title="报单引用")
-    RequestID: int = Field(0, title="请求编号")
-    FrontID: int = Field(0, title="前置编号")
-    SessionID: int = Field(0, title="会话编号")
-    ExchangeID: str = Field("", title="交易所代码")
-    OrderSysID: str = Field("", title="报单编号")
-    ActionFlag: str = Field("", title="操作标志")
-    LimitPrice: float = Field(0.0, title="价格")
-    VolumeChange: int = Field(0, title="数量变化")
-    ActionDate: str = Field("", title="操作日期")
-    ActionTime: str = Field("", title="操作时间")
-    TraderID: str = Field("", title="交易所交易员代码")
-    InstallID: int = Field(0, title="安装编号")
-    OrderLocalID: str = Field("", title="本地报单编号")
-    ActionLocalID: str = Field("", title="操作本地编号")
-    ParticipantID: str = Field("", title="会员代码")
-    ClientID: str = Field("", title="客户代码")
-    BusinessUnit: str = Field("", title="业务单元")
-    OrderActionStatus: str = Field("", title="报单操作状态")
-    UserID: str = Field("", title="用户代码")
-    StatusMsg: str = Field("", title="状态信息")
-    reserve1: str = Field("", title="保留的无效字段")
-    BranchID: str = Field("", title="营业部编号")
-    InvestUnitID: str = Field("", title="投资单元代码")
-    reserve2: str = Field("", title="保留的无效字段")
-    MacAddress: str = Field("", title="Mac地址")
-    InstrumentID: str = Field("", title="合约代码")
-    IPAddress: str = Field("", title="IP地址")
+# class OrderActionField(BaseModel):
+#     """报单操作"""
+#
+#     BrokerID: str = Field("", title="经纪公司代码")
+#     InvestorID: str = Field("", title="投资者代码")
+#     OrderActionRef: int = Field(0, title="报单操作引用")
+#     OrderRef: str = Field("", title="报单引用")
+#     RequestID: int = Field(0, title="请求编号")
+#     FrontID: int = Field(0, title="前置编号")
+#     SessionID: int = Field(0, title="会话编号")
+#     ExchangeID: str = Field("", title="交易所代码")
+#     OrderSysID: str = Field("", title="报单编号")
+#     ActionFlag: str = Field("", title="操作标志")
+#     LimitPrice: float = Field(0.0, title="价格")
+#     VolumeChange: int = Field(0, title="数量变化")
+#     ActionDate: str = Field("", title="操作日期")
+#     ActionTime: str = Field("", title="操作时间")
+#     TraderID: str = Field("", title="交易所交易员代码")
+#     InstallID: int = Field(0, title="安装编号")
+#     OrderLocalID: str = Field("", title="本地报单编号")
+#     ActionLocalID: str = Field("", title="操作本地编号")
+#     ParticipantID: str = Field("", title="会员代码")
+#     ClientID: str = Field("", title="客户代码")
+#     BusinessUnit: str = Field("", title="业务单元")
+#     OrderActionStatus: str = Field("", title="报单操作状态")
+#     UserID: str = Field("", title="用户代码")
+#     StatusMsg: str = Field("", title="状态信息")
+#     reserve1: str = Field("", title="保留的无效字段")
+#     BranchID: str = Field("", title="营业部编号")
+#     InvestUnitID: str = Field("", title="投资单元代码")
+#     reserve2: str = Field("", title="保留的无效字段")
+#     MacAddress: str = Field("", title="Mac地址")
+#     InstrumentID: str = Field("", title="合约代码")
+#     IPAddress: str = Field("", title="IP地址")
 
 
 class WebCTPReqOrderAction(WebCTPRequest):
-    OrderAction: OrderActionField = Field(title="报单操作")
+    InputOrderAction: InputOrderActionField = Field(title="报单操作")
 
 
 class ExchangeOrderActionField(BaseModel):
