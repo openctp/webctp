@@ -2,9 +2,19 @@
 
 webctp是一个基于 [openctp-ctp](https://github.com/openctp/openctp-ctp-python) 开发的提供websocket接口的CTP服务。
 
-# 安装及运行
+* [安装及运行](#安装及运行)
+    * [环境搭建](#环境搭建)
+    * [运行](#运行)
+* [请求示例](#请求示例)
+* [协议](#协议)
+    * [通用协议格式](#通用协议格式)
+    * [部分通用错误码说明](#部分通用错误码说明)
+* [开发说明](#开发说明)
+* [其他说明](#其他说明)
 
-## 环境搭建
+## 安装及运行
+
+### 环境搭建
 
 1. 准备Python环境(3.10, 其他版本未测试)
 2. 克隆 webctp
@@ -46,7 +56,7 @@ webctp是一个基于 [openctp-ctp](https://github.com/openctp/openctp-ctp-pytho
    LogLevel: INFO     # NOTSET, DEBUG, INFO, WARN, ERROR, CRITICAL
    ```
 
-## 运行
+### 运行
 
 ```bash
 # 启动交易服务
@@ -61,6 +71,9 @@ TODO: 添加postman的请求样例
 
 ### Apifox 示例（部分）
 
+示例是基于 [SimNow 电信1环境](http://121.37.80.177:50080/report/Simnow7x24%BB%B7%BE%B3-%B5%E7%D0%C5process%D0%D0%C7%E9.html),
+不同环境的数据存在差异，以下示例数据未必可全部通过, 根据环境调整即可。
+
 <details>
 <summary>登录</summary>
 
@@ -69,7 +82,7 @@ TODO: 添加postman的请求样例
 
 <details>
 <summary>请求查询成交</summary>
-   
+
 <img width="973" alt="qry_trade" src="https://github.com/openctp/webctp/assets/17944025/a754788d-5eaa-429f-81bb-d444502ee89a">
 </details>
 
@@ -182,7 +195,7 @@ TODO: 添加postman的请求样例
     "RspInfo": {
         "ErrorID": 0,
         "ErrorMsg": "OK"
-    }
+    },
     "IsLast": true,
     "RequestID": 1,   # login无该字段
     "{response_filed}": {response_body}  # 具体参见详细文档
