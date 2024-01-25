@@ -2,9 +2,23 @@
 
 webctp是一个基于 [openctp-ctp](https://github.com/openctp/openctp-ctp-python) 开发的提供websocket接口的CTP服务。
 
-# 安装及运行
+---
 
-## 环境搭建
+* [安装及运行](#安装及运行)
+    * [环境搭建](#环境搭建)
+    * [运行](#运行)
+* [请求示例](#请求示例)
+* [协议](#协议)
+    * [通用协议格式](#通用协议格式)
+    * [部分通用错误码说明](#部分通用错误码说明)
+* [开发说明](#开发说明)
+* [其他说明](#其他说明)
+
+---
+
+## 安装及运行
+
+### 环境搭建
 
 1. 准备Python环境(3.10, 其他版本未测试)
 2. 克隆 webctp
@@ -46,7 +60,7 @@ webctp是一个基于 [openctp-ctp](https://github.com/openctp/openctp-ctp-pytho
    LogLevel: INFO     # NOTSET, DEBUG, INFO, WARN, ERROR, CRITICAL
    ```
 
-## 运行
+### 运行
 
 ```bash
 # 启动交易服务
@@ -61,15 +75,18 @@ TODO: 添加postman的请求样例
 
 ### Apifox 示例（部分）
 
+示例是基于 [SimNow 电信1环境](http://121.37.80.177:50080/report/Simnow7x24%BB%B7%BE%B3-%B5%E7%D0%C5process%D0%D0%C7%E9.html),
+不同环境的数据存在差异，以下示例数据未必可全部通过, 根据环境调整即可。
+
 <details>
 <summary>登录</summary>
 
-<img width="915" alt="td_login" src="https://github.com/openctp/webctp/assets/17944025/31a2dbba-b03c-4593-9d1f-ad480ff6849c">
+<img width="900" alt="login" src="https://github.com/openctp/webctp/assets/17944025/de9f2cd4-d3eb-4b6d-b150-d274cf4d1a01">
 </details>
 
 <details>
 <summary>请求查询成交</summary>
-   
+
 <img width="973" alt="qry_trade" src="https://github.com/openctp/webctp/assets/17944025/a754788d-5eaa-429f-81bb-d444502ee89a">
 </details>
 
@@ -160,6 +177,36 @@ TODO: 添加postman的请求样例
 <img width="979" alt="qry_instrument" src="https://github.com/openctp/webctp/assets/17944025/12860cda-aa82-44ce-a05b-4f666c27b3ab">
 </details>
 
+<details>
+<summary>查询报单</summary>
+
+<img width="897" alt="qr_order" src="https://github.com/openctp/webctp/assets/17944025/faad7bbb-f5fa-40c3-a4b8-f74334d3bc2a">
+</details>
+
+<details>
+<summary>查询最大报单数量</summary>
+
+<img width="898" alt="qry_max_order_volume" src="https://github.com/openctp/webctp/assets/17944025/dbb71d38-55c9-472c-9ad7-58280d894292">
+</details>
+
+<details>
+<summary>用户口令变更</summary>
+
+<img width="899" alt="update_password" src="https://github.com/openctp/webctp/assets/17944025/3c3fa526-acf0-407c-9975-488f5c2c446d">
+</details>
+
+<details>
+<summary>报单录入</summary>
+
+<img width="900" alt="order_insert" src="https://github.com/openctp/webctp/assets/17944025/5d7edf22-e15b-4f38-9aef-6341f2d2b165">
+</details>
+
+<details>
+<summary>报单撤销（限价单）</summary>
+
+<img width="898" alt="order_action" src="https://github.com/openctp/webctp/assets/17944025/a0f8117a-ec7a-4793-854e-54595c8ba885">
+</details>
+
 ## 协议
 
 ### 通用协议格式
@@ -173,7 +220,7 @@ TODO: 添加postman的请求样例
     "...": "...",
     "fieldn": {valuen}
   },
-  "RequestID": 1  # login无需该字段
+  "RequestID": 1
 }
 
 # 响应
@@ -182,9 +229,9 @@ TODO: 添加postman的请求样例
     "RspInfo": {
         "ErrorID": 0,
         "ErrorMsg": "OK"
-    }
+    },
     "IsLast": true,
-    "RequestID": 1,   # login无该字段
+    "RequestID": 1
     "{response_filed}": {response_body}  # 具体参见详细文档
 }
 ```

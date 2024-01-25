@@ -441,8 +441,8 @@ class TdClient(tdapi.CThostFtdcTraderSpi):
         req, requestId = CTPObjectHelper.extract_request(request, Constant.UserPasswordUpdate, tdapi.CThostFtdcUserPasswordUpdateField)
         ret = self._api.ReqUserPasswordUpdate(req, requestId)
         self.method_called(Constant.OnRspUserPasswordUpdate, ret)
-    
-    def OnRspUserPassowrdUpdate(self, pUserPasswordUpdate: tdapi.CThostFtdcUserPasswordUpdateField, pRspInfo: tdapi.CThostFtdcRspInfoField, nRequestID: int, bIsLast: bool):
+
+    def OnRspUserPasswordUpdate(self, pUserPasswordUpdate: tdapi.CThostFtdcUserPasswordUpdateField, pRspInfo: tdapi.CThostFtdcRspInfoField, nRequestID: int, bIsLast: bool):
         response = CTPObjectHelper.build_response_dict(Constant.OnRspUserPasswordUpdate, pRspInfo, nRequestID, bIsLast)
         userPasswordUpdate = None
         if pUserPasswordUpdate:
