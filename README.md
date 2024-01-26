@@ -196,13 +196,13 @@ TODO: 添加postman的请求样例
 </details>
 
 <details>
-<summary>报单录入</summary>
+<summary>报单录入（限价单）</summary>
 
 <img width="900" alt="order_insert" src="https://github.com/openctp/webctp/assets/17944025/5d7edf22-e15b-4f38-9aef-6341f2d2b165">
 </details>
 
 <details>
-<summary>报单撤销（限价单）</summary>
+<summary>报单撤销</summary>
 
 <img width="898" alt="order_action" src="https://github.com/openctp/webctp/assets/17944025/a0f8117a-ec7a-4793-854e-54595c8ba885">
 </details>
