@@ -35,7 +35,7 @@ webctp是一个基于 [openctp-ctp](https://github.com/openctp/openctp-ctp-pytho
 4. 自定义配置文件  
    参考示例 config.example.yaml
    > :pushpin: 示例中行情和交易前置地址，默认配置的是 SimNow 7x24 环境， 更多 SimNow
-   环境参考 [openctp环境监控](http://121.37.80.177:50080/index.html)，可根据需要变更为其他支持CTPAPI(官方实现)的柜台环境。
+   环境参考 [openctp环境监控](http://121.37.80.177)，可根据需要变更为其他支持CTPAPI(官方实现)的柜台环境。
 
    创建自己的行情配置 config_md.yaml :
    ```yaml 
