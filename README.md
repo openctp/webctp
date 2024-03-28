@@ -75,7 +75,7 @@ TODO: 添加postman的请求样例
 
 ### Apifox 示例（部分）
 
-示例是基于 [SimNow 电信1环境](http://121.37.80.177:50080/report/Simnow7x24%BB%B7%BE%B3-%B5%E7%D0%C5process%D0%D0%C7%E9.html),
+示例是基于 [SimNow 电信1环境](http://openctp.cn/report/Simnow%A3%A8CTP%A3%A9%B7%C2%D5%E6%BB%B7%BE%B31-%B5%E7%D0%C5process%D0%D0%C7%E9.html),
 不同环境的数据存在差异，以下示例数据未必可全部通过, 根据环境调整即可。
 
 <details>
