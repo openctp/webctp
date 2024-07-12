@@ -923,7 +923,7 @@
 
 ```json
 {
-  "MsgType": "ReqInputOrder",
+  "MsgType": "ReqOrderInsert",
   "RequestID": 0,
   "InputOrder": {
     "BrokerID": "9999",
