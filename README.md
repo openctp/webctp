@@ -1,6 +1,6 @@
 # webctp
 
-webctp是一个基于 [openctp-ctp](https://github.com/openctp/openctp-ctp-python) 开发的提供websocket接口的CTP服务。
+webctp是一个基于 [openctp-ctp](https://github.com/openctp/openctp-ctp-python) 开发的提供websocket+json接口的CTP服务。
 
 ---
 
