@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>webctp demo</title>
+  <!-- 引入Pure CSS的样式文件 -->
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css">
+  <style>
+      .align-center {
+          text-align: center;
+      }
+      #userInfo p {
+          display: inline;
+      }
+  </style>
+</head>
+
+<body>
+<h1 class="align-center">webctp demo</h1>
+<div id="login" class="pure-form pure-form-inline align-center">
+  <input type="text" id="usernameInput" placeholder="请输入用户名" class="pure-input-1-6">
+  <input type="password" id="passwordInput" placeholder="请输入密码" class="pure-input-1-6">
+  <input type="text" id="brokerIdInput" placeholder="请输入BrokerId" class="pure-input-1-6">
+  <button id="loginButton" class="pure-button pure-button-primary">登录</button>
+</div>
+
+<div id="userInfo" class="align-center">
+  UserID:<p id="userid"></p>
+  BorerID:<p id="brokerId"></p>
+</div>
+
+<script>
+  const usernameInput = document.getElementById('usernameInput');
+  const passwordInput = document.getElementById('passwordInput');
+  const brokerIdInput = document.getElementById('brokerIdInput');
+  const loginButton = document.getElementById('loginButton');
+  const userid = document.getElementById('userid');
+  const brokerId = document.getElementById('brokerId');
+
+  // 登录按钮的点击事件处理函数
+  loginButton.onclick = function () {
+    // 获取用户名输入框的值
+    const username = usernameInput.value;
+    // 获取密码输入框的值
+    const password = passwordInput.value;
+    const brokerid = brokerIdInput.value;
+
+    console.log('用户名:', username);
+    console.log('密码:', password);
+    console.log('brokerId:', brokerId);
+    userid.innerHTML = username;
+    brokerId.innerHTML = brokerid;
+  }
+  // 创建WebSocket连接
+  const socket = new WebSocket('ws://localhost:8081/td/'); // 这里的地址需根据实际的WebSocket服务端地址修改
+
+  // 当连接成功建立时触发的事件
+  socket.onopen = function (event) {
+    console.log('WebSocket连接已建立');
+    // 可以在这里向服务端发送数据，例如发送一个简单的问候消息
+    // socket.send('Hello, Server!');
+  };
+
+  // 当接收到服务端消息时触发的事件
+  socket.onmessage = function (event) {
+    console.log('从服务端收到消息:', event.data);
+  };
+
+  // 当连接关闭时触发的事件
+  socket.onclose = function (event) {
+    console.log('WebSocket连接已关闭');
+  };
+
+  // 当发生错误时触发的事件
+  socket.onerror = function (event) {
+    console.log('WebSocket连接出错:', event);
+  };
+</script>
+
+</body>
+
+</html>
