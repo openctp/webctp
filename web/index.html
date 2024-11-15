@@ -3,81 +3,443 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>webctp demo</title>
-  <!-- 引入Pure CSS的样式文件 -->
-  <link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css">
+  <title>WebCtp Demo</title>
+  <link rel="stylesheet" href="purecss@3.0.0_build_pure.css">
   <style>
-      .align-center {
+      body {
+          margin: 0;
+          padding: 0;
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+      }
+
+      .content-upper {
+          flex: 1;
+          background-color: lightblue;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+      }
+
+      table {
+          border-collapse: collapse;
+          width: 100%;
+          height: 100%;
+      }
+
+      table, th, td {
+          border: 1px solid black;
+      }
+
+      th, td {
+          padding: 8px;
           text-align: center;
       }
-      #userInfo p {
-          display: inline;
+
+      .content-lower {
+          flex: 1;
+          display: flex;
+      }
+
+      .content-lower-left {
+          flex: 1 1 80%;
+          background-color: lightyellow;
+          padding: 10px;
+          display: flex;
+          flex-direction: column;
+      }
+
+      .pure-tab {
+          margin-top: 10px;
+      }
+
+      .pure-tab button {
+          background-color: #f1f1f1;
+          border: 1px solid #ccc;
+          color: inherit;
+          cursor: pointer;
+          padding: 10px 15px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+          transition: background-color 0.3s;
+      }
+
+      .pure-tab button:hover {
+          background-color: #ddd;
+      }
+
+      .pure-tab button.active {
+          background-color: #ccc;
+      }
+
+      .pure-tab-content {
+          border: 1px solid #ccc;
+          padding: 10px;
+          background-color: white;
+          display: none;
+      }
+
+      .pure-tab-content table {
+          width: 100%;
+          position: sticky;
+          top: 0;
+          background-color: white;
+      }
+
+      .content-lower-right {
+          flex: 1 1 20%;
+          background-color: lightgreen;
+          padding: 10px;
+      }
+
+      footer {
+          background-color: gray;
+          color: white;
+          text-align: center;
+          padding: 10px;
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          right: 0;
       }
   </style>
 </head>
 
 <body>
-<h1 class="align-center">webctp demo</h1>
-<div id="login" class="pure-form pure-form-inline align-center">
-  <input type="text" id="usernameInput" placeholder="请输入用户名" class="pure-input-1-6">
-  <input type="password" id="passwordInput" placeholder="请输入密码" class="pure-input-1-6">
-  <input type="text" id="brokerIdInput" placeholder="请输入BrokerId" class="pure-input-1-6">
-  <button id="loginButton" class="pure-button pure-button-primary">登录</button>
+<div id="md" class="content-upper">
+  <table id="futures-table" v-scope>
+    <thead>
+    <tr>
+      <th>合约代码</th>
+      <!--            <th>交易所代码</th>-->
+      <th>最新价</th>
+      <th>今开盘</th>
+      <th>最高价</th>
+      <th>最低价</th>
+      <th>昨收盘</th>
+      <th>昨结算价</th>
+      <th>昨持仓量</th>
+      <th>数量</th>
+      <th>持仓量</th>
+      <th>成交金额</th>
+      <th>今收盘</th>
+      <th>今结算价</th>
+      <th>交易日</th>
+      <th>时间</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr v-for="(row, rowIndex) in mdData.quotRows" :key="rowIndex">
+      <td>{{ row.InstrumentID }}</td>
+      <!--            <td>{{ row.ExchangeID }}</td>-->
+      <td>{{ row.LastPrice }}</td>
+      <td>{{ row.OpenPrice }}</td>
+      <td>{{ row.HighestPrice }}</td>
+      <td>{{ row.LowestPrice }}</td>
+      <td>{{ row.PreClosePrice }}</td>
+      <td>{{ row.PreSettlementPrice }}</td>
+      <td>{{ row.PreOpenInterest }}</td>
+      <td>{{ row.volume }}</td>
+      <td>{{ row.OpenInterest }}</td>
+      <td>{{ row.Turnover }}</td>
+      <td>{{ row.ClosePrice }}</td>
+      <td>{{ row.SettlementPrice }}</td>
+      <td>{{ row.TradingDay }}</td>
+      <td>{{ row.UpdateTime }}</td>
+    </tr>
+    </tbody>
+  </table>
 </div>
+<div id="td" class="content-lower">
+  <div class="content-lower-left">
+    <div id="tabOrder" class="pure-tab-content">
+      <table v-scope>
+        <thead>
+        <tr>
+          <th>合约</th>
+          <th>买卖</th>
+          <th>开平</th>
+          <th>手数</th>
+          <th>报单价格</th>
+          <th>报单状态</th>
+          <th>报单时间</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(row, rowIndex) in tdData.orderRows" :key="rowIndex">
+          <td>{{ row.column1 }}</td>
+          <td>{{ row.column2 }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
 
-<div id="userInfo" class="align-center">
-  UserID:<p id="userid"></p>
-  BorerID:<p id="brokerId"></p>
+    <div id="tabTrade" class="pure-tab-content">
+      <table v-scope>
+        <thead>
+        <tr>
+          <th>合约</th>
+          <th>买卖</th>
+          <th>开平</th>
+          <th>手数</th>
+          <th>成交价格</th>
+          <th>成交编号</th>
+          <th>报单编号</th>
+          <th>成交时间</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(row, rowIndex) in tdData.tradeRows" :key="rowIndex">
+          <td>{{ row.column1 }}</td>
+          <td>{{ row.column2 }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="tabPosi" class="pure-tab-content">
+      <table v-scope>
+        <thead>
+        <tr>
+          <th>合约</th>
+          <th>买卖</th>
+          <th>开平</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(row, rowIndex) in tdData.posiRows" :key="rowIndex">
+          <td>{{ row.column1 }}</td>
+          <td>{{ row.column2 }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="tabInst" class="pure-tab-content">
+      <table v-scope>
+        <thead>
+        <tr>
+          <th>合约</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(row, rowIndex) in tdData.instrRows" :key="rowIndex">
+          <td>{{ row.column1 }}</td>
+          <td>{{ row.column2 }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 添加一个用于撑开空间的空div，使其按钮位于最底部 -->
+    <div style="flex-grow: 1;"></div>
+
+    <div class="pure-tab">
+      <button class="pure-tab-button" onclick="openTab(event, 'tabOrder')" id="defaultOpen">委托单</button>
+      <button class="pure-tab-button" onclick="openTab(event, 'tabTrade')">成交记录</button>
+      <button class="pure-tab-button" onclick="openTab(event, 'tabPosi')">持仓</button>
+      <button class="pure-tab-button" onclick="openTab(event, 'tabInst')">合约</button>
+    </div>
+  </div>
+  <div class="content-lower-right">
+  </div>
 </div>
+<!--<footer>-->
+<!--  这是固定页脚，显示一些版权信息、联系方式等。-->
+<!--</footer>-->
 
+<script src='petite-vue@0.4.1_dist_petite-vue.iife.js'></script>
 <script>
-  const usernameInput = document.getElementById('usernameInput');
-  const passwordInput = document.getElementById('passwordInput');
-  const brokerIdInput = document.getElementById('brokerIdInput');
-  const loginButton = document.getElementById('loginButton');
-  const userid = document.getElementById('userid');
-  const brokerId = document.getElementById('brokerId');
-
-  // 登录按钮的点击事件处理函数
-  loginButton.onclick = function () {
-    // 获取用户名输入框的值
-    const username = usernameInput.value;
-    // 获取密码输入框的值
-    const password = passwordInput.value;
-    const brokerid = brokerIdInput.value;
-
-    console.log('用户名:', username);
-    console.log('密码:', password);
-    console.log('brokerId:', brokerId);
-    userid.innerHTML = username;
-    brokerId.innerHTML = brokerid;
+  function log(msg) {
+    console.log((new Date()).toLocaleString(), ...Array.from(arguments));
   }
-  // 创建WebSocket连接
-  const socket = new WebSocket('ws://localhost:8081/td/'); // 这里的地址需根据实际的WebSocket服务端地址修改
 
-  // 当连接成功建立时触发的事件
-  socket.onopen = function (event) {
-    console.log('WebSocket连接已建立');
-    // 可以在这里向服务端发送数据，例如发送一个简单的问候消息
-    // socket.send('Hello, Server!');
+  const mdData = PetiteVue.reactive({
+    quotRows: [],
+    isLogin: false,
+  })
+  const mdApp = PetiteVue.createApp({
+    mdData
+  }).mount('#md');
+
+  const tdData = PetiteVue.reactive({
+    orderRows: [],
+    isLogin: false,
+  })
+  const tdApp = PetiteVue.createApp({
+    tdData
+  }).mount('#td');
+
+
+  const mdAddr = 'ws://localhost:8080/md/';
+  const tdAddr = 'ws://localhost:8080/td/';
+
+  // market channel
+  const sock_md = new WebSocket(mdAddr);
+  sock_md.onopen = function (event) {
+    log('Market channel connected.', mdAddr);
+    loginMd();
+  };
+  sock_md.onclose = function (event) {
+    log('Market channel closed.');
+  };
+  sock_md.onerror = function (event) {
+    log('Market channel error:', event);
+  };
+  sock_md.onmessage = function (event) {
+    let data = JSON.parse(event.data)
+    // log('Market msg:', data['MsgType']);
+    // console.log(data);
+    switch (data['MsgType']) {
+      case 'RspUserLogin':
+        mdRspUserLogin(data)
+        break;
+      case 'RspSubscribeMarketData':
+        RspSubscribeMarketData(data);
+        break;
+      case 'RspUnSubscribeMarketData':
+        RspUnSubscribeMarketData(data);
+        break;
+      case 'RtnDepthMarketData':
+        RtnDepthMarketData(data);
+        break;
+    }
   };
 
-  // 当接收到服务端消息时触发的事件
-  socket.onmessage = function (event) {
-    console.log('从服务端收到消息:', event.data);
+  function req_md(data) {
+    log('Market request:', data['MsgType']);
+    // console.log(data);
+    sock_md.send(JSON.stringify(data));
+  }
+
+  function parseRspInfo(name, RspInfo) {
+    if (RspInfo !== undefined && RspInfo['ErrorID'] !== 0) {
+      console.log(name, 'Fail', RspInfo['ErrorMsg']);
+      return false;
+    } else {
+      console.log(name, 'Success');
+      return true;
+    }
+  }
+
+  function loginMd() {
+    req_md({"MsgType": "ReqUserLogin", "ReqUserLogin": {"UserID": "", "Password": ""}});
+  }
+
+  function mdRspUserLogin(data) {
+    if (parseRspInfo('行情登录', data['RspInfo']) === true) {
+      mdData.isLogin = true;
+      SubscribeMarketData(['au2412', 'cu2412']);
+    }
+  }
+
+  function SubscribeMarketData(instruments) {
+    req_md({"MsgType": "SubscribeMarketData", "InstrumentID": instruments})
+  }
+
+  function RspSubscribeMarketData(data) {
+    //  todo 无订阅应答
+    console.log(data);
+    if (parseRspInfo('行情订阅', data['RspInfo']) === true) {
+      console.log(data['SpecificInstrument']);
+    }
+  }
+
+  function UnSubscribeMarketData(instruments) {
+    req_md({"MsgType": "UnSubscribeMarketData", "InstrumentID": instruments})
+  }
+
+  function RspUnSubscribeMarketData(data) {
+    if (parseRspInfo('取消行情订阅', data['RspInfo']) === true) {
+      console.log(data['SpecificInstrument']);
+    }
+  }
+
+  function RtnDepthMarketData(data) {
+    let quot = data['DepthMarketData']
+    const index = mdData.quotRows.findIndex(row => row.InstrumentID === quot['InstrumentID']);
+    if (index !== -1) {
+      for (let key in mdData.quotRows[index]) {
+        mdData.quotRows[index][key] = quot[key];
+      }
+    } else {
+      mdData.quotRows.push(quot);
+    }
+  }
+
+  // trade channel
+  const sock_td = new WebSocket(tdAddr);
+  sock_td.onopen = function (event) {
+    log('trade channel connected.', tdAddr);
+    loginTd('', '');
+  };
+  sock_td.onclose = function (event) {
+    log('trade channel closed.');
+  };
+  sock_td.onerror = function (event) {
+    log('trade channel error:', event);
+  };
+  sock_td.onmessage = function (event) {
+    let data = JSON.parse(event.data)
+    log('trade msg:', data['MsgType']);
+    console.log(data);
+    switch (data['MsgType']) {
+      case 'RspUserLogin':
+        tdRspUserLogin(data)
+        break;
+      case '':
+        break;
+      case '':
+        break;
+      case '':
+        break;
+    }
   };
 
-  // 当连接关闭时触发的事件
-  socket.onclose = function (event) {
-    console.log('WebSocket连接已关闭');
-  };
+  function req_td(data) {
+    log('trade request:', data['MsgType']);
+    // console.log(data);
+    data['RequestID'] = 0;
+    sock_td.send(JSON.stringify(data));
+  }
 
-  // 当发生错误时触发的事件
-  socket.onerror = function (event) {
-    console.log('WebSocket连接出错:', event);
-  };
+  function loginTd(userid, password) {
+    req_td({"MsgType": "ReqUserLogin", "ReqUserLogin": {"UserID": userid, "Password": password}});
+  }
+
+  // todo 参数有误时，返回 ReqUserLogin MsgType
+  function tdRspUserLogin(data) {
+    if (parseRspInfo('交易登录', data['RspInfo']) === true) {
+      tdData.isLogin = true;
+      console.log(data)
+    }
+  }
+
+  // 定义打开tab页的函数
+  function openTab(evt, tabName) {
+    var i, pureTabContent, pureTabButton;
+    // 隐藏所有tab内容
+    pureTabContent = document.getElementsByClassName("pure-tab-content");
+    for (i = 0; i < pureTabContent.length; i++) {
+      pureTabContent[i].style.display = "none";
+    }
+    // 移除所有tab按钮的激活状态
+    pureTabButton = document.getElementsByClassName("pure-tab-button");
+    for (i = 0; i < pureTabButton.length; i++) {
+      pureTabButton[i].style.backgroundColor = "#f1f1f1";
+      pureTabButton[i].classList.remove("active");
+    }
+    // 显示当前选中的tab内容并设置按钮为激活状态
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.style.backgroundColor = "#ccc";
+    evt.currentTarget.classList.add("active");
+  }
+
+  // 打开默认tab页
+  document.getElementById("defaultOpen").click();
 </script>
-
 </body>
 
 </html>
