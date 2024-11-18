@@ -20,6 +20,7 @@
           display: flex;
           justify-content: center;
           align-items: center;
+          /*height: 50vh; !* 设置为视口高度的一半，可根据实际需求调整 *!*/
       }
 
       table {
@@ -40,6 +41,7 @@
       .content-lower {
           flex: 1;
           display: flex;
+          /*height: 50vh; !* 设置为视口高度的一半，可根据实际需求调整 *!*/
       }
 
       .content-lower-left {
@@ -80,6 +82,22 @@
           padding: 10px;
           background-color: white;
           display: none;
+
+          /* 添加以下样式确保tab页内容不影响布局 */
+          position: absolute;
+          overflow: auto;
+
+          /* 新增样式，设置为透明且不占据空间（只在隐藏时生效） */
+          visibility: hidden;
+          opacity: 0;
+          z-index: 1;
+      }
+
+      .pure-tab-content.active {
+          /* 当tab页处于激活状态时，恢复正常显示和交互 */
+          visibility: visible;
+          opacity: 1;
+          z-index: 2;
       }
 
       .pure-tab-content table {
@@ -91,7 +109,7 @@
 
       .content-lower-right {
           flex: 1 1 20%;
-          background-color: lightgreen;
+          background-color: #d2d5e0;
           padding: 10px;
       }
 
@@ -160,18 +178,27 @@
         <thead>
         <tr>
           <th>合约</th>
+          <th>交易所</th>
           <th>买卖</th>
           <th>开平</th>
           <th>手数</th>
           <th>报单价格</th>
           <th>报单状态</th>
+          <th>报单日期</th>
           <th>报单时间</th>
         </tr>
         </thead>
         <tbody>
         <tr v-for="(row, rowIndex) in tdData.orderRows" :key="rowIndex">
-          <td>{{ row.column1 }}</td>
-          <td>{{ row.column2 }}</td>
+          <td>{{ row.InstrumentID }}</td>
+          <td>{{ row.ExchangeID }}</td>
+          <td>{{ row.Direction }}</td>
+          <td>{{ row.CombOffsetFlag }}</td>
+          <td>{{ row.VolumeTotalOriginal }}</td>
+          <td>{{ row.LimitPrice }}</td>
+          <td>{{ row.OrderStatus }}</td>
+          <td>{{ row.InsertDate }}</td>
+          <td>{{ row.InsertTime }}</td>
         </tr>
         </tbody>
       </table>
@@ -182,19 +209,29 @@
         <thead>
         <tr>
           <th>合约</th>
+          <th>交易所</th>
           <th>买卖</th>
           <th>开平</th>
           <th>手数</th>
           <th>成交价格</th>
           <th>成交编号</th>
           <th>报单编号</th>
+          <th>成交日期</th>
           <th>成交时间</th>
         </tr>
         </thead>
         <tbody>
         <tr v-for="(row, rowIndex) in tdData.tradeRows" :key="rowIndex">
-          <td>{{ row.column1 }}</td>
-          <td>{{ row.column2 }}</td>
+          <td>{{ row.InstrumentID }}</td>
+          <td>{{ row.ExchangeID }}</td>
+          <td>{{ row.Direction }}</td>
+          <td>{{ row.OffsetFlag }}</td>
+          <td>{{ row.Volume }}</td>
+          <td>{{ row.Price }}</td>
+          <td>{{ row.TradeID }}</td>
+          <td>{{ row.OrderSysID }}</td>
+          <td>{{ row.TradeDate }}</td>
+          <td>{{ row.TradeTime }}</td>
         </tr>
         </tbody>
       </table>
@@ -206,32 +243,44 @@
         <tr>
           <th>合约</th>
           <th>买卖</th>
-          <th>开平</th>
+          <th>今日持仓</th>
         </tr>
         </thead>
         <tbody>
-        <tr v-for="(row, rowIndex) in tdData.posiRows" :key="rowIndex">
-          <td>{{ row.column1 }}</td>
-          <td>{{ row.column2 }}</td>
+        <tr v-for="(row, rowIndex) in tdData.positionRows" :key="rowIndex">
+          <td>{{ row.InstrumentID }}</td>
+          <td>{{ row.PosiDirection }}</td>
+          <td>{{ row.Position }}</td>
         </tr>
         </tbody>
       </table>
     </div>
-    <div id="tabInst" class="pure-tab-content">
-      <table v-scope>
-        <thead>
-        <tr>
-          <th>合约</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="(row, rowIndex) in tdData.instrRows" :key="rowIndex">
-          <td>{{ row.column1 }}</td>
-          <td>{{ row.column2 }}</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
+    <!--    <div id="tabInst" class="pure-tab-content">-->
+    <!--      <table v-scope>-->
+    <!--        <thead>-->
+    <!--        <tr>-->
+    <!--          <th>合约ID</th>-->
+    <!--          <th>合约名称</th>-->
+    <!--          <th>交易所</th>-->
+    <!--          <th>合约乘数</th>-->
+    <!--          <th>产品类型</th>-->
+    <!--          <th>产品ID</th>-->
+    <!--          <th>最小变动价位</th>-->
+    <!--        </tr>-->
+    <!--        </thead>-->
+    <!--        <tbody>-->
+    <!--        <tr v-for="(row, rowIndex) in tdData.instrumentRows" :key="rowIndex">-->
+    <!--          <td>{{ row.InstrumentID }}</td>-->
+    <!--          <td>{{ row.InstrumentName }}</td>-->
+    <!--          <td>{{ row.ExchangeID }}</td>-->
+    <!--          <td>{{ row.VolumeMultiple }}</td>-->
+    <!--          <td>{{ row.ProductClass }}</td>-->
+    <!--          <td>{{ row.ProductID }}</td>-->
+    <!--          <td>{{ row.PriceTick }}</td>-->
+    <!--        </tr>-->
+    <!--        </tbody>-->
+    <!--      </table>-->
+    <!--    </div>-->
 
     <!-- 添加一个用于撑开空间的空div，使其按钮位于最底部 -->
     <div style="flex-grow: 1;"></div>
@@ -240,7 +289,7 @@
       <button class="pure-tab-button" onclick="openTab(event, 'tabOrder')" id="defaultOpen">委托单</button>
       <button class="pure-tab-button" onclick="openTab(event, 'tabTrade')">成交记录</button>
       <button class="pure-tab-button" onclick="openTab(event, 'tabPosi')">持仓</button>
-      <button class="pure-tab-button" onclick="openTab(event, 'tabInst')">合约</button>
+      <!--      <button class="pure-tab-button" onclick="openTab(event, 'tabInst')">合约</button>-->
     </div>
   </div>
   <div class="content-lower-right">
@@ -265,7 +314,16 @@
   }).mount('#md');
 
   const tdData = PetiteVue.reactive({
+    orders: {},
     orderRows: [],
+    trades: {},
+    tradeRows: [],
+    positions: {},
+    positionRows: [],
+    instruments: {},
+    instrumentRows: [],
+    exchanges: {},
+    tradingAccount: {},
     isLogin: false,
   })
   const tdApp = PetiteVue.createApp({
@@ -275,6 +333,8 @@
 
   const mdAddr = 'ws://localhost:8080/md/';
   const tdAddr = 'ws://localhost:8080/td/';
+  const brokerID = '9999';
+  const investorID = '';
 
   // market channel
   const sock_md = new WebSocket(mdAddr);
@@ -315,7 +375,7 @@
   }
 
   function parseRspInfo(name, RspInfo) {
-    if (RspInfo !== undefined && RspInfo['ErrorID'] !== 0) {
+    if (RspInfo !== null && RspInfo['ErrorID'] !== 0) {
       console.log(name, 'Fail', RspInfo['ErrorMsg']);
       return false;
     } else {
@@ -373,7 +433,7 @@
   const sock_td = new WebSocket(tdAddr);
   sock_td.onopen = function (event) {
     log('trade channel connected.', tdAddr);
-    loginTd('', '');
+    loginTd('226485', 'sWJedore20@$0807');
   };
   sock_td.onclose = function (event) {
     log('trade channel closed.');
@@ -383,13 +443,41 @@
   };
   sock_td.onmessage = function (event) {
     let data = JSON.parse(event.data)
-    log('trade msg:', data['MsgType']);
-    console.log(data);
+    // log('trade msg:', data['MsgType']);
+    // console.log(data);
     switch (data['MsgType']) {
       case 'RspUserLogin':
         tdRspUserLogin(data)
         break;
-      case '':
+      case 'RspQryTrade':
+        RspQryTrade(data);
+        break;
+      case 'RspQryInvestorPosition':
+        RspQryInvestorPosition(data);
+        break;
+      case 'RspQryTradingAccount':
+        RspQryTradingAccount(data);
+        break;
+      case 'RspQryInstrument':
+        RspQryInstrument(data);
+        break;
+      case 'RspQryOrder':
+        RspQryOrder(data);
+        break;
+      case 'RspQryExchange':
+        RspQryExchange(data);
+        break;
+      case 'RspOrderInsert':
+        RspOrderInsert(data);
+        break;
+      case 'RspOrderAction':
+        RspOrderAction(data);
+        break;
+      case 'RtnOrder':
+        RtnOrder(data);
+        break;
+      case 'ErrRtnOrderAction':
+        ErrRtnOrderAction(data);
         break;
       case '':
         break;
@@ -413,32 +501,222 @@
   function tdRspUserLogin(data) {
     if (parseRspInfo('交易登录', data['RspInfo']) === true) {
       tdData.isLogin = true;
-      console.log(data)
+      // console.log(data)
+      ReqQryTradingAccount();
     }
+  }
+
+  function ReqQryTradingAccount() {
+    req_td({
+      "MsgType": "ReqQryTradingAccount",
+      "QryTradingAccount": {
+        "BrokerID": brokerID,
+        "InvestorID": investorID
+      },
+    });
+  }
+
+  function RspQryTradingAccount(data) {
+    if (parseRspInfo('查询资金账户', data['RspInfo']) === true) {
+      // console.log(data);
+      tdData.tradingAccount = data['TradingAccount'];
+      if (data['IsLast'] === true) {
+        ReqQryExchange('');
+      }
+    }
+  }
+
+  function ReqQryExchange(exchangeID) {
+    req_td({
+      "MsgType": "ReqQryExchange",
+      "QryExchange": {
+        "ExchangeID": exchangeID
+      },
+    });
+  }
+
+  function RspQryExchange(data) {
+    if (parseRspInfo('查询交易所', data['RspInfo']) === true) {
+      console.log(data);
+      let exchange = data['Exchange'];
+      tdData.exchanges[exchange['ExchangeID']] = exchange;
+      if (data['IsLast'] === true) {
+        ReqQryOrder('');
+      }
+    }
+
+  }
+
+  function ReqQryInstrument(exchangeID, productID, instrumentID) {
+    req_td({
+      "MsgType": "ReqQryInstrument",
+      "QryInstrument": {
+        "ExchangeID": exchangeID,
+        "InstrumentID": instrumentID,
+        "ProductID": productID
+      },
+    });
+  }
+
+  function RspQryInstrument(data) {
+    if (parseRspInfo('查询合约', data['RspInfo']) === true) {
+      // console.log(data);
+      let instrument = data['Instrument'];
+      if (instrument['InstrumentID'] !== null && instrument['ProductClass'] === '1') {
+        tdData.instruments[instrument['InstrumentID']] = instrument;
+        tdData.instrumentRows.push(instrument);
+        if (data['IsLast'] === true) {
+          // tdData.instrumentRows = Object.values(tdData.instruments);
+        }
+      }
+    }
+  }
+
+  function ReqQryOrder(instrumentID) {
+    req_td({
+      "MsgType": "ReqQryOrder",
+      "QryOrder": {
+        "InvestorID": investorID,
+        "InstrumentID": instrumentID,
+      },
+    });
+  }
+
+  function RspQryOrder(data) {
+    if (parseRspInfo('查询报单', data['RspInfo']) === true) {
+      // console.log(data);
+      let order = data['Order'];
+      let key = order['ExchangeID'] + order['OrderSysID'];
+      tdData.orders[key] = order;
+      if (data['IsLast'] === true) {
+        tdData.orderRows = Object.values(tdData.orders);
+        ReqQryTrade('');
+      }
+    }
+  }
+
+  function ReqQryTrade(exchangeID) {
+    req_td({
+      "MsgType": "ReqQryTrade",
+      "QryTrade": {
+        "BrokerID": brokerID,
+        "InvestorID": investorID,
+        "ExchangeID": exchangeID
+      },
+    });
+  }
+
+  function RspQryTrade(data) {
+    if (parseRspInfo('查询成交', data['RspInfo']) === true) {
+      console.log(data);
+      let trade = data['Trade'];
+      let key = trade['ExchangeID'] + '.' + trade['TradeID'] + '.' + trade['OrderSysID'];
+      tdData.trades[key] = trade;
+
+      if (data['IsLast'] === true) {
+        tdData.tradeRows = Object.values(tdData.trades);
+        ReqQryInvestorPosition('', '');
+      }
+    }
+  }
+
+  function ReqQryInvestorPosition(investorID, exchangeID) {
+    req_td({
+      "MsgType": "ReqQryInvestorPosition",
+      "QryInvestorPosition": {
+        "BrokerID": "9999",
+        "InvestorID": investorID,
+        "ExchangeID": exchangeID
+      },
+    });
+
+  }
+
+  function RspQryInvestorPosition(data) {
+    if (parseRspInfo('查询持仓', data['RspInfo']) === true) {
+      console.log(data);
+      let position = data['InvestorPosition'];
+      tdData.positions[position['InstrumentID']] = position;
+      if (data['IsLast'] === true) {
+        tdData.positionRows = Object.values(tdData.positions);
+      }
+    }
+  }
+
+  function ReqOrderInsert() {
+
+  }
+
+  function RspOrderInsert(data) {
+    if (parseRspInfo('订单录入', data['RspInfo']) === true) {
+
+    }
+  }
+
+  function ReqOrderAction() {
+
+  }
+
+  function RspOrderAction(data) {
+    if (parseRspInfo('订单撤销', data['RspInfo']) === true) {
+    }
+  }
+
+  function RtnOrder(data) {
+
+  }
+
+  function ErrRtnOrderAction() {
+
   }
 
   // 定义打开tab页的函数
   function openTab(evt, tabName) {
     var i, pureTabContent, pureTabButton;
-    // 隐藏所有tab内容
+
+    // 隐藏所有tab内容，并设置为不影响布局的样式
     pureTabContent = document.getElementsByClassName("pure-tab-content");
     for (i = 0; i < pureTabContent.length; i++) {
       pureTabContent[i].style.display = "none";
+      pureTabContent[i].style.visibility = "hidden";
+      pureTabContent[i].style.opacity = "0";
     }
+
     // 移除所有tab按钮的激活状态
     pureTabButton = document.getElementsByClassName("pure-tab-button");
     for (i = 0; i < pureTabButton.length; i++) {
       pureTabButton[i].style.backgroundColor = "#f1f1f1";
       pureTabButton[i].classList.remove("active");
     }
-    // 显示当前选中的tab内容并设置按钮为激活状态
+
+    // 显示当前选中的tab内容并设置为正常显示和交互的样式
     document.getElementById(tabName).style.display = "block";
+    document.getElementById(tabName).style.visibility = "visible";
+    document.getElementById(tabName).style.opacity = "1";
+
+    // 设置当前tab按钮为激活状态
     evt.currentTarget.style.backgroundColor = "#ccc";
     evt.currentTarget.classList.add("active");
   }
 
   // 打开默认tab页
   document.getElementById("defaultOpen").click();
+
+  // 创建一个返回Promise的函数来模拟sleep
+  const sleep = (ms) => {
+    return new Promise((resolve) => {
+      setTimeout(resolve, ms);
+    });
+  };
+
+  async function test() {
+    console.log('开始');
+
+    await sleep(2000);
+
+    console.log('等待一段时间后执行，这里模拟了sleep效果');
+  }
+
 </script>
 </body>
 
