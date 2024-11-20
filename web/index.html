@@ -21,16 +21,43 @@
           justify-content: center;
           align-items: center;
           /*height: 50vh; !* 设置为视口高度的一半，可根据实际需求调整 *!*/
+          /*flex-direction: column;*/
+          /*overflow-y: auto;*/
+          /*position: relative;*/
       }
 
-      table {
+      .button-secondary {
+          background: rgb(66, 184, 221); /* this is a light blue */
+      }
+
+      .button-error {
+          background: rgb(202, 60, 60); /* this is a maroon */
+      }
+
+      .button-warning {
+          background: rgb(223, 117, 20); /* this is an orange */
+      }
+
+      .button-success {
+          background: rgb(28, 184, 65); /* this is a green */
+      }
+
+      #futures-table {
+          position: fixed;
+          top: 0;
           border-collapse: collapse;
           width: 100%;
-          height: 100%;
+          /*height: 100%;*/
       }
 
       table, th, td {
           border: 1px solid black;
+
+      }
+
+      .selected {
+          background-color: lightgray;
+          color: black;
       }
 
       th, td {
@@ -86,6 +113,8 @@
           /* 添加以下样式确保tab页内容不影响布局 */
           position: absolute;
           overflow: auto;
+          max-height: 45%;
+          width: 75%;
 
           /* 新增样式，设置为透明且不占据空间（只在隐藏时生效） */
           visibility: hidden;
@@ -128,7 +157,8 @@
 
 <body>
 <div id="md" class="content-upper">
-  <table id="futures-table" v-scope>
+  <!--  <div class="md-content">-->
+  <table id="futures-table" class="pure-table pure-table-bordered" v-scope>
     <thead>
     <tr>
       <th>合约代码</th>
@@ -147,10 +177,11 @@
       <th>今结算价</th>
       <th>交易日</th>
       <th>时间</th>
+      <th></th>
     </tr>
     </thead>
     <tbody>
-    <tr v-for="(row, rowIndex) in mdData.quotRows" :key="rowIndex">
+    <tr v-for="(row, rowIndex) in mdData.quotRows" :key="rowIndex" onclick="quotSelect(this)">
       <td>{{ row.InstrumentID }}</td>
       <!--            <td>{{ row.ExchangeID }}</td>-->
       <td>{{ row.LastPrice }}</td>
@@ -167,14 +198,19 @@
       <td>{{ row.SettlementPrice }}</td>
       <td>{{ row.TradingDay }}</td>
       <td>{{ row.UpdateTime }}</td>
+      <td>
+        <button style="font-size: 60%" class="pure-button button-warning" onclick="unsub(this)">退订</button>
+      </td>
     </tr>
     </tbody>
   </table>
 </div>
+<!--</div>-->
 <div id="td" class="content-lower">
+
   <div class="content-lower-left">
     <div id="tabOrder" class="pure-tab-content">
-      <table v-scope>
+      <table id="order-table" class="pure-table pure-table-bordered" v-scope>
         <thead>
         <tr>
           <th>合约</th>
@@ -186,10 +222,11 @@
           <th>报单状态</th>
           <th>报单日期</th>
           <th>报单时间</th>
+          <th></th>
         </tr>
         </thead>
         <tbody>
-        <tr v-for="(row, rowIndex) in tdData.orderRows" :key="rowIndex">
+        <tr v-for="(row, rowIndex) in tdData.orderRows" :key="rowIndex" onclick="orderSelect(this)">
           <td>{{ row.InstrumentID }}</td>
           <td>{{ row.ExchangeID }}</td>
           <td>{{ row.Direction }}</td>
@@ -199,13 +236,16 @@
           <td>{{ row.OrderStatus }}</td>
           <td>{{ row.InsertDate }}</td>
           <td>{{ row.InsertTime }}</td>
+          <td>
+            <button style="font-size: 60%" class="pure-button button-secondary" onclick="cancel(this);">撤单</button>
+          </td>
         </tr>
         </tbody>
       </table>
     </div>
 
     <div id="tabTrade" class="pure-tab-content">
-      <table v-scope>
+      <table id="trade-table" class="pure-table pure-table-bordered" v-scope>
         <thead>
         <tr>
           <th>合约</th>
@@ -221,7 +261,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="(row, rowIndex) in tdData.tradeRows" :key="rowIndex">
+        <tr v-for="(row, rowIndex) in tdData.tradeRows" :key="rowIndex" onclick="tradeSelect(this)">
           <td>{{ row.InstrumentID }}</td>
           <td>{{ row.ExchangeID }}</td>
           <td>{{ row.Direction }}</td>
@@ -238,7 +278,7 @@
     </div>
 
     <div id="tabPosi" class="pure-tab-content">
-      <table v-scope>
+      <table id="posi-table" class="pure-table pure-table-bordered" v-scope>
         <thead>
         <tr>
           <th>合约</th>
@@ -247,7 +287,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="(row, rowIndex) in tdData.positionRows" :key="rowIndex">
+        <tr v-for="(row, rowIndex) in tdData.positionRows" :key="rowIndex" onclick="posiSelect(this)">
           <td>{{ row.InstrumentID }}</td>
           <td>{{ row.PosiDirection }}</td>
           <td>{{ row.Position }}</td>
@@ -255,42 +295,48 @@
         </tbody>
       </table>
     </div>
-    <!--    <div id="tabInst" class="pure-tab-content">-->
-    <!--      <table v-scope>-->
-    <!--        <thead>-->
-    <!--        <tr>-->
-    <!--          <th>合约ID</th>-->
-    <!--          <th>合约名称</th>-->
-    <!--          <th>交易所</th>-->
-    <!--          <th>合约乘数</th>-->
-    <!--          <th>产品类型</th>-->
-    <!--          <th>产品ID</th>-->
-    <!--          <th>最小变动价位</th>-->
-    <!--        </tr>-->
-    <!--        </thead>-->
-    <!--        <tbody>-->
-    <!--        <tr v-for="(row, rowIndex) in tdData.instrumentRows" :key="rowIndex">-->
-    <!--          <td>{{ row.InstrumentID }}</td>-->
-    <!--          <td>{{ row.InstrumentName }}</td>-->
-    <!--          <td>{{ row.ExchangeID }}</td>-->
-    <!--          <td>{{ row.VolumeMultiple }}</td>-->
-    <!--          <td>{{ row.ProductClass }}</td>-->
-    <!--          <td>{{ row.ProductID }}</td>-->
-    <!--          <td>{{ row.PriceTick }}</td>-->
-    <!--        </tr>-->
-    <!--        </tbody>-->
-    <!--      </table>-->
-    <!--    </div>-->
+    <div id="tabInst" class="pure-tab-content">
+      <table id="instr-table" class="pure-table pure-table-bordered" v-scope>
+        <thead>
+        <tr>
+          <th>合约ID</th>
+          <th>合约名称</th>
+          <th>交易所</th>
+          <th>合约乘数</th>
+          <th>产品类型</th>
+          <th>产品ID</th>
+          <th>最小变动价位</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(row, rowIndex) in tdData.instrumentRows" :key="rowIndex" onclick="instrSelect(this)">
+          <td>{{ row.InstrumentID }}</td>
+          <td>{{ row.InstrumentName }}</td>
+          <td>{{ row.ExchangeID }}</td>
+          <td>{{ row.VolumeMultiple }}</td>
+          <td>{{ row.ProductClass }}</td>
+          <td>{{ row.ProductID }}</td>
+          <td>{{ row.PriceTick }}</td>
+          <td>
+            <button style="font-size: 60%" class="pure-button button-success" onclick="sub(this);">订阅</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
 
     <!-- 添加一个用于撑开空间的空div，使其按钮位于最底部 -->
     <div style="flex-grow: 1;"></div>
-
+    <!--    </div>-->
+    <!--    <div id="pure-content">-->
     <div class="pure-tab">
-      <button class="pure-tab-button" onclick="openTab(event, 'tabOrder')" id="defaultOpen">委托单</button>
-      <button class="pure-tab-button" onclick="openTab(event, 'tabTrade')">成交记录</button>
-      <button class="pure-tab-button" onclick="openTab(event, 'tabPosi')">持仓</button>
-      <!--      <button class="pure-tab-button" onclick="openTab(event, 'tabInst')">合约</button>-->
+      <button class="pure-button pure-tab-button" onclick="openTab(event, 'tabOrder')" id="defaultOpen">委托单</button>
+      <button class="pure-button pure-tab-button" onclick="openTab(event, 'tabTrade')">成交记录</button>
+      <button class="pure-button pure-tab-button" onclick="openTab(event, 'tabPosi')">持仓</button>
+      <button class="pure-button pure-tab-button" onclick="openTab(event, 'tabInst')">合约</button>
     </div>
+
   </div>
   <div class="content-lower-right">
   </div>
@@ -359,7 +405,7 @@
       case 'RspSubscribeMarketData':
         RspSubscribeMarketData(data);
         break;
-      case 'RspUnSubscribeMarketData':
+      case 'RspUnSubMarketData':
         RspUnSubscribeMarketData(data);
         break;
       case 'RtnDepthMarketData':
@@ -391,11 +437,12 @@
   function mdRspUserLogin(data) {
     if (parseRspInfo('行情登录', data['RspInfo']) === true) {
       mdData.isLogin = true;
-      SubscribeMarketData(['au2412', 'cu2412']);
+      SubscribeMarketData(['au2412', 'cu2412', 'c2501', 'l2501', 'p2501', 'v2501']);
     }
   }
 
   function SubscribeMarketData(instruments) {
+    log('订阅行情 ' + instruments);
     req_md({"MsgType": "SubscribeMarketData", "InstrumentID": instruments})
   }
 
@@ -412,8 +459,17 @@
   }
 
   function RspUnSubscribeMarketData(data) {
+    console.log(data);
     if (parseRspInfo('取消行情订阅', data['RspInfo']) === true) {
-      console.log(data['SpecificInstrument']);
+      let instrumentID = data['SpecificInstrument']['InstrumentID'];
+      log('退订行情 ' + instrumentID);
+      for (let i = 0; i < mdData.quotRows.length; i++) {
+        if (mdData.quotRows[i]['InstrumentID'] === instrumentID) {
+          mdData.quotRows.splice(i, 1);
+          i--;
+          break;
+        }
+      }
     }
   }
 
@@ -479,10 +535,6 @@
       case 'ErrRtnOrderAction':
         ErrRtnOrderAction(data);
         break;
-      case '':
-        break;
-      case '':
-        break;
     }
   };
 
@@ -539,7 +591,9 @@
     if (parseRspInfo('查询交易所', data['RspInfo']) === true) {
       console.log(data);
       let exchange = data['Exchange'];
-      tdData.exchanges[exchange['ExchangeID']] = exchange;
+      if (exchange !== null) {
+        tdData.exchanges[exchange['ExchangeID']] = exchange;
+      }
       if (data['IsLast'] === true) {
         ReqQryOrder('');
       }
@@ -547,7 +601,8 @@
 
   }
 
-  function ReqQryInstrument(exchangeID, productID, instrumentID) {
+  async function ReqQryInstrument(exchangeID, productID, instrumentID) {
+    await sleep(2000);
     req_td({
       "MsgType": "ReqQryInstrument",
       "QryInstrument": {
@@ -562,13 +617,18 @@
     if (parseRspInfo('查询合约', data['RspInfo']) === true) {
       // console.log(data);
       let instrument = data['Instrument'];
-      if (instrument['InstrumentID'] !== null && instrument['ProductClass'] === '1') {
-        tdData.instruments[instrument['InstrumentID']] = instrument;
-        tdData.instrumentRows.push(instrument);
-        if (data['IsLast'] === true) {
-          // tdData.instrumentRows = Object.values(tdData.instruments);
+      if (instrument !== null) {
+        if (instrument['InstrumentID'] !== null && instrument['ProductClass'] === '1') {
+          tdData.instruments[instrument['InstrumentID']] = instrument;
+          tdData.instrumentRows.push(instrument);
         }
       }
+      if (data['IsLast'] === true) {
+        // tdData.instrumentRows = Object.values(tdData.instruments);
+      }
+    } else {
+      // test();
+      // ReqQryInstrument('', '', '');
     }
   }
 
@@ -586,9 +646,12 @@
     if (parseRspInfo('查询报单', data['RspInfo']) === true) {
       // console.log(data);
       let order = data['Order'];
-      let key = order['ExchangeID'] + order['OrderSysID'];
-      tdData.orders[key] = order;
+      if (order !== null) {
+        let key = order['ExchangeID'] + order['OrderSysID'];
+        tdData.orders[key] = order;
+      }
       if (data['IsLast'] === true) {
+        // todo
         tdData.orderRows = Object.values(tdData.orders);
         ReqQryTrade('');
       }
@@ -610,10 +673,13 @@
     if (parseRspInfo('查询成交', data['RspInfo']) === true) {
       console.log(data);
       let trade = data['Trade'];
-      let key = trade['ExchangeID'] + '.' + trade['TradeID'] + '.' + trade['OrderSysID'];
-      tdData.trades[key] = trade;
+      if (trade !== null) {
+        let key = trade['ExchangeID'] + '.' + trade['TradeID'] + '.' + trade['OrderSysID'];
+        tdData.trades[key] = trade;
+      }
 
       if (data['IsLast'] === true) {
+        // todo
         tdData.tradeRows = Object.values(tdData.trades);
         ReqQryInvestorPosition('', '');
       }
@@ -636,9 +702,15 @@
     if (parseRspInfo('查询持仓', data['RspInfo']) === true) {
       console.log(data);
       let position = data['InvestorPosition'];
-      tdData.positions[position['InstrumentID']] = position;
+      if (position !== null) {
+        tdData.positions[position['InstrumentID']] = position;
+      }
       if (data['IsLast'] === true) {
         tdData.positionRows = Object.values(tdData.positions);
+
+        // test();
+
+        ReqQryInstrument('', '', '');
       }
     }
   }
@@ -712,10 +784,73 @@
   async function test() {
     console.log('开始');
 
-    await sleep(2000);
+    await sleep(3000);
 
     console.log('等待一段时间后执行，这里模拟了sleep效果');
   }
+
+  function sub(button) {
+    let row = button.closest('tr');
+    let firstColumnCell = row.querySelector('td:first-child');
+    let firstColumnContent = firstColumnCell.textContent;
+    SubscribeMarketData([firstColumnContent]);
+  }
+
+  function unsub(button) {
+    let row = button.closest('tr');
+    let firstColumnCell = row.querySelector('td:first-child');
+    let firstColumnContent = firstColumnCell.textContent;
+    UnSubscribeMarketData([firstColumnContent]);
+  }
+
+  function cancel(button) {
+    let row = button.closest('tr');
+    console.log('撤单');
+    // let firstColumnCell = row.querySelector('td:first-child');
+    // let firstColumnContent = firstColumnCell.textContent;
+    // UnSubscribeMarketData([firstColumnContent]);
+  }
+
+  function quotSelect(row) {
+    let allRows = document.getElementById('futures-table').querySelectorAll('tr');
+    allRows.forEach(function (otherRow) {
+      otherRow.classList.remove('selected');
+    });
+    row.classList.add('selected');
+  }
+
+  function orderSelect(row) {
+    let allRows = document.getElementById('order-table').querySelectorAll('tr');
+    allRows.forEach(function (otherRow) {
+      otherRow.classList.remove('selected');
+    });
+    row.classList.add('selected');
+  }
+
+  function tradeSelect(row) {
+    let allRows = document.getElementById('trade-table').querySelectorAll('tr');
+    allRows.forEach(function (otherRow) {
+      otherRow.classList.remove('selected');
+    });
+    row.classList.add('selected');
+  }
+
+  function posiSelect(row) {
+    let allRows = document.getElementById('posi-table').querySelectorAll('tr');
+    allRows.forEach(function (otherRow) {
+      otherRow.classList.remove('selected');
+    });
+    row.classList.add('selected');
+  }
+
+  function instrSelect(row) {
+    let allRows = document.getElementById('instr-table').querySelectorAll('tr');
+    allRows.forEach(function (otherRow) {
+      otherRow.classList.remove('selected');
+    });
+    row.classList.add('selected');
+  }
+
 
 </script>
 </body>
