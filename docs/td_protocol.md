@@ -677,7 +677,7 @@
   "MsgType": "RspQryExchange",
   "RspInfo": null,
   "IsLast": true,
-  "QryExchange": {
+  "Exchange": {
     "ExchangeID": "DCE",
     "ExchangeName": "\u5927\u8fde\u5546\u54c1\u4ea4\u6613\u6240",
     "ExchangeProperty": "1"
