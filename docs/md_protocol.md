@@ -88,7 +88,7 @@
 
 ```json
 {
-  "MsgType": "RspUnSubscribeMarketData",
+  "MsgType": "RspUnSubMarketData",
   "SpecificInstrument": {
     "InstrumentID": "au2305"
   },
