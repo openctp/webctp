@@ -22,6 +22,7 @@
 * [报单撤销](#报单撤销)
 * [报单通知](#报单通知)
 * [报单操作错误通](#报单操作错误通知)
+* [成交通知](#成交通知)
 
 ### 登录
 
@@ -1158,6 +1159,48 @@
     "MacAddress": "",
     "InstrumentID": "ss2407",
     "IPAddress": ""
+  }
+}
+```
+
+### 成交通知
+
+```json
+{
+  "MsgType": "RtnTrade",
+  "RspInfo": null,
+  "Trade": {
+    "BrokerID": "9999",
+    "InvestorID": "226485",
+    "OrderRef": "           1",
+    "UserID": "226485",
+    "ExchangeID": "SHFE",
+    "TradeID": "      101831",
+    "Direction": "0",
+    "OrderSysID": "      147103",
+    "ParticipantID": "9999",
+    "ClientID": "9999226463",
+    "TradingRole": "",
+    "OffsetFlag": "0",
+    "HedgeFlag": "1",
+    "Price": 618.02,
+    "Volume": 1,
+    "TradeDate": "20241121",
+    "TradeTime": "22:55:24",
+    "TradeType": "",
+    "PriceSource": "",
+    "TraderID": "9999xc6",
+    "OrderLocalID": "      178280",
+    "ClearingPartID": "9999",
+    "BusinessUnit": "",
+    "SequenceNo": 116109,
+    "TradingDay": "20241122",
+    "SettlementID": 1,
+    "BrokerOrderSeq": 514489,
+    "TradeSource": "0",
+    "InvestUnitID": "000\u0001",
+    "InstrumentID": "au2412",
+    "ExchangeInstID": "au2412"
   }
 }
 ```
