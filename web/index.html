@@ -6,27 +6,6 @@
   <title>WebCtp Demo</title>
   <link rel="stylesheet" href="purecss@3.0.0_build_pure.css">
   <style>
-      body {
-          margin: 0;
-          padding: 0;
-          min-height: 100vh;
-          display: flex;
-          flex-direction: column;
-      }
-
-      .content-upper {
-          flex: 1;
-          background-color: lightblue;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          /*height: 50vh; !* 设置为视口高度的一半，可根据实际需求调整 *!*/
-          flex-direction: column;
-          /*overflow-y: auto;*/
-          /*position: relative;*/
-          overflow-y: auto;
-          max-height: 40%;
-      }
 
       .button-secondary {
           background: rgb(66, 184, 221); /* this is a light blue */
@@ -48,48 +27,133 @@
           font-size: 85%;
       }
 
-      /*.content-upper {*/
-      /*    position: absolute;*/
-      /*    overflow-y: auto;*/
-      /*    max-height: 40%;*/
-      /*}*/
-
-      #futures-table {
-          position: fixed;
-          top: 0;
-          border-collapse: collapse;
-          width: 100%;
-
-          /*height: 100%;*/
-      }
-
-      table, th, td {
-          border: 1px solid black;
-
-      }
-
       .selected {
           background-color: lightgray;
           color: black;
       }
 
       th, td {
-          padding: 8px;
-          text-align: center;
+          text-align: right;
+      }
+
+      body {
+          margin: 0;
+          padding: 0;
+          height: 100vh;
+          display: flex;
+          flex-direction: column;
+          background-color: lightyellow;
+          font-size: 15px;
+      }
+
+      .content-upper {
+          flex: 1;
+          top: 0;
+          background-color: lightyellow;
+          display: flex;
+          /*justify-content: center;*/
+          /*align-items: center;*/
+          flex-direction: column;
+          border: 1px solid black; /* 用于显示div的边界，方便查看效果 */
+          overflow-y: scroll;
       }
 
       .content-lower {
           flex: 1;
           display: flex;
-          /*height: 50vh; !* 设置为视口高度的一半，可根据实际需求调整 *!*/
+          border: 1px solid black; /* 用于显示div的边界，方便查看效果 */
+      }
+
+      .content-foot {
+          /*flex: 3;*/
+          /*display: flex;*/
+          height: 30px;
+          border: 1px solid black; /* 用于显示div的边界，方便查看效果 */
+      }
+
+      #login {
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          height: 100%;
+      }
+
+      #account {
+          border: 1px solid black; /* 用于显示div的边界，方便查看效果 */
+      }
+
+      #futures-table {
+          top: 0;
+          border-collapse: collapse;
+          width: 100%;
+          table-layout: fixed; /* 避免列宽被内容撑开 */
+      }
+
+      #futures-table thead tr {
+          background-color: lightgray;
+      }
+
+      thead tr {
+          position: sticky;
+          top: 0;
+          z-index: 10;
+      }
+
+      /*结合固定列宽度*/
+      #futures-table td {
+          overflow: hidden;
+          white-space: wrap;
+          text-overflow: ellipsis;
       }
 
       .content-lower-left {
-          flex: 1 1 70%;
+          flex: 1 1 65%;
           background-color: lightyellow;
-          padding: 10px;
           display: flex;
           flex-direction: column;
+          border: 1px solid black; /* 用于显示div的边界，方便查看效果 */
+      }
+
+      .content-lower-right {
+          flex: 1 1 23%;
+          background-color: lightyellow;
+          border: 1px solid black; /* 用于显示div的边界，方便查看效果 */
+
+          display: flex;
+          flex-direction: column;
+      }
+
+      .content-lower-log {
+          flex: 1 1 12%;
+          /*background-color: lightyellow;*/
+          border: 1px solid black; /* 用于显示div的边界，方便查看效果 */
+          font-size: 13px;
+
+          display: flex;
+          flex-direction: column;
+      }
+
+      #log-wrapper {
+          flex: 1;
+          /*display: none;*/
+          max-height: 46%;
+          width: 12%;
+          position: absolute;
+          overflow-y: scroll;
+      }
+
+      #log-table {
+          width: 100%;
+          position: sticky;
+          top: 0;
+      }
+
+      #log-table thead th {
+          text-align: center;
+      }
+
+      #log-table thead {
+          background-color: transparent;
       }
 
       .pure-tab {
@@ -98,15 +162,15 @@
 
       .pure-tab-content {
           border: 1px solid #ccc;
-          padding: 10px;
-          background-color: white;
+          /*padding: 10px;*/
+          /*background-color: white;*/
           display: none;
 
           /* 添加以下样式确保tab页内容不影响布局 */
           position: absolute;
-          overflow: auto;
-          max-height: 45%;
-          width: 65%;
+          overflow-y: auto;
+          max-height: 40%;
+          width: 64.6%;
 
           /* 新增样式，设置为透明且不占据空间（只在隐藏时生效） */
           visibility: hidden;
@@ -125,47 +189,53 @@
           width: 100%;
           position: sticky;
           top: 0;
-          background-color: white;
       }
 
-      .content-lower-right {
-          flex: 1 1 30%;
-          background-color: #d2d5e0;
-          padding: 10px;
+      .pure-tab-content table thead tr {
+          background-color: lightgray;
       }
 
-      footer {
-          background-color: gray;
-          color: white;
+      #buy-open-button, #buy-close-button {
+          color: red;
+      }
+
+      #sell-open-button, #sell-close-button {
+          color: green;
+      }
+
+      table thead tr th:first-child {
+          width: 15px;
           text-align: center;
-          padding: 10px;
-          position: fixed;
-          bottom: 0;
-          left: 0;
-          right: 0;
+      }
+
+      table tbody tr td:first-child {
+          text-align: center;
       }
   </style>
 </head>
 
 <body>
 <div id="md" class="content-upper">
-  <!--  <div class="md-content">-->
   <table id="futures-table" class="pure-table pure-table-bordered" v-scope>
     <thead>
     <tr>
-      <th>合约代码</th>
+      <th>#</th>
+      <th>合约</th>
       <th>最新价</th>
+      <th>买一价</th>
+      <th>买一量</th>
+      <th>卖一价</th>
+      <th>卖一量</th>
+      <th>涨停价</th>
+      <th>跌停价</th>
+      <!--      <th>涨跌</th>-->
+      <!--      <th>涨跌幅</th>-->
+      <th>成交量</th>
       <th>今开盘</th>
       <th>最高价</th>
       <th>最低价</th>
       <th>昨收盘</th>
-      <th>昨结算价</th>
-      <th>昨持仓量</th>
-      <th>数量</th>
-      <th>持仓量</th>
-      <th>成交金额</th>
-      <th>今收盘</th>
-      <th>今结算价</th>
+      <th>昨结算</th>
       <th>交易日</th>
       <th>时间</th>
       <th>交易所</th>
@@ -174,37 +244,38 @@
     </thead>
     <tbody>
     <tr v-for="(row, rowIndex) in mdData.quotRows" :key="rowIndex" onclick="quotSelect(this)">
+      <td>{{ rowIndex + 1 }}</td>
       <td>{{ row.InstrumentID }}</td>
       <td>{{ row.LastPrice }}</td>
+      <td>{{ row.BidPrice1 }}</td>
+      <td>{{ row.BidVolume1}}</td>
+      <td>{{ row.AskPrice1 }}</td>
+      <td>{{ row.AskVolume1}}</td>
+      <td>{{ row.UpperLimitPrice }}</td>
+      <td>{{ row.LowerLimitPrice }}</td>
+      <td>{{ row.Volume }}</td>
       <td>{{ row.OpenPrice }}</td>
       <td>{{ row.HighestPrice }}</td>
       <td>{{ row.LowestPrice }}</td>
       <td>{{ row.PreClosePrice }}</td>
       <td>{{ row.PreSettlementPrice }}</td>
-      <td>{{ row.PreOpenInterest }}</td>
-      <td>{{ row.volume }}</td>
-      <td>{{ row.OpenInterest }}</td>
-      <td>{{ row.Turnover }}</td>
-      <td>{{ row.ClosePrice }}</td>
-      <td>{{ row.SettlementPrice }}</td>
       <td>{{ row.TradingDay }}</td>
       <td>{{ row.UpdateTime }}</td>
       <td>{{ row.ExchangeID }}</td>
       <td>
-        <button style="font-size: 60%" class="pure-button button-warning" onclick="unsub(this)">退订</button>
+        <button class="pure-button button-small pure-button-primary" onclick="unsub(this)">退订</button>
       </td>
     </tr>
     </tbody>
   </table>
 </div>
-<!--</div>-->
 <div id="td" class="content-lower">
-
   <div class="content-lower-left">
     <div id="tabOrder" class="pure-tab-content">
       <table id="order-table" class="pure-table pure-table-bordered" v-scope>
         <thead>
         <tr>
+          <th>#</th>
           <th>合约</th>
           <th>买卖</th>
           <th>开平</th>
@@ -220,6 +291,7 @@
         </thead>
         <tbody>
         <tr v-for="(row, rowIndex) in tdData.orderRows" :key="rowIndex" onclick="orderSelect(this)">
+          <td>{{ rowIndex + 1 }}</td>
           <td>{{ row.InstrumentID }}</td>
           <td>{{ row.bs }}</td>
           <td>{{ row.oc}}</td>
@@ -231,7 +303,7 @@
           <td>{{ row.InsertTime }}</td>
           <td>{{ row.ExchangeID }}</td>
           <td>
-            <button v-if="row.StatusMsg === '未成交'" style="font-size: 60%" class="pure-button button-secondary"
+            <button v-if="row.StatusMsg === '未成交'" class="pure-button button-small pure-button-primary"
                     onclick="cancelOrder(this);">撤单
             </button>
           </td>
@@ -244,6 +316,7 @@
       <table id="trade-table" class="pure-table pure-table-bordered" v-scope>
         <thead>
         <tr>
+          <th>#</th>
           <th>合约</th>
           <th>买卖</th>
           <th>开平</th>
@@ -258,6 +331,7 @@
         </thead>
         <tbody>
         <tr v-for="(row, rowIndex) in tdData.tradeRows" :key="rowIndex" onclick="tradeSelect(this)">
+          <td>{{ rowIndex + 1 }}</td>
           <td>{{ row.InstrumentID }}</td>
           <td>{{ row.bs }}</td>
           <td>{{ row.oc }}</td>
@@ -277,6 +351,7 @@
       <table id="posi-table" class="pure-table pure-table-bordered" v-scope>
         <thead>
         <tr>
+          <th>#</th>
           <th>合约</th>
           <th>多/空</th>
           <th>今日持仓</th>
@@ -290,6 +365,7 @@
         </thead>
         <tbody>
         <tr v-for="(row, rowIndex) in tdData.positionRows" :key="rowIndex" onclick="posiSelect(this)">
+          <td>{{ rowIndex + 1 }}</td>
           <td>{{ row.InstrumentID }}</td>
           <td>{{ row.sl }}</td>
           <td>{{ row.Position }}</td>
@@ -307,29 +383,31 @@
       <table id="instr-table" class="pure-table pure-table-bordered" v-scope>
         <thead>
         <tr>
-          <th>合约ID</th>
+          <th>#</th>
+          <th>合约</th>
           <th>合约名称</th>
-          <th>交易所</th>
-          <th>交易所</th>
           <th>合约乘数</th>
           <th>产品类型</th>
           <th>产品ID</th>
           <th>最小变动价位</th>
+          <th>交易所</th>
+          <th>交易所</th>
           <th></th>
         </tr>
         </thead>
         <tbody>
         <tr v-for="(row, rowIndex) in tdData.instrumentRows" :key="rowIndex" onclick="instrSelect(this)">
+          <td>{{ rowIndex + 1 }}</td>
           <td>{{ row.InstrumentID }}</td>
           <td>{{ row.InstrumentName }}</td>
-          <td>{{ row.ExchangeID }}</td>
-          <td>{{ row.ExchangeName }}</td>
           <td>{{ row.VolumeMultiple }}</td>
           <td>{{ row.ProductClass }}</td>
           <td>{{ row.ProductID }}</td>
           <td>{{ row.PriceTick }}</td>
+          <td>{{ row.ExchangeID }}</td>
+          <td>{{ row.ExchangeName }}</td>
           <td>
-            <button style="font-size: 60%" class="pure-button button-success" onclick="sub(this);">订阅</button>
+            <button class="pure-button button-small pure-button-primary" onclick="sub(this);">订阅</button>
           </td>
         </tr>
         </tbody>
@@ -351,32 +429,69 @@
 
   </div>
   <div class="content-lower-right">
-    <div class="content-lower-right">
-      <form class="pure-form pure-form-aligned" v-scope>
+    <div id="login">
+      <form class="pure-form pure-form-aligned" style="height: 100%; width: 100%" v-scope>
         <fieldset>
-          <legend>报价板</legend>
+          <div class="pure-control-group">
+            <label for="md-addr">行情通道</label>
+            <input id="md-addr" type="text" class="pure-input-1-2" v-model="tdData.mdAddr">
+          </div>
+          <div class="pure-control-group">
+            <label for="td-addr">交易通道</label>
+            <input id="td-addr" type="text" class="pure-input-1-2" v-model="tdData.tdAddr">
+          </div>
+          <div class="pure-control-group">
+            <label for="investorID">投资者ID</label>
+            <input id="investorID" type="text" class="pure-input-1-2" placeholder="InvestorID"
+                   v-model="tdData.investorID">
+          </div>
+
+          <div class="pure-control-group">
+            <label for="password">密码</label>
+            <input id="password" type="password" class="pure-input-1-2" placeholder="Password"
+                   v-model="tdData.password">
+          </div>
+
+          <div class="pure-control-group">
+            <label for="brokerID">Broker ID</label>
+            <input id="brokerID" type="text" class="pure-input-1-2" placeholder="BrokerID" v-model="tdData.brokerID">
+          </div>
+
+          <div class="pure-controls">
+            <button type="button" class="pure-button" onclick="login()">登 录</button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+    <div id="account-price" hidden>
+      <form class="pure-form pure-form-aligned" v-scope>
+        <fieldset style="text-align: center">
+          <legend style="font-weight: bold">报价板</legend>
           <div class="pure-control-group">
             <label for="exchange">交易所</label>
-            <input type="text" id="exchange" v-model="tdData.curInstrument.ExchangeID" value="" readonly>
+            <input type="text" id="exchange" v-model="tdData.curInstrument.ExchangeID" value="">
           </div>
 
           <div class="pure-control-group">
             <label for="contract-input">合约</label>
             <input type="text" id="contract-input" class="contract-input" placeholder="请输入合约"
-                   v-model="tdData.curInstrument['InstrumentID']" readonly>
+                   v-model="tdData.curInstrument.InstrumentID">
           </div>
           <div class="pure-control-group">
             <label for="contract-price">价格</label>
-            <input type="number" id="contract-price" class="price-display" placeholder="请输入价格">
+            <input type="number" id="contract-price" class="price-display" placeholder="请输入价格" min="0" step="0.01"
+                   v-model="tdData.curInstrument.Price">
           </div>
           <div class="pure-control-group">
             <label for="contract-volume">数量</label>
-            <input type="number" id="contract-volume" class="price-display" placeholder="请输入数量" value="1">
+            <input type="number" id="contract-volume" class="price-display" placeholder="请输入数量" value="1" min="1"
+                   v-model="tdData.curInstrument.Volume">
           </div>
 
           <div class="pure-control-group">
             <label for="contract-input"></label>
-            <button type="button" id="buy-open-button" class="pure-u-1-5 pure-button button-small" onclick="buyOpen()">
+            <button type="button" id="buy-open-button" class="pure-u-1-5 pure-button button-small"
+                    onclick="buyOpen()">
               买开
             </button>
             <button type="button" id="buy-close-button" class="pure-u-1-5 pure-button button-small"
@@ -396,24 +511,43 @@
         </fieldset>
 
       </form>
-      <div v-scope>
-        <!--        <p v-if="tdData.initOver"> 初始化完成 </p>-->
-        <!--        <p v-else="tdData.initOver"> 初始化进行中 </p>-->
-        <!--        <input type="checkbox" v-model="tdData.initOver">-->
-        <p> {{ tdData.initOver ? "完成" : "进行中" }} </p>
-      </div>
+    </div>
+    <!--      <div v-scope>-->
+    <!--        <p v-if="tdData.initOver"> 初始化完成 </p>-->
+    <!--        <p v-else="tdData.initOver"> 初始化进行中 </p>-->
+    <!--        <input type="checkbox" v-model="tdData.initOver">-->
+    <!--        <p> {{ tdData.initOver ? "完成" : "进行中" }} </p>-->
+    <!--      </div>-->
 
+  </div>
+  <div class="content-lower-log">
+    <div id="log-wrapper">
+      <table id="log-table" class="pure-table pure-table-bordered">
+        <thead>
+        <tr>
+          <th>日志</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
-<!--<footer>-->
-<!--  这是固定页脚，显示一些版权信息、联系方式等。-->
-<!--</footer>-->
+<div class="content-foot"></div>
 
 <script src='petite-vue@0.4.1_dist_petite-vue.iife.js'></script>
 <script>
+  function fTime() {
+    let date = new Date();
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    let seconds = date.getSeconds();
+    return `[ ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')} ] `;
+  }
+
   function log(msg) {
-    console.log((new Date()).toLocaleString(), ...Array.from(arguments));
+    console.log(fTime(), ...Array.from(arguments));
   }
 
   const mdData = PetiteVue.reactive({
@@ -436,37 +570,46 @@
     exchanges: {},
     tradingAccount: {},
     isLogin: false,
-    curInstrument: {'InstrumentID': '', 'ExchangeID': ''},
+    curInstrument: {'InstrumentID': '', 'ExchangeID': '', 'Volume': 1, 'Price': 0},
     initOver: false,
     subInstruments: [],
+    tdAddr: 'ws://localhost:8080/td/',
+    mdAddr: 'ws://localhost:8080/md/',
+    investorID: '',
+    password: '',
+    brokerID: '9999',
+    sock_md: '',
+    sock_td: '',
+
+    orderInstrumentID: '',
+    orderPrice: 0,
+    orderVolume: 1,
   })
   const tdApp = PetiteVue.createApp({
     tdData
   }).mount('#td');
 
 
-  const mdAddr = 'ws://localhost:8080/md/';
-  const tdAddr = 'ws://localhost:8080/td/';
-  const brokerID = '9999';
-  const investorID = '226485';
-
-  // market channel
-  const sock_md = new WebSocket(mdAddr);
-  sock_md.onopen = function (event) {
-    log('Market channel connected.', mdAddr);
+  function mdOnopen(event) {
+    log('Market channel connected.', tdData.mdAddr);
+    showLog('行情通道打开');
     loginMd();
-  };
-  sock_md.onclose = function (event) {
+  }
+
+  function mdOnclose(event) {
     log('Market channel closed.');
     mdData.isLogin = false;
-    alert('行情通道关闭！');
-  };
-  sock_md.onerror = function (event) {
+    showLog('行情通道关闭');
+  }
+
+  function mdOnerror(event) {
     log('Market channel error:', event);
     mdData.isLogin = false;
-    alert('行情通道错误！');
-  };
-  sock_md.onmessage = function (event) {
+    showLog('行情通道错误');
+  }
+
+
+  function mdOnmessage(event) {
     let data = JSON.parse(event.data)
     // log('Market msg:', data['MsgType']);
     // console.log(data);
@@ -493,7 +636,7 @@
     }
     log('Market request:', data['MsgType']);
     // console.log(data);
-    sock_md.send(JSON.stringify(data));
+    tdData.sock_md.send(JSON.stringify(data));
   }
 
   function parseRspInfo(name, RspInfo) {
@@ -506,86 +649,26 @@
     }
   }
 
-  function loginMd() {
-    req_md({"MsgType": "ReqUserLogin", "ReqUserLogin": {"UserID": "", "Password": ""}});
+  function tdOnopen(event) {
+    log('trade channel connected.', tdData.tdAddr);
+    showLog('交易通道打开');
+
+    loginTd();
   }
 
-  function mdRspUserLogin(data) {
-    if (parseRspInfo('行情登录', data['RspInfo']) === true) {
-      mdData.isLogin = true;
-      SubscribeMarketData(['au2412', 'cu2412', 'c2501', 'l2501', 'p2501', 'v2501']);
-    }
-  }
-
-  function SubscribeMarketData(instruments) {
-    log('订阅行情 ' + instruments);
-    req_md({"MsgType": "SubscribeMarketData", "InstrumentID": instruments})
-  }
-
-  function RspSubMarketData(data) {
-    // console.log(data);
-    if (parseRspInfo('行情订阅', data['RspInfo']) === true) {
-      tdData.subInstruments.push(data['SpecificInstrument']['InstrumentID']);
-    }
-  }
-
-  function UnSubscribeMarketData(instruments) {
-    req_md({"MsgType": "UnSubscribeMarketData", "InstrumentID": instruments})
-  }
-
-  function RspUnSubscribeMarketData(data) {
-    console.log(data);
-    if (parseRspInfo('取消行情订阅', data['RspInfo']) === true) {
-      let instrumentID = data['SpecificInstrument']['InstrumentID'];
-      log('退订行情 ' + instrumentID);
-      for (let i = 0; i < mdData.quotRows.length; i++) {
-        if (mdData.quotRows[i]['InstrumentID'] === instrumentID) {
-          mdData.quotRows.splice(i, 1);
-          i--;
-          break;
-        }
-      }
-    }
-  }
-
-  function RtnDepthMarketData(data) {
-    let quot = data['DepthMarketData']
-
-    // 匹配交易所
-    if (quot.InstrumentID in tdData.instruments) {
-      quot.ExchangeID = tdData.instruments[quot.InstrumentID].ExchangeID;
-    } else {
-      quot.ExchangeID = '';
-    }
-
-    // 更新行情
-    const index = mdData.quotRows.findIndex(row => row.InstrumentID === quot['InstrumentID']);
-    if (index !== -1) {
-      for (let key in mdData.quotRows[index]) {
-        mdData.quotRows[index][key] = quot[key];
-      }
-    } else {
-      mdData.quotRows.push(quot);
-    }
-  }
-
-  // trade channel
-  const sock_td = new WebSocket(tdAddr);
-  sock_td.onopen = function (event) {
-    log('trade channel connected.', tdAddr);
-    loginTd(investorID, '');
-  };
-  sock_td.onclose = function (event) {
+  function tdOnclose(event) {
     log('trade channel closed.');
     tdData.isLogin = false;
-    alert('交易通道关闭！');
-  };
-  sock_td.onerror = function (event) {
+    showLog('交易通道关闭');
+  }
+
+  function tdOnerror(event) {
     log('trade channel error:', event);
     tdData.isLogin = false;
-    alert('交易通道错误！');
-  };
-  sock_td.onmessage = function (event) {
+    showLog('交易通道错误');
+  }
+
+  function tdOnmessage(event) {
     let data = JSON.parse(event.data)
     console.log('trade msg:', data['MsgType']);
     // console.log(data);
@@ -627,7 +710,7 @@
         RtnTrade(data);
         break;
     }
-  };
+  }
 
   function req_td(data) {
     if (data['MsgType'] !== 'ReqUserLogin' && tdData.isLogin === false) {
@@ -637,11 +720,97 @@
     log('trade request:', data['MsgType']);
     // console.log(data);
     data['RequestID'] = 0;
-    sock_td.send(JSON.stringify(data));
+    tdData.sock_td.send(JSON.stringify(data));
   }
 
-  function loginTd(userid, password) {
-    req_td({"MsgType": "ReqUserLogin", "ReqUserLogin": {"UserID": userid, "Password": password}});
+
+  // 登录
+  function login() {
+    // 行情通道
+    tdData.sock_md = new WebSocket(tdData.mdAddr);
+    tdData.sock_md.onopen = mdOnopen;
+    tdData.sock_md.onclose = mdOnclose;
+    tdData.sock_md.onerror = mdOnerror;
+    tdData.sock_md.onmessage = mdOnmessage;
+
+    // 交易通道
+    tdData.sock_td = new WebSocket(tdData.tdAddr);
+    tdData.sock_td.onopen = tdOnopen;
+    tdData.sock_td.onclose = tdOnclose;
+    tdData.sock_td.onerror = tdOnerror;
+    tdData.sock_td.onmessage = tdOnmessage;
+  }
+
+
+  function loginMd() {
+    req_md({"MsgType": "ReqUserLogin", "ReqUserLogin": {"UserID": "", "Password": ""}});
+  }
+
+  function mdRspUserLogin(data) {
+    if (parseRspInfo('行情登录', data['RspInfo']) === true) {
+      mdData.isLogin = true;
+      showLog('行情登录成功');
+      SubscribeMarketData(['au2412', 'cu2412', 'c2501', 'l2501', 'p2501', 'v2501']);
+    } else {
+      showLog('行情登录失败');
+    }
+  }
+
+  function SubscribeMarketData(instruments) {
+    // log('订阅行情 ' + instruments);
+    req_md({"MsgType": "SubscribeMarketData", "InstrumentID": instruments})
+  }
+
+  function RspSubMarketData(data) {
+    // console.log(data);
+    if (parseRspInfo('行情订阅', data['RspInfo']) === true) {
+      tdData.subInstruments.push(data['SpecificInstrument']['InstrumentID']);
+    }
+  }
+
+  function UnSubscribeMarketData(instruments) {
+    req_md({"MsgType": "UnSubscribeMarketData", "InstrumentID": instruments})
+  }
+
+  function RspUnSubscribeMarketData(data) {
+    console.log(data);
+    if (parseRspInfo('取消行情订阅', data['RspInfo']) === true) {
+      let instrumentID = data['SpecificInstrument']['InstrumentID'];
+      log('退订行情 ' + instrumentID);
+      for (let i = 0; i < mdData.quotRows.length; i++) {
+        if (mdData.quotRows[i]['InstrumentID'] === instrumentID) {
+          mdData.quotRows.splice(i, 1);
+          i--;
+          break;
+        }
+      }
+    }
+  }
+
+  function RtnDepthMarketData(data) {
+    let quot = data['DepthMarketData']
+    // console.log(data);
+    // 匹配交易所
+    if (quot.InstrumentID in tdData.instruments) {
+      quot.ExchangeID = tdData.instruments[quot.InstrumentID].ExchangeID;
+    } else {
+      quot.ExchangeID = '';
+    }
+
+    // 更新行情
+    const index = mdData.quotRows.findIndex(row => row.InstrumentID === quot['InstrumentID']);
+    if (index !== -1) {
+      for (let key in mdData.quotRows[index]) {
+        mdData.quotRows[index][key] = quot[key];
+      }
+    } else {
+      mdData.quotRows.push(quot);
+    }
+  }
+
+  function loginTd() {
+    showLog('交易登录成功');
+    req_td({"MsgType": "ReqUserLogin", "ReqUserLogin": {"UserID": tdData.investorID, "Password": tdData.password}});
   }
 
   // todo 参数有误时，返回 ReqUserLogin MsgType
@@ -649,16 +818,23 @@
     if (parseRspInfo('交易登录', data['RspInfo']) === true) {
       tdData.isLogin = true;
       // console.log(data)
+      // 隐藏登录框, 显示报价板
+      document.getElementById('login').setAttribute('hidden', '');
+      document.getElementById('account-price').removeAttribute('hidden');
+
       ReqQryTradingAccount();
+    } else {
+      showLog('交易登录失败');
     }
   }
 
   function ReqQryTradingAccount() {
+    showLog('查询资金...');
     req_td({
       "MsgType": "ReqQryTradingAccount",
       "QryTradingAccount": {
-        "BrokerID": brokerID,
-        "InvestorID": investorID
+        "BrokerID": tdData.brokerID,
+        "InvestorID": tdData.investorID
       },
     });
   }
@@ -668,12 +844,15 @@
       // console.log(data);
       tdData.tradingAccount = data['TradingAccount'];
       if (data['IsLast'] === true) {
+        showLog('查询资金成功');
+
         ReqQryExchange('');
       }
     }
   }
 
   function ReqQryExchange(exchangeID) {
+    showLog('查询交易所...');
     req_td({
       "MsgType": "ReqQryExchange",
       "QryExchange": {
@@ -690,6 +869,8 @@
         tdData.exchanges[exchange['ExchangeID']] = exchange;
       }
       if (data['IsLast'] === true) {
+        showLog('查询交易所成功');
+
         ReqQryOrder('');
       }
     }
@@ -697,7 +878,8 @@
   }
 
   async function ReqQryInstrument(exchangeID, productID, instrumentID) {
-    await sleep(2000);
+    await sleep(1000);
+    showLog('查询合约...');
     req_td({
       "MsgType": "ReqQryInstrument",
       "QryInstrument": {
@@ -721,68 +903,24 @@
         }
       }
       if (data['IsLast'] === true) {
-        // tdData.instrumentRows = Object.values(tdData.instruments);
+        showLog('查询合约成功');
+        showLog('初始化完成');
         tdData.initOver = true;
       }
-    } else {
-      // test();
-      // ReqQryInstrument('', '', '');
     }
   }
 
   function ReqQryOrder(instrumentID) {
+    showLog('查询订单...');
     req_td({
       "MsgType": "ReqQryOrder",
       "QryOrder": {
-        "InvestorID": investorID,
+        "InvestorID": tdData.investorID,
         "InstrumentID": instrumentID,
       },
     });
   }
 
-  function orderStatus(status) {
-    if (status === '0') {
-      return '全部成交';
-    } else if (status === '1') {
-      return '部分成交';
-    } else if (status === '3') {
-      return '未成交';
-    } else if (status === '5') {
-      return '已撤单';
-    }
-  }
-
-  function openClose(flag) {
-    if (flag === '0') {
-      return '开';
-    } else if (flag === '1') {
-      return '平';
-    } else if (flag === '2') {
-      return '强平';
-    } else if (flag === '3') {
-      return '平今';
-    } else if (flag === '4') {
-      return '平昨';
-    }
-  }
-
-  function buySell(flag) {
-    if (flag === '0') {
-      return '买';
-    } else if (flag === '1') {
-      return '卖';
-    }
-  }
-
-  function shortLong(flag) {
-    if (flag === '1') {
-      return '净';
-    } else if (flag === '2') {
-      return '多';
-    } else if (flag === '3') {
-      return '空';
-    }
-  }
 
   function RspQryOrder(data) {
     if (parseRspInfo('查询报单', data['RspInfo']) === true) {
@@ -796,19 +934,25 @@
         tdData.orders[key] = order;
       }
       if (data['IsLast'] === true) {
+        showLog('查询订单成功');
         // todo
         tdData.orderRows = Object.values(tdData.orders);
-        ReqQryTrade('');
+
+        // 初始化流程
+        if (tdData.initOver === false) {
+          ReqQryTrade('');
+        }
       }
     }
   }
 
   function ReqQryTrade(exchangeID) {
+    showLog('查询成交...');
     req_td({
       "MsgType": "ReqQryTrade",
       "QryTrade": {
-        "BrokerID": brokerID,
-        "InvestorID": investorID,
+        "BrokerID": tdData.brokerID,
+        "InvestorID": tdData.investorID,
         "ExchangeID": exchangeID
       },
     });
@@ -826,19 +970,25 @@
       }
 
       if (data['IsLast'] === true) {
+        showLog('查询成交成功');
         // todo
         tdData.tradeRows = Object.values(tdData.trades);
-        ReqQryInvestorPosition('', '');
+
+        // 初始化流程
+        if (tdData.initOver === false) {
+          ReqQryInvestorPosition('');
+        }
       }
     }
   }
 
-  function ReqQryInvestorPosition(investorID, exchangeID) {
+  function ReqQryInvestorPosition(exchangeID) {
+    showLog('查询持仓...');
     req_td({
       "MsgType": "ReqQryInvestorPosition",
       "QryInvestorPosition": {
         "BrokerID": "9999",
-        "InvestorID": investorID,
+        "InvestorID": tdData.investorID,
         "ExchangeID": exchangeID
       },
     });
@@ -851,7 +1001,24 @@
       let position = data['InvestorPosition'];
       if (position !== null) {
         position.sl = shortLong(position.PosiDirection);
-        tdData.positionRows.push(position);
+        let exist = false;
+        let key = position.InstrumentID + '.' + position.PosiDirection;
+        for (let i = 0; i < tdData.positionRows.length; i++) {
+          let key1 = tdData.positionRows[i].InstrumentID + '.' + tdData.positionRows[i].PosiDirection;
+          if (key === key1) {
+            exist = true;
+            // 更新持仓
+            for (let key3 in tdData.positionRows[i]) {
+              tdData.positionRows[i][key3] = position[key3];
+            }
+            break;
+          }
+        }
+
+        // 新持仓
+        if (exist === false) {
+          tdData.positionRows.push(position);
+        }
 
         // 订阅持仓合约
         if (position.InstrumentID in tdData.subInstruments) {
@@ -861,26 +1028,31 @@
         }
       }
       if (data['IsLast'] === true) {
-        // ReqQryInstrument('', '', '');
+        showLog('查询持仓成功');
+
+        // 初始化流程
+        if (tdData.initOver === false) {
+          ReqQryInstrument('', '', '');
+        }
       }
     }
   }
 
-  function ReqOrderInsert(exchangeID, instrumentID, price, volume, direction, combOffset) {
+  function ReqOrderInsert(direction, combOffset) {
     // 限价单
     req_td({
       "MsgType": "ReqOrderInsert",
       "InputOrder": {
-        "BrokerID": brokerID,
-        "InvestorID": investorID,
-        "ExchangeID": exchangeID,
-        "InstrumentID": instrumentID,
-        "LimitPrice": price,
+        "BrokerID": tdData.brokerID,
+        "InvestorID": tdData.investorID,
+        "ExchangeID": tdData.curInstrument.ExchangeID,
+        "InstrumentID": tdData.curInstrument.InstrumentID,
+        "LimitPrice": tdData.curInstrument.Price,
         "OrderPriceType": "2",
         "Direction": direction,
         "CombOffsetFlag": combOffset,
         "CombHedgeFlag": "1",
-        "VolumeTotalOriginal": volume,
+        "VolumeTotalOriginal": tdData.curInstrument.Volume,
         "TimeCondition": "3",
         "VolumeCondition": "1",
         "ContingentCondition": "1",
@@ -901,9 +1073,9 @@
     req_td({
       "MsgType": "ReqOrderAction",
       "InputOrderAction": {
-        "BrokerID": brokerID,
-        "InvestorID": investorID,
-        "UserID": investorID,
+        "BrokerID": tdData.brokerID,
+        "InvestorID": tdData.investorID,
+        "UserID": tdData.investorID,
         "ExchangeID": exchangeID,
         "InstrumentID": instrumentID,
         "ActionFlag": "0",
@@ -922,7 +1094,7 @@
   }
 
   function RtnOrder(data) {
-    console.log(data);
+    // console.log(data);
     let order = data['Order'];
     if (order === null) {
       return;
@@ -968,12 +1140,16 @@
       let key = trade['ExchangeID'] + '.' + trade['TradeID'] + '.' + trade['OrderSysID'];
       tdData.trades[key] = trade;
       tdData.tradeRows.push(trade);
+
+      // 查询持仓
+      ReqQryInvestorPosition('');
+      // todo 查询其他
     }
   }
 
   // 定义打开tab页的函数
   function openTab(evt, tabName) {
-    var i, pureTabContent, pureTabButton;
+    let i, pureTabContent, pureTabButton;
 
     // 隐藏所有tab内容，并设置为不影响布局的样式
     pureTabContent = document.getElementsByClassName("pure-tab-content");
@@ -1010,29 +1186,71 @@
     });
   };
 
+  function orderStatus(status) {
+    if (status === '0') {
+      return '全部成交';
+    } else if (status === '1') {
+      return '部分成交';
+    } else if (status === '3') {
+      return '未成交';
+    } else if (status === '5') {
+      return '已撤单';
+    }
+  }
+
+  function openClose(flag) {
+    if (flag === '0') {
+      return '开';
+    } else if (flag === '1') {
+      return '平';
+    } else if (flag === '2') {
+      return '强平';
+    } else if (flag === '3') {
+      return '平今';
+    } else if (flag === '4') {
+      return '平昨';
+    }
+  }
+
+  function buySell(flag) {
+    if (flag === '0') {
+      return '买';
+    } else if (flag === '1') {
+      return '卖';
+    }
+  }
+
+  function shortLong(flag) {
+    if (flag === '1') {
+      return '净';
+    } else if (flag === '2') {
+      return '多';
+    } else if (flag === '3') {
+      return '空';
+    }
+  }
+
 
   function sub(button) {
     // 订阅行情
     let row = button.closest('tr');
-    let firstColumnCell = row.querySelector('td:first-child');
-    let firstColumnContent = firstColumnCell.textContent;
-    SubscribeMarketData([firstColumnContent]);
+    let instrument = row.querySelector('td:nth-child(2)').textContent;
+    SubscribeMarketData([instrument]);
   }
 
   function unsub(button) {
     // 退订行情
     let row = button.closest('tr');
-    let firstColumnCell = row.querySelector('td:first-child');
-    let firstColumnContent = firstColumnCell.textContent;
-    UnSubscribeMarketData([firstColumnContent]);
+    let instrumentID = row.querySelector('td:nth-child(2)').textContent;
+    UnSubscribeMarketData([instrumentID]);
   }
 
   function cancelOrder(button) {
     // 撤单
     let row = button.closest('tr');
-    let instrumentID = row.querySelector('td:first-child').textContent;
-    let orderSysID = row.querySelector('td:nth-child(7)').textContent;
-    let exchangeID = row.querySelector('td:nth-child(10)').textContent;
+    let instrumentID = row.querySelector('td:nth-child(2)').textContent;
+    let orderSysID = row.querySelector('td:nth-child(8)').textContent;
+    let exchangeID = row.querySelector('td:nth-child(11)').textContent;
 
     ReqOrderAction(exchangeID, instrumentID, orderSysID);
   }
@@ -1046,11 +1264,13 @@
     row.classList.add('selected');
 
     // 报价板设置当前合约
-    let instrument = row.querySelector('td:first-child').textContent;
+    let instrument = row.querySelector('td:nth-child(2)').textContent;
     for (let i = 0; i < mdData.quotRows.length; i++) {
       if (mdData.quotRows[i]['InstrumentID'] === instrument) {
-        tdData.curInstrument = mdData.quotRows[i];
-        document.getElementById('contract-price').value = tdData.curInstrument['LastPrice'];
+        tdData.curInstrument.Price = mdData.quotRows[i].LastPrice;
+        tdData.curInstrument.InstrumentID = instrument;
+        tdData.curInstrument.ExchangeID = mdData.quotRows[i].ExchangeID;
+        // todo 重新按照最小变动价位设置 input 跳动单位
         break;
       }
     }
@@ -1094,40 +1314,33 @@
 
   function buyOpen() {
     // 买开
-    let exchangeID = document.getElementById('exchange').value;
-    let instrumentID = document.getElementById('contract-input').value;
-    let price = parseFloat(document.getElementById('contract-price').value);
-    let volume = parseFloat(document.getElementById('contract-volume').value);
-    ReqOrderInsert(exchangeID, instrumentID, price, volume, '0', '0');
+    ReqOrderInsert('0', '0');
   }
 
   function buyClose() {
     // 买平
-    let exchangeID = document.getElementById('exchange').value;
-    let instrumentID = document.getElementById('contract-input').value;
-    let price = parseFloat(document.getElementById('contract-price').value);
-    let volume = parseFloat(document.getElementById('contract-volume').value);
-    ReqOrderInsert(exchangeID, instrumentID, price, volume, '0', '1');
+    ReqOrderInsert('0', '1');
   }
 
   function sellOpen() {
     // 卖开
-    let exchangeID = document.getElementById('exchange').value;
-    let instrumentID = document.getElementById('contract-input').value;
-    let price = parseFloat(document.getElementById('contract-price').value);
-    let volume = parseFloat(document.getElementById('contract-volume').value);
-    ReqOrderInsert(exchangeID, instrumentID, price, volume, '1', '0');
+    ReqOrderInsert('1', '0');
   }
 
   function sellClose() {
     // 卖平
-    let exchangeID = document.getElementById('exchange').value;
-    let instrumentID = document.getElementById('contract-input').value;
-    let price = parseFloat(document.getElementById('contract-price').value);
-    let volume = parseFloat(document.getElementById('contract-volume').value);
-    ReqOrderInsert(exchangeID, instrumentID, price, volume, '1', '1');
+    ReqOrderInsert('1', '1');
   }
 
+  function showLog(msg) {
+    let row = document.createElement('tr');
+    let cell = document.createElement('td');
+    cell.style.textAlign = 'left';
+    cell.style.padding = '5px';
+    cell.textContent = fTime() + msg;
+    row.appendChild(cell);
+    document.getElementById('log-table').appendChild(row);
+  }
 
 </script>
 </body>
