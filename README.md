@@ -8,6 +8,7 @@ webctp是一个基于 [openctp-ctp](https://github.com/openctp/openctp-ctp-pytho
     * [环境搭建](#环境搭建)
     * [运行](#运行)
 * [请求示例](#请求示例)
+* [Web Demo](#Web Demo)
 * [协议](#协议)
     * [通用协议格式](#通用协议格式)
     * [部分通用错误码说明](#部分通用错误码说明)
@@ -206,6 +207,10 @@ TODO: 添加postman的请求样例
 
 <img width="898" alt="order_action" src="https://github.com/openctp/webctp/assets/17944025/a0f8117a-ec7a-4793-854e-54595c8ba885">
 </details>
+
+## Web Demo
+
+提供了一个基本 [Web 客户端示例](web/index.html)，展示了对 webctp 的基本应用。
 
 ## 协议
 
