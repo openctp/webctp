@@ -8,7 +8,7 @@ webctp是一个基于 [openctp-ctp](https://github.com/openctp/openctp-ctp-pytho
     * [环境搭建](#环境搭建)
     * [运行](#运行)
 * [请求示例](#请求示例)
-* [Web Demo](#Web Demo)
+* [Web Demo](#Web-Demo)
 * [协议](#协议)
     * [通用协议格式](#通用协议格式)
     * [部分通用错误码说明](#部分通用错误码说明)
