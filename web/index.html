@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>WebCtp Demo</title>
+  <link rel="stylesheet" href="purecss@3.0.0_build_pure.css">
+  <style>
+
+      .button-secondary {
+          background: rgb(66, 184, 221); /* this is a light blue */
+      }
+
+      .button-error {
+          background: rgb(202, 60, 60); /* this is a maroon */
+      }
+
+      .button-warning {
+          background: rgb(223, 117, 20); /* this is an orange */
+      }
+
+      .button-success {
+          background: rgb(28, 184, 65); /* this is a green */
+      }
+
+      .button-small {
+          font-size: 85%;
+      }
+
+      .selected {
+          background-color: lightgray;
+          color: black;
+      }
+
+      th, td {
+          text-align: right;
+      }
+
+      body {
+          margin: 0;
+          padding: 0;
+          height: 100vh;
+          display: flex;
+          flex-direction: column;
+          font-size: 14px;
+      }
+
+      .content-upper {
+          flex: 1;
+          top: 0;
+          display: flex;
+          flex-direction: column;
+          border: 1px solid black;
+          overflow-y: auto;
+      }
+
+      .content-lower {
+          flex: 1;
+          display: flex;
+          border: 1px solid black;
+      }
+
+      #account {
+          height: 50px;
+          border: 1px solid black;
+          display: flex;
+          align-items: center;
+      }
+
+      #account p {
+          font-size: 16px;
+          font-weight: bold;
+          margin-top: 15px;
+          margin-bottom: 15px;
+      }
+
+      .content-foot {
+          height: 50px;
+      }
+
+      .content-foot .info {
+          display: flex;
+          opacity: 0.5;
+          font-size: 13px;
+          font-weight: bold;
+          justify-content: center;
+      }
+
+      .content-foot .author {
+          font-size: 13px;
+          font-weight: bold;
+          opacity: 0.6;
+          text-align: center;
+      }
+
+      .content-foot p {
+          margin-top: 5px;
+          margin-bottom: 5px;
+      }
+
+      #login {
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          height: 100%;
+      }
+
+      #futures-table {
+          top: 0;
+          border-collapse: collapse;
+          width: 100%;
+          table-layout: fixed; /* 避免列宽被内容撑开 */
+      }
+
+      thead tr {
+          position: sticky;
+          top: 0;
+          z-index: 10;
+          background-color: darkgray;
+      }
+
+      /*结合固定列宽度*/
+      #futures-table td {
+          overflow: hidden;
+          white-space: wrap;
+          text-overflow: ellipsis;
+      }
+
+      .content-lower-left {
+          flex: 7;
+          display: flex;
+          flex-direction: column;
+          border: 1px solid black;
+      }
+
+      .content-lower-right {
+          flex: 3;
+          border: 1px solid black;
+
+          display: flex;
+          flex-direction: column;
+      }
+
+      .content-lower-log {
+          /*flex: 1 1 12%;*/
+          width: 180px;
+          border: 1px solid black;
+          display: flex;
+          flex-direction: column;
+      }
+
+      #log-wrapper {
+          flex: 1;
+          /*display: none;*/
+          max-height: calc(50% - 65px);
+          width: 180px;
+          position: absolute;
+          overflow-y: auto;
+      }
+
+      #log-table {
+          width: 100%;
+          position: sticky;
+          top: 0;
+      }
+
+      #log-table tbody {
+          font-size: 12px;
+          opacity: 0.5;
+      }
+
+      #log-table tbody tr td {
+          text-align: left;
+          padding: 5px;
+      }
+
+      #log-table thead th {
+          text-align: center;
+      }
+
+      .pure-tab {
+          height: 30px;
+          margin-top: 5px;
+          margin-bottom: 5px;
+      }
+
+      .pure-tab-content {
+          flex: 1;
+          display: flex;
+          border: 1px solid #ccc;
+
+          /* 添加以下样式确保tab页内容不影响布局 */
+          position: absolute;
+          overflow-y: auto;
+          max-height: calc(50% - 95px);
+          width: calc(70% - 131px);
+
+          /* 新增样式，设置为透明且不占据空间（只在隐藏时生效） */
+          visibility: hidden;
+          opacity: 0;
+          z-index: 1;
+      }
+
+      .pure-tab-content.active {
+          /* 当tab页处于激活状态时，恢复正常显示和交互 */
+          visibility: visible;
+          opacity: 1;
+          z-index: 2;
+      }
+
+      .pure-tab-content table {
+          width: 100%;
+          position: sticky;
+          top: 0;
+      }
+
+      #buy-open-button, #buy-close-button {
+          color: red;
+      }
+
+      #sell-open-button, #sell-close-button {
+          color: green;
+      }
+
+      table thead tr th:first-child {
+          width: 20px;
+          text-align: center;
+      }
+
+      table tbody tr td:first-child {
+          text-align: center;
+      }
+
+      #futures-table thead tr th:last-child {
+          width: 55px;
+      }
+
+      #order-table thead tr th:last-child {
+          width: 55px;
+      }
+
+      #instr-table thead tr th:last-child {
+          width: 55px;
+      }
+
+      #price button {
+          font-weight: bold;
+      }
+  </style>
+</head>
+
+<body id="openctp">
+<div id="md" class="content-upper">
+  <table id="futures-table" class="pure-table pure-table-bordered" v-scope>
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>合约</th>
+      <th>最新价</th>
+      <th>买一价</th>
+      <th>买一量</th>
+      <th>卖一价</th>
+      <th>卖一量</th>
+      <th>涨停价</th>
+      <th>跌停价</th>
+      <!--      <th>涨跌</th>-->
+      <!--      <th>涨跌幅</th>-->
+      <th>成交量</th>
+      <th>今开盘</th>
+      <th>最高价</th>
+      <th>最低价</th>
+      <th>昨收盘</th>
+      <th>昨结算</th>
+      <th style="width: 90px">更新时间</th>
+      <th>交易所</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr v-for="(row, rowIndex) in tdData.quotRows" :key="rowIndex" onclick="quotSelect(this)">
+      <td>{{ rowIndex + 1 }}</td>
+      <td>{{ row.InstrumentID }}</td>
+      <td>{{ row.LastPrice }}</td>
+      <td>{{ row.BidPrice1 }}</td>
+      <td>{{ row.BidVolume1}}</td>
+      <td>{{ row.AskPrice1 }}</td>
+      <td>{{ row.AskVolume1}}</td>
+      <td>{{ row.UpperLimitPrice }}</td>
+      <td>{{ row.LowerLimitPrice }}</td>
+      <td>{{ row.Volume }}</td>
+      <td>{{ row.OpenPrice }}</td>
+      <td>{{ row.HighestPrice }}</td>
+      <td>{{ row.LowestPrice }}</td>
+      <td>{{ row.PreClosePrice }}</td>
+      <td>{{ row.PreSettlementPrice }}</td>
+      <td>{{ row.UpdateTime + '.' + (row.UpdateMillisec === 0 ? '000' : row.UpdateMillisec) }}</td>
+      <td>{{ row.ExchangeID }}</td>
+      <td>
+        <button class="pure-button button-small pure-button-primary" onclick="unsub(this)">退订</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div id="account" class="pure-g" v-scope>
+  <p class="pure-u-1-8" v-model="tdData.tradingAccount">上日权益: {{ tdData.tradingAccount.PreBalance.toFixed(2) }} </p>
+  <p class="pure-u-1-8" v-model="tdData.tradingAccount">可用资金: {{ tdData.tradingAccount.Available.toFixed(2) }} </p>
+  <p class="pure-u-1-8" v-model="tdData.tradingAccount">持仓盈亏: {{ tdData.tradingAccount.PositionProfit.toFixed(2)
+    }} </p>
+  <p class="pure-u-1-8" v-model="tdData.tradingAccount">平仓盈亏: {{ tdData.tradingAccount.CloseProfit.toFixed(2)
+    }} </p>
+  <p class="pure-u-1-8" v-model="tdData.tradingAccount">保证金: {{ tdData.tradingAccount.CurrMargin.toFixed(2) }} </p>
+  <p class="pure-u-1-8" v-model="tdData.tradingAccount">冻结保证金: {{ tdData.tradingAccount.FrozenMargin.toFixed(2)
+    }} </p>
+  <p class="pure-u-1-8" v-model="tdData.tradingAccount">手续费: {{ tdData.tradingAccount.Commission.toFixed(2) }} </p>
+  <p class="pure-u-1-8" v-model="tdData.tradingAccount">冻结手续费: {{
+    tdData.tradingAccount.FrozenCommission.toFixed(2) }} </p>
+</div>
+<div id="td" class="content-lower">
+  <div class="content-lower-left">
+    <div id="tabOrder" class="pure-tab-content">
+      <table id="order-table" class="pure-table pure-table-bordered" v-scope>
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>合约</th>
+          <th>买卖</th>
+          <th>开平</th>
+          <th>手数</th>
+          <th>报单价格</th>
+          <th>报单状态</th>
+          <th>报单编号</th>
+          <!--          <th>报单日期</th>-->
+          <th>报单时间</th>
+          <th>交易所</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(row, rowIndex) in tdData.orderRows" :key="rowIndex" onclick="orderSelect(this)">
+          <td>{{ rowIndex + 1 }}</td>
+          <td>{{ row.InstrumentID }}</td>
+          <td>{{ row.bs }}</td>
+          <td>{{ row.oc}}</td>
+          <td>{{ row.VolumeTotalOriginal }}</td>
+          <td>{{ row.LimitPrice }}</td>
+          <td>{{ row.StatusMsg }}</td>
+          <td>{{ row.OrderSysID }}</td>
+          <!--          <td>{{ row.TradingDay }}</td>-->
+          <td>{{ row.InsertTime }}</td>
+          <td>{{ row.ExchangeID }}</td>
+          <td>
+            <button v-if="row.StatusMsg === '未成交'" class="pure-button button-small pure-button-primary"
+                    onclick="cancelOrder(this);">撤单
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="tabTrade" class="pure-tab-content">
+      <table id="trade-table" class="pure-table pure-table-bordered" v-scope>
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>合约</th>
+          <th>买卖</th>
+          <th>开平</th>
+          <th>手数</th>
+          <th>成交价格</th>
+          <th>成交编号</th>
+          <!--          <th>成交日期</th>-->
+          <th>成交时间</th>
+          <th>报单编号</th>
+          <th>交易所</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(row, rowIndex) in tdData.tradeRows" :key="rowIndex" onclick="tradeSelect(this)">
+          <td>{{ rowIndex + 1 }}</td>
+          <td>{{ row.InstrumentID }}</td>
+          <td>{{ row.bs }}</td>
+          <td>{{ row.oc }}</td>
+          <td>{{ row.Volume }}</td>
+          <td>{{ row.Price }}</td>
+          <td>{{ row.TradeID }}</td>
+          <!--          <td>{{ row.TradingDay }}</td>-->
+          <td>{{ row.TradeTime }}</td>
+          <td>{{ row.OrderSysID }}</td>
+          <td>{{ row.ExchangeID }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="tabPosi" class="pure-tab-content">
+      <table id="posi-table" class="pure-table pure-table-bordered" v-scope>
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>合约</th>
+          <th>多/空</th>
+          <th>今日持仓</th>
+          <th>上日持仓</th>
+          <th>平仓量</th>
+          <th>多头冻结</th>
+          <th>空头冻结</th>
+          <!--          <th>交易日</th>-->
+          <th>交易所</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(row, rowIndex) in tdData.positionRows" :key="rowIndex" onclick="posiSelect(this)">
+          <td>{{ rowIndex + 1 }}</td>
+          <td>{{ row.InstrumentID }}</td>
+          <td>{{ row.sl }}</td>
+          <td>{{ row.Position }}</td>
+          <td>{{ row.YdPosition }}</td>
+          <td>{{ row.CloseVolume }}</td>
+          <td>{{ row.LongFrozen }}</td>
+          <td>{{ row.ShortFrozen }}</td>
+          <!--          <td>{{ row.TradingDay }}</td>-->
+          <td>{{ row.ExchangeID }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="tabInst" class="pure-tab-content">
+      <table id="instr-table" class="pure-table pure-table-bordered" v-scope>
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>合约</th>
+          <th>合约名称</th>
+          <th>合约乘数</th>
+          <th>产品类型</th>
+          <th>产品ID</th>
+          <th>最小变动价位</th>
+          <th>交易所</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(row, rowIndex) in tdData.instrumentRows" :key="rowIndex" onclick="instrSelect(this)">
+          <td>{{ rowIndex + 1 }}</td>
+          <td>{{ row.InstrumentID }}</td>
+          <td>{{ row.InstrumentName }}</td>
+          <td>{{ row.VolumeMultiple }}</td>
+          <td>{{ row.ProductClass }}</td>
+          <td>{{ row.ProductID }}</td>
+          <td>{{ row.PriceTick }}</td>
+          <td>{{ row.ExchangeID + '(' + row.ExchangeName + ')' }}</td>
+          <td>
+            <button class="pure-button button-small pure-button-primary" onclick="sub(this);">订阅</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 添加一个用于撑开空间的空div，使其按钮位于最底部 -->
+    <div style="flex-grow: 1;"></div>
+    <!--    </div>-->
+    <!--    <div id="pure-content">-->
+    <div class="pure-tab">
+      <button class="button-small pure-button pure-tab-button" onclick="openTab(event, 'tabOrder')" id="defaultOpen">
+        委托单
+      </button>
+      <button class="button-small pure-button pure-tab-button" onclick="openTab(event, 'tabTrade')">成交记录</button>
+      <button class="button-small pure-button pure-tab-button" onclick="openTab(event, 'tabPosi')">持仓</button>
+      <button class="button-small pure-button pure-tab-button" onclick="openTab(event, 'tabInst')">合约</button>
+    </div>
+
+  </div>
+  <div class="content-lower-right">
+    <div id="login">
+      <form class="pure-form pure-form-aligned" style="height: 100%; width: 100%" v-scope>
+        <fieldset>
+          <div class="pure-control-group">
+            <label for="md-addr">行情通道</label>
+            <input id="md-addr" type="text" class="pure-input-1-2" v-model="tdData.mdAddr">
+          </div>
+          <div class="pure-control-group">
+            <label for="td-addr">交易通道</label>
+            <input id="td-addr" type="text" class="pure-input-1-2" v-model="tdData.tdAddr">
+          </div>
+          <div class="pure-control-group">
+            <label for="investorID">投资者ID</label>
+            <input id="investorID" type="text" class="pure-input-1-2" placeholder="InvestorID"
+                   v-model="tdData.investorID">
+          </div>
+
+          <div class="pure-control-group">
+            <label for="password">密码</label>
+            <input id="password" type="password" class="pure-input-1-2" placeholder="Password"
+                   v-model="tdData.password">
+          </div>
+
+          <div class="pure-controls">
+            <label></label>
+            <button type="button" class="pure-button pure-input-1-2" onclick="login()">登 录</button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+    <div id="price" hidden>
+      <form class="pure-form pure-form-aligned" style="height: 100%; width: 100%" v-scope>
+        <fieldset>
+          <legend style="font-weight: bold; text-align: center">报价板</legend>
+          <div class="pure-control-group">
+            <label for="exchange">交易所</label>
+            <input type="text" id="exchange" class=" pure-input-1-2" v-model="tdData.curInstrument.ExchangeID" value="">
+          </div>
+
+          <div class="pure-control-group">
+            <label for="contract-input">合约</label>
+            <input type="text" id="contract-input" class="pure-input-1-2" placeholder="请输入合约"
+                   v-model="tdData.curInstrument.InstrumentID">
+          </div>
+          <div class="pure-control-group">
+            <label for="contract-price">价格</label>
+            <input type="number" id="contract-price" class="pure-input-1-2" placeholder="请输入价格" min="0" step="0.01"
+                   v-model="tdData.curInstrument.Price">
+          </div>
+          <div class="pure-control-group">
+            <label for="contract-volume">数量</label>
+            <input type="number" id="contract-volume" class="pure-input-1-2" placeholder="请输入数量" value="1" min="1"
+                   v-model="tdData.curInstrument.Volume">
+          </div>
+
+          <div class="pure-control-group">
+            <label for="contract-input"></label>
+            <button type="button" id="buy-open-button" class="pure-u-1-5 pure-button button-small"
+                    onclick="buyOpen()">
+              买开
+            </button>
+            <button type="button" id="buy-close-button" class="pure-u-1-5 pure-button button-small"
+                    onclick="buyClose()">买平
+            </button>
+          </div>
+          <div class="pure-control-group">
+            <label for="contract-input"></label>
+            <button type="button" id="sell-open-button" class="pure-u-1-5 pure-button button-small"
+                    onclick="sellOpen()">卖开
+            </button>
+            <button type="button" id="sell-close-button" class="pure-u-1-5 pure-button button-small"
+                    onclick="sellClose()">卖平
+            </button>
+          </div>
+
+        </fieldset>
+
+      </form>
+    </div>
+  </div>
+  <div class="content-lower-log">
+    <div id="log-wrapper">
+      <table id="log-table" class="pure-table pure-table-bordered">
+        <thead>
+        <tr>
+          <th>日志</th>
+        </tr>
+        </thead>
+        <tbody id="log-table-body">
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="content-foot" v-scope>
+  <div class="info">
+    <p v-model="tdData.tdAddr">交易通道: {{ tdData.tdAddr }} |&nbsp;</p>
+    <p v-model="tdData.mdAddr">行情通道: {{ tdData.mdAddr }} |&nbsp;</p>
+    <p v-model="tdData.isTdLogin">{{ tdData.isTdLogin ? '交易在线': '交易离线' }} |&nbsp;</p>
+    <p v-model="tdData.isMdLogin">{{ tdData.isMdLogin ? '行情在线': '行情离线' }} |&nbsp;</p>
+    <p v-model="tdData.frontID">FrontID: {{ tdData.frontID }} |&nbsp;</p>
+    <p v-model="tdData.sessionID">SessionID: {{ tdData.sessionID }} |&nbsp;</p>
+    <p v-model="tdData.systemName">SystemName: {{ tdData.systemName }} |&nbsp;</p>
+    <p v-model="tdData.brokerID">BrokerID: {{ tdData.brokerID }} |&nbsp;</p>
+    <p v-model="tdData.investorID">投资者: {{ tdData.investorID }} |&nbsp;</p>
+    <p v-model="tdData.tradingDay">交易日: {{ tdData.tradingDay }} </p>
+  </div>
+  <div class="author">
+    <p>webctp web demo. By openctp&Jedore.</p>
+  </div>
+</div>
+
+<script src='petite-vue@0.4.1_dist_petite-vue.iife.js'></script>
+<script>
+  function fTime() {
+    let date = new Date();
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    let seconds = date.getSeconds();
+    return `[ ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')} ] `;
+  }
+
+  function log(msg) {
+    console.log(fTime(), ...Array.from(arguments));
+  }
+
+  const tdData = PetiteVue.reactive({
+    orders: {},
+    orderRows: [],
+    trades: {},
+    tradeRows: [],
+    positions: {},
+    positionRows: [],
+    instruments: {},
+    instrumentRows: [],
+    exchanges: {},
+    tradingAccount: {
+      PreBalance: 0,
+      Available: 0,
+      PositionProfit: 0,
+      CloseProfit: 0,
+      CurrMargin: 0,
+      FrozenMargin: 0,
+      Commission: 0,
+      FrozenCommission: 0
+    },
+    quotRows: [],
+    isTdLogin: false,
+    isMdLogin: false,
+    curInstrument: {'InstrumentID': '', 'ExchangeID': '', 'Volume': 1, 'Price': 0},
+    initOver: false,
+    subInstruments: [],
+
+    tdAddr: 'ws://localhost:8080/td/',
+    mdAddr: 'ws://localhost:8080/md/',
+    investorID: '',
+    password: '',
+
+    sock_md: '',
+    sock_td: '',
+
+    orderInstrumentID: '',
+    orderPrice: 0,
+    orderVolume: 1,
+
+    brokerID: '',
+    tradingDay: '',
+    frontID: '',
+    sessionID: '',
+    systemName: '',
+  })
+  PetiteVue.createApp({
+    tdData
+  }).mount('#openctp');
+
+
+  function mdOnopen(event) {
+    log('Market channel connected.', tdData.mdAddr);
+    showLog('行情通道打开');
+    loginMd();
+  }
+
+  function mdOnclose(event) {
+    log('Market channel closed.');
+    tdData.isMdLogin = false;
+    showLog('行情通道关闭');
+  }
+
+  function mdOnerror(event) {
+    log('Market channel error:', event);
+    tdData.isMdLogin = false;
+    showLog('行情通道错误');
+  }
+
+
+  function mdOnmessage(event) {
+    let data = JSON.parse(event.data)
+    // log('Market msg:', data['MsgType']);
+    // console.log(data);
+    switch (data['MsgType']) {
+      case 'RspUserLogin':
+        mdRspUserLogin(data)
+        break;
+      case 'RspSubMarketData':
+        RspSubMarketData(data);
+        break;
+      case 'RspUnSubMarketData':
+        RspUnSubscribeMarketData(data);
+        break;
+      case 'RtnDepthMarketData':
+        RtnDepthMarketData(data);
+        break;
+    }
+  };
+
+  function req_md(data) {
+    if (data['MsgType'] !== 'ReqUserLogin' && tdData.isMdLogin === false) {
+      alert('请先登录行情端！');
+      return;
+    }
+    log('Market request:', data['MsgType']);
+    // console.log(data);
+    tdData.sock_md.send(JSON.stringify(data));
+  }
+
+  function parseRspInfo(name, RspInfo) {
+    if (RspInfo !== null && RspInfo['ErrorID'] !== 0) {
+      let err = name + '失败: ' + RspInfo.ErrorID + ' ' + RspInfo.ErrorMsg;
+      console.log(err);
+      showLog(err);
+      return false;
+    } else {
+      // console.log(name, 'Success');
+      return true;
+    }
+  }
+
+  function tdOnopen(event) {
+    log('trade channel connected.', tdData.tdAddr);
+    showLog('交易通道打开');
+
+    loginTd();
+  }
+
+  function tdOnclose(event) {
+    log('trade channel closed.');
+    tdData.isTdLogin = false;
+    showLog('交易通道关闭');
+  }
+
+  function tdOnerror(event) {
+    log('trade channel error:', event);
+    tdData.isTdLogin = false;
+    showLog('交易通道错误');
+  }
+
+  function tdOnmessage(event) {
+    let data = JSON.parse(event.data)
+    // console.log('trade msg:', data['MsgType']);
+    // console.log(data);
+    switch (data['MsgType']) {
+      case 'RspUserLogin':
+        tdRspUserLogin(data)
+        break;
+      case 'RspQryTrade':
+        RspQryTrade(data);
+        break;
+      case 'RspQryInvestorPosition':
+        RspQryInvestorPosition(data);
+        break;
+      case 'RspQryTradingAccount':
+        RspQryTradingAccount(data);
+        break;
+      case 'RspQryInstrument':
+        RspQryInstrument(data);
+        break;
+      case 'RspQryOrder':
+        RspQryOrder(data);
+        break;
+      case 'RspQryExchange':
+        RspQryExchange(data);
+        break;
+      case 'RspOrderInsert':
+        RspOrderInsert(data);
+        break;
+      case 'RspOrderAction':
+        RspOrderAction(data);
+        break;
+      case 'RtnOrder':
+        RtnOrder(data);
+        break;
+      case 'ErrRtnOrderAction':
+        ErrRtnOrderAction(data);
+        break;
+      case 'RtnTrade':
+        RtnTrade(data);
+        break;
+    }
+  }
+
+  function req_td(data) {
+    if (data['MsgType'] !== 'ReqUserLogin' && tdData.isTdLogin === false) {
+      showLog('尚未登录交易!');
+      return;
+    }
+    if (data['MsgType'] === 'ReqOrderAction' || data.MsgType === 'ReqOrderInsert') {
+      if (tdData.initOver === false) {
+        showLog('尚未完成初始化');
+        return;
+      }
+    }
+    log('trade request:', data['MsgType']);
+    // console.log(data);
+    data['RequestID'] = 0;
+    tdData.sock_td.send(JSON.stringify(data));
+  }
+
+
+  // 登录
+  function login() {
+    // 行情通道
+    tdData.sock_md = new WebSocket(tdData.mdAddr);
+    tdData.sock_md.onopen = mdOnopen;
+    tdData.sock_md.onclose = mdOnclose;
+    tdData.sock_md.onerror = mdOnerror;
+    tdData.sock_md.onmessage = mdOnmessage;
+
+    // 交易通道
+    tdData.sock_td = new WebSocket(tdData.tdAddr);
+    tdData.sock_td.onopen = tdOnopen;
+    tdData.sock_td.onclose = tdOnclose;
+    tdData.sock_td.onerror = tdOnerror;
+    tdData.sock_td.onmessage = tdOnmessage;
+  }
+
+
+  function loginMd() {
+    req_md({"MsgType": "ReqUserLogin", "ReqUserLogin": {"UserID": "", "Password": ""}});
+  }
+
+  function mdRspUserLogin(data) {
+    if (parseRspInfo('行情登录', data['RspInfo']) === true) {
+      tdData.isMdLogin = true;
+      showLog('行情登录成功');
+      // SubscribeMarketData(['au2412', 'cu2412', 'c2501', 'l2501', 'p2501', 'v2501']);
+    }
+  }
+
+  function SubscribeMarketData(instruments) {
+    // log('订阅行情 ' + instruments);
+    req_md({"MsgType": "SubscribeMarketData", "InstrumentID": instruments})
+  }
+
+  function RspSubMarketData(data) {
+    // console.log(data);
+    if (parseRspInfo('行情订阅', data['RspInfo']) === true) {
+      tdData.subInstruments.push(data['SpecificInstrument']['InstrumentID']);
+    }
+  }
+
+  function UnSubscribeMarketData(instruments) {
+    req_md({"MsgType": "UnSubscribeMarketData", "InstrumentID": instruments})
+  }
+
+  function RspUnSubscribeMarketData(data) {
+    console.log(data);
+    if (parseRspInfo('取消行情订阅', data['RspInfo']) === true) {
+      let instrumentID = data['SpecificInstrument']['InstrumentID'];
+      log('退订行情 ' + instrumentID);
+      for (let i = 0; i < tdData.quotRows.length; i++) {
+        if (tdData.quotRows[i]['InstrumentID'] === instrumentID) {
+          tdData.quotRows.splice(i, 1);
+          i--;
+          break;
+        }
+      }
+    }
+  }
+
+  function RtnDepthMarketData(data) {
+    let quot = data['DepthMarketData']
+    // console.log(data);
+    // 匹配交易所
+    if (quot.InstrumentID in tdData.instruments) {
+      quot.ExchangeID = tdData.instruments[quot.InstrumentID].ExchangeID;
+    } else {
+      quot.ExchangeID = '';
+    }
+
+    // 更新行情
+    const index = tdData.quotRows.findIndex(row => row.InstrumentID === quot['InstrumentID']);
+    if (index !== -1) {
+      for (let key in tdData.quotRows[index]) {
+        tdData.quotRows[index][key] = quot[key];
+      }
+    } else {
+      tdData.quotRows.push(quot);
+      tdData.quotRows.sort((a, b) => compareAlphaNum(a.InstrumentID, b.InstrumentID));
+    }
+  }
+
+  function loginTd() {
+    req_td({"MsgType": "ReqUserLogin", "ReqUserLogin": {"UserID": tdData.investorID, "Password": tdData.password}});
+  }
+
+  function tdRspUserLogin(data) {
+    if (parseRspInfo('交易登录', data['RspInfo']) === true) {
+      // console.log(data)
+      showLog('交易登录成功');
+
+      tdData.isTdLogin = true;
+      tdData.brokerID = data.RspUserLogin.BrokerID;
+      tdData.frontID = data.RspUserLogin.FrontID;
+      tdData.sessionID = data.RspUserLogin.SessionID;
+      tdData.systemName = data.RspUserLogin.SystemName;
+      tdData.tradingDay = data.RspUserLogin.TradingDay;
+      // 隐藏登录框, 显示报价板
+      document.getElementById('login').setAttribute('hidden', '');
+      document.getElementById('price').removeAttribute('hidden');
+
+      ReqQryTradingAccount();
+    }
+  }
+
+  function ReqQryTradingAccount(timerFlag = false) {
+    if (timerFlag === false) {
+      // 定时查询不触发日志显示
+      showLog('查询资金账户');
+    }
+    req_td({
+      "MsgType": "ReqQryTradingAccount",
+      "QryTradingAccount": {
+        "BrokerID": tdData.brokerID,
+        "InvestorID": tdData.investorID
+      },
+    });
+  }
+
+  function RspQryTradingAccount(data) {
+    if (parseRspInfo('查询资金账户', data['RspInfo']) === true) {
+      // console.log(data);
+      tdData.tradingAccount = data['TradingAccount'];
+      if (data['IsLast'] === true) {
+        // 初始化流程
+        if (tdData.initOver === false) {
+          ReqQryExchange('');
+        }
+      }
+    }
+  }
+
+  function ReqQryExchange(exchangeID) {
+    showLog('查询交易所');
+    req_td({
+      "MsgType": "ReqQryExchange",
+      "QryExchange": {
+        "ExchangeID": exchangeID
+      },
+    });
+  }
+
+  function RspQryExchange(data) {
+    if (parseRspInfo('查询交易所', data['RspInfo']) === true) {
+      // console.log(data);
+      let exchange = data['Exchange'];
+      if (exchange !== null) {
+        tdData.exchanges[exchange['ExchangeID']] = exchange;
+      }
+      if (data['IsLast'] === true) {
+        // 初始化流程
+        if (tdData.initOver === false) {
+          ReqQryOrder('');
+        }
+      }
+    }
+
+  }
+
+  async function ReqQryInstrument(exchangeID, productID, instrumentID) {
+    await sleep(1000);
+    showLog('查询合约');
+    req_td({
+      "MsgType": "ReqQryInstrument",
+      "QryInstrument": {
+        "ExchangeID": exchangeID,
+        "InstrumentID": instrumentID,
+        "ProductID": productID
+      },
+    });
+  }
+
+  function RspQryInstrument(data) {
+    if (parseRspInfo('查询合约', data['RspInfo']) === true) {
+      // console.log(data);
+      let instrument = data['Instrument'];
+      if (instrument !== null) {
+        // 过滤期货合约
+        if (instrument['InstrumentID'] !== null && instrument['ProductClass'] === '1') {
+          instrument.ExchangeName = tdData.exchanges[instrument.ExchangeID].ExchangeName;
+          tdData.instruments[instrument.InstrumentID] = instrument;
+          tdData.instrumentRows.push(instrument);
+        }
+      }
+      if (data['IsLast'] === true) {
+        if (tdData.initOver === false) {
+          showLog('初始化完成');
+          tdData.initOver = true;
+
+          // 开启定时查询
+          timerId = setTimeout(queryTradingAccount, queryInterval * 1000, false);
+        }
+      }
+    }
+  }
+
+  function ReqQryOrder(instrumentID) {
+    showLog('查询订单');
+    req_td({
+      "MsgType": "ReqQryOrder",
+      "QryOrder": {
+        "InvestorID": tdData.investorID,
+        "InstrumentID": instrumentID,
+      },
+    });
+  }
+
+
+  function RspQryOrder(data) {
+    if (parseRspInfo('查询报单', data['RspInfo']) === true) {
+      // console.log(data);
+      let order = data['Order'];
+      if (order !== null) {
+        order.StatusMsg = orderStatus(order.OrderStatus);
+        order.bs = buySell(order.Direction);
+        order.oc = openClose(order.CombOffsetFlag);
+        let key = orderKey(order);
+        tdData.orders[key] = order;
+      }
+      if (data['IsLast'] === true) {
+        let rows = Object.values(tdData.orders);
+        rows.sort((a, b) => compareTime(b.InsertTime, a.InsertTime));
+        tdData.orderRows = rows;
+
+        // 初始化流程
+        if (tdData.initOver === false) {
+          ReqQryTrade('');
+        }
+      }
+    }
+  }
+
+  function ReqQryTrade(exchangeID) {
+    showLog('查询成交');
+    req_td({
+      "MsgType": "ReqQryTrade",
+      "QryTrade": {
+        "BrokerID": tdData.brokerID,
+        "InvestorID": tdData.investorID,
+        "ExchangeID": exchangeID
+      },
+    });
+  }
+
+  function RspQryTrade(data) {
+    if (parseRspInfo('查询成交', data['RspInfo']) === true) {
+      // console.log(data);
+      let trade = data['Trade'];
+      if (trade !== null) {
+        trade.bs = buySell(trade.Direction);
+        trade.oc = openClose(trade.OffsetFlag);
+        let key = trade['ExchangeID'] + '.' + trade['TradeID'] + '.' + trade['OrderSysID'];
+        tdData.trades[key] = trade;
+      }
+
+      if (data['IsLast'] === true) {
+        let rows = Object.values(tdData.trades);
+        rows.sort((a, b) => compareTime(b.TradeTime, a.TradeTime));
+        tdData.tradeRows = rows;
+
+        // 初始化流程
+        if (tdData.initOver === false) {
+          ReqQryInvestorPosition('');
+        }
+      }
+    }
+  }
+
+  function ReqQryInvestorPosition(exchangeID, timerFlag = false) {
+    if (timerFlag === false) {
+      // 定时查询不触发日志显示
+      showLog('查询持仓');
+    }
+    req_td({
+      "MsgType": "ReqQryInvestorPosition",
+      "QryInvestorPosition": {
+        "BrokerID": tdData.brokerID,
+        "InvestorID": tdData.investorID,
+        "ExchangeID": exchangeID
+      },
+    });
+
+  }
+
+  function RspQryInvestorPosition(data) {
+    if (parseRspInfo('查询持仓', data['RspInfo']) === true) {
+      // console.log(data);
+      let position = data['InvestorPosition'];
+      if (position !== null) {
+        position.sl = shortLong(position.PosiDirection);
+        let exist = false;
+        let key = position.InstrumentID + '.' + position.PosiDirection;
+        for (let i = 0; i < tdData.positionRows.length; i++) {
+          let key1 = tdData.positionRows[i].InstrumentID + '.' + tdData.positionRows[i].PosiDirection;
+          if (key === key1) {
+            exist = true;
+            // 更新持仓
+            for (let key3 in tdData.positionRows[i]) {
+              tdData.positionRows[i][key3] = position[key3];
+            }
+            break;
+          }
+        }
+
+        console.log(position);
+        // 新持仓
+        if (exist === false) {
+          tdData.positionRows.push(position);
+          tdData.positionRows.sort((a, b) => compareAlphaNum(a.InstrumentID, b.InstrumentID));
+        }
+
+        // 订阅持仓合约
+        if (position.InstrumentID in tdData.subInstruments) {
+
+        } else {
+          SubscribeMarketData([position.InstrumentID]);
+        }
+      }
+      if (data['IsLast'] === true) {
+
+        // 初始化流程
+        if (tdData.initOver === false) {
+          ReqQryInstrument('', '', '');
+        }
+      }
+    }
+  }
+
+  function ReqOrderInsert(direction, combOffset) {
+    // 限价单
+    req_td({
+      "MsgType": "ReqOrderInsert",
+      "InputOrder": {
+        "BrokerID": tdData.brokerID,
+        "InvestorID": tdData.investorID,
+        "ExchangeID": tdData.curInstrument.ExchangeID,
+        "InstrumentID": tdData.curInstrument.InstrumentID,
+        "LimitPrice": tdData.curInstrument.Price,
+        "OrderPriceType": "2",
+        "Direction": direction,
+        "CombOffsetFlag": combOffset,
+        "CombHedgeFlag": "1",
+        "VolumeTotalOriginal": tdData.curInstrument.Volume,
+        "TimeCondition": "3",
+        "VolumeCondition": "1",
+        "ContingentCondition": "1",
+        "ForceCloseReason": "0",
+        "IsAutoSuspend": 0,
+        "IsSwapOrder": 0
+      }
+    });
+  }
+
+  function RspOrderInsert(data) {
+    if (parseRspInfo('订单录入', data['RspInfo']) === true) {
+      console.log(data);
+    }
+  }
+
+  function ReqOrderAction(exchangeID, instrumentID, orderSysID) {
+    req_td({
+      "MsgType": "ReqOrderAction",
+      "InputOrderAction": {
+        "BrokerID": tdData.brokerID,
+        "InvestorID": tdData.investorID,
+        "UserID": tdData.investorID,
+        "ExchangeID": exchangeID,
+        "InstrumentID": instrumentID,
+        "ActionFlag": "0",
+        "OrderSysID": orderSysID
+      }
+    });
+  }
+
+  function RspOrderAction(data) {
+    if (parseRspInfo('订单撤销', data['RspInfo']) === true) {
+    }
+  }
+
+  function orderKey(order) {
+    return order.InstrumentID + '.' + order.OrderSysID + '.' + order.OrderLocalID;
+  }
+
+  function RtnOrder(data) {
+    // console.log(data);
+    showLog('报单通知')
+    let order = data['Order'];
+    if (order === null) {
+      return;
+    }
+
+    order.StatusMsg = orderStatus(order.OrderStatus);
+    order.oc = openClose(order.CombOffsetFlag);
+    order.bs = buySell(order.Direction);
+    // 更新订单
+    // 全部成交、部分成交、未成交、撤单
+    if (order.OrderStatus === '0' || order.OrderStatus === '1' || order.OrderStatus === '3' || order.OrderStatus === '5') {
+      let key1 = orderKey(order);
+      tdData.orders[key1] = order;
+
+      let exist = false;
+      for (let i = 0; i < tdData.orderRows.length; i++) {
+        let key2 = orderKey(tdData.orderRows[i]);
+        if (key1 === key2) {
+          exist = true;
+          for (let key3 in tdData.orderRows[i]) {
+            tdData.orderRows[i][key3] = order[key3];
+          }
+          break;
+        }
+      }
+      // 新订单
+      if (exist === false) {
+        tdData.orderRows.unshift(order);
+        // tdData.orderRows.push(order);
+      }
+
+      // 查询订单影响的信息
+      // 查询资金
+      queryTradingAccount(true);
+    }
+  }
+
+  function ErrRtnOrderAction() {
+
+  }
+
+  function RtnTrade(data) {
+    // console.log(data);
+    showLog('成交通知');
+    let trade = data['Trade'];
+    if (trade !== null) {
+      trade.bs = buySell(trade.Direction);
+      trade.oc = openClose(trade.OffsetFlag);
+      let key = trade['ExchangeID'] + '.' + trade['TradeID'] + '.' + trade['OrderSysID'];
+      tdData.trades[key] = trade;
+      tdData.tradeRows.push(trade);
+
+      // 查询订单影响的信息
+      // 查询资金
+      queryTradingAccount(true);
+    }
+  }
+
+  // 定义打开tab页的函数
+  function openTab(evt, tabName) {
+    let i, pureTabContent, pureTabButton;
+
+    // 隐藏所有tab内容，并设置为不影响布局的样式
+    pureTabContent = document.getElementsByClassName("pure-tab-content");
+    for (i = 0; i < pureTabContent.length; i++) {
+      pureTabContent[i].style.display = "none";
+      pureTabContent[i].style.visibility = "hidden";
+      pureTabContent[i].style.opacity = "0";
+    }
+
+    // 移除所有tab按钮的激活状态
+    pureTabButton = document.getElementsByClassName("pure-tab-button");
+    for (i = 0; i < pureTabButton.length; i++) {
+      pureTabButton[i].style.backgroundColor = "#f1f1f1";
+      pureTabButton[i].classList.remove("active");
+    }
+
+    // 显示当前选中的tab内容并设置为正常显示和交互的样式
+    document.getElementById(tabName).style.display = "block";
+    document.getElementById(tabName).style.visibility = "visible";
+    document.getElementById(tabName).style.opacity = "1";
+
+    // 设置当前tab按钮为激活状态
+    evt.currentTarget.style.backgroundColor = "#ccc";
+    evt.currentTarget.classList.add("active");
+  }
+
+  // 打开默认tab页
+  document.getElementById("defaultOpen").click();
+
+  // 创建一个返回Promise的函数来模拟sleep
+  const sleep = (ms) => {
+    return new Promise((resolve) => {
+      setTimeout(resolve, ms);
+    });
+  };
+
+  // 订单状态标志
+  function orderStatus(status) {
+    if (status === '0') {
+      return '全部成交';
+    } else if (status === '1') {
+      return '部分成交';
+    } else if (status === '3') {
+      return '未成交';
+    } else if (status === '5') {
+      return '已撤单';
+    }
+  }
+
+  // 买卖开平
+  function openClose(flag) {
+    if (flag === '0') {
+      return '开';
+    } else if (flag === '1') {
+      return '平';
+    } else if (flag === '2') {
+      return '强平';
+    } else if (flag === '3') {
+      return '平今';
+    } else if (flag === '4') {
+      return '平昨';
+    }
+  }
+
+  // 买卖标志
+  function buySell(flag) {
+    if (flag === '0') {
+      return '买';
+    } else if (flag === '1') {
+      return '卖';
+    }
+  }
+
+  // 多空标志
+  function shortLong(flag) {
+    if (flag === '1') {
+      return '净';
+    } else if (flag === '2') {
+      return '多';
+    } else if (flag === '3') {
+      return '空';
+    }
+  }
+
+
+  function sub(button) {
+    // 订阅行情
+    let row = button.closest('tr');
+    let instrument = getCellContent(row, '合约', instrTableTitle);
+    SubscribeMarketData([instrument]);
+  }
+
+  function unsub(button) {
+    // 退订行情
+    let row = button.closest('tr');
+    let instrumentID = getCellContent(row, '合约', futureTableTitle);
+    UnSubscribeMarketData([instrumentID]);
+  }
+
+  function cancelOrder(button) {
+    // 撤单
+    let row = button.closest('tr');
+    let instrumentID = getCellContent(row, '合约', orderTableTitle);
+    let orderSysID = getCellContent(row, '报单编号', orderTableTitle);
+    let exchangeID = getCellContent(row, '交易所', orderTableTitle);
+
+    ReqOrderAction(exchangeID, instrumentID, orderSysID);
+  }
+
+  function quotSelect(row) {
+    // 行情表点击
+    let allRows = document.getElementById('futures-table').querySelectorAll('tr');
+    allRows.forEach(function (otherRow) {
+      otherRow.classList.remove('selected');
+    });
+    row.classList.add('selected');
+
+    // 报价板设置当前合约
+    let instrument = getCellContent(row, '合约', futureTableTitle);
+    for (let i = 0; i < tdData.quotRows.length; i++) {
+      if (tdData.quotRows[i]['InstrumentID'] === instrument) {
+        tdData.curInstrument.Price = tdData.quotRows[i].LastPrice;
+        tdData.curInstrument.InstrumentID = instrument;
+        tdData.curInstrument.ExchangeID = tdData.quotRows[i].ExchangeID;
+        break;
+      }
+    }
+  }
+
+  function orderSelect(row) {
+    // 订单表点击
+    let allRows = document.getElementById('order-table').querySelectorAll('tr');
+    allRows.forEach(function (otherRow) {
+      otherRow.classList.remove('selected');
+    });
+    row.classList.add('selected');
+  }
+
+  function tradeSelect(row) {
+    // 成交表点击
+    let allRows = document.getElementById('trade-table').querySelectorAll('tr');
+    allRows.forEach(function (otherRow) {
+      otherRow.classList.remove('selected');
+    });
+    row.classList.add('selected');
+  }
+
+  function posiSelect(row) {
+    // 持仓表点击
+    let allRows = document.getElementById('posi-table').querySelectorAll('tr');
+    allRows.forEach(function (otherRow) {
+      otherRow.classList.remove('selected');
+    });
+    row.classList.add('selected');
+  }
+
+  function instrSelect(row) {
+    // 合约表点击
+    let allRows = document.getElementById('instr-table').querySelectorAll('tr');
+    allRows.forEach(function (otherRow) {
+      otherRow.classList.remove('selected');
+    });
+    row.classList.add('selected');
+  }
+
+  function buyOpen() {
+    // 买开
+    ReqOrderInsert('0', '0');
+  }
+
+  function buyClose() {
+    // 买平
+    ReqOrderInsert('0', '1');
+  }
+
+  function sellOpen() {
+    // 卖开
+    ReqOrderInsert('1', '0');
+  }
+
+  function sellClose() {
+    // 卖平
+    ReqOrderInsert('1', '1');
+  }
+
+  function showLog(msg) {
+    let row = document.createElement('tr');
+    let cell = document.createElement('td');
+    cell.style.textAlign = 'left';
+    cell.style.padding = '5px';
+    cell.textContent = fTime() + msg;
+    row.appendChild(cell);
+    document.getElementById('log-table-body').appendChild(row);
+  }
+
+  // 初始化table列标题对象
+  function getTableTitles(table) {
+    let tableData = {}
+    let headerRow = table.getElementsByTagName('tr')[0];
+    let headers = headerRow.getElementsByTagName('th');
+    for (let j = 0; j < headers.length; j++) {
+      tableData[headers[j].textContent] = j + 1;
+    }
+    return tableData;
+  }
+
+  let futureTableTitle = getTableTitles(document.getElementById('futures-table'));
+  let orderTableTitle = getTableTitles(document.getElementById('order-table'));
+  let instrTableTitle = getTableTitles(document.getElementById('instr-table'));
+
+  // 获取table指定名称列内容
+  function getCellContent(row, title, tableTitle) {
+    return row.querySelector('td:nth-child(' + tableTitle[title] + ')').textContent;
+  }
+
+  // 获取秒数
+  function fSeconds() {
+    return (new Date()).getTime() / 1000;
+  }
+
+  // 定时查询资金
+  let lastQueryTime = 0;
+  let queryInterval = 10;
+
+  let timerId = null;
+  let timerPosiId = null;
+
+  function queryTradingAccount(rtnFlag) {
+    if (rtnFlag === true) {
+      // log('Clear old trading account timer ' + timerId);
+      // 订单、成交通知触发
+      // 清除旧的未触发, 1s后查询
+      clearTimeout(timerId);
+      timerId = setTimeout(queryTradingAccount, 1000, false);
+      // 同时查询持仓
+      clearTimeout(timerPosiId);
+      timerPosiId = setTimeout(ReqQryInvestorPosition, 2000, '', true);
+    } else {
+      // log('Execute ' + timerId);
+      // 正常触发
+      ReqQryTradingAccount(true);
+      timerId = setTimeout(queryTradingAccount, queryInterval * 1000, false);
+      // 重置时间
+      lastQueryTime = fSeconds();
+    }
+  }
+
+  // 时间字符串排序 HH:mm:ss
+  function compareTime(a, b) {
+    let aParts = a.split(':');
+    let bParts = b.split(':');
+    let hourDiff = parseInt(aParts[0]) - parseInt(bParts[0]);
+    if (hourDiff !== 0) {
+      return hourDiff;
+    }
+    let minuteDiff = parseInt(aParts[1]) - parseInt(bParts[1]);
+    if (minuteDiff !== 0) {
+      return minuteDiff;
+    }
+    return parseInt(aParts[2]) - parseInt(bParts[2]);
+  }
+
+  // 字母数字字符串排序
+  function compareAlphaNum(a, b) {
+    // 提取字母部分
+    let letterA = a.match(/[a-zA-Z]+/)[0];
+    let letterB = b.match(/[a-zA-Z]+/)[0];
+
+    // 先按照字母部分排序（不区分大小写）
+    let letterCompareResult = letterA.localeCompare(letterB, 'en', {sensitivity: 'base'});
+    if (letterCompareResult !== 0) {
+      return letterCompareResult;
+    }
+
+    // 字母部分相同，再按照数字部分排序
+    let numA = parseInt(a.match(/\d+/)[0]);
+    let numB = parseInt(b.match(/\d+/)[0]);
+    return numA - numB;
+  }
+
+
+</script>
+</body>
+
+</html>
