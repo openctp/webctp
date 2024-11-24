@@ -211,6 +211,12 @@ TODO: 添加postman的请求样例
 ## Web Demo
 
 提供了一个基本 [Web 客户端示例](web/index.html)，展示了对 webctp 的基本应用。
+<details>
+<summary>web客户端截图</summary>
+
+<img width="898" alt="3847705585b4f6cfb09b19b33584c4a" src="https://github.com/user-attachments/assets/740e3635-f5f7-4a49-9afb-c4ff5c20f23c">
+<img width="1278" alt="76001cbd587ea4464fdd56ac6312304" src="https://github.com/user-attachments/assets/263ca2ba-036e-4216-bf2d-0e36222a59f3">
+</details>
 
 ## 协议
 
